@@ -108,6 +108,8 @@ def call_all(exp: Experiment, cands: dict, llm: TokenFactory) -> dict:
         return {"upa": int(row["upa"]), "data": reply.data, "raw": reply.raw, "model": reply.model,
                 "seconds": reply.seconds, "error": reply.error}
 
+    # The rate limiter in TokenFactory keeps us under 20 requests/minute; the key allows 8 concurrent
+    # requests for the whole team, so we use 6 and leave 2 for teammates.
     with ThreadPoolExecutor(max_workers=6) as pool, CACHE.open("a", encoding="utf-8") as cache:
         for n, item in enumerate(pool.map(work, range(len(exp.sample))), 1):
             if item:

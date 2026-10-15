@@ -6,6 +6,7 @@ Settings come from .env: TOKEN_FACTORY_BASE_URL, TOKEN_FACTORY_API_KEY, LLM_MODE
 import json
 import os
 import re
+import threading
 import time
 from dataclasses import dataclass
 
@@ -17,6 +18,25 @@ from backend.pipeline.paths import ROOT
 load_dotenv(ROOT / ".env")
 
 FENCE = re.compile(r"^\s*```(?:json)?\s*(.*?)\s*```\s*$", re.DOTALL)
+
+# Token Factory limits are per key and shared by the whole team: 20 requests/minute, 1 pt/day.
+REQUESTS_PER_MINUTE = int(os.environ.get("LLM_REQUESTS_PER_MINUTE", "18"))
+
+
+class RateLimiter:
+    """Spaces request starts evenly so all threads together stay under the per-minute limit."""
+
+    def __init__(self, per_minute: int):
+        self.interval = 60.0 / per_minute
+        self.lock = threading.Lock()
+        self.next_slot = 0.0
+
+    def wait(self) -> None:
+        with self.lock:
+            now = time.monotonic()
+            slot = max(now, self.next_slot)
+            self.next_slot = slot + self.interval
+        time.sleep(max(0.0, slot - now))
 
 
 @dataclass
@@ -40,16 +60,19 @@ class TokenFactory:
         api_key = os.environ.get("TOKEN_FACTORY_API_KEY")
         if not base_url or not api_key:
             raise RuntimeError("Set TOKEN_FACTORY_BASE_URL and TOKEN_FACTORY_API_KEY in .env")
-        self.client = OpenAI(base_url=base_url, api_key=api_key, timeout=90)
+        # Gemma on the shared endpoint can take minutes under load; we retry ourselves, so the SDK doesn't.
+        self.client = OpenAI(base_url=base_url, api_key=api_key, timeout=300, max_retries=0)
         self.models = [m for m in (os.environ.get("LLM_MODEL"), os.environ.get("LLM_FALLBACK_MODEL")) if m]
         if not self.models:
             raise RuntimeError("Set LLM_MODEL in .env")
+        self.limiter = RateLimiter(REQUESTS_PER_MINUTE)
 
     def json_chat(self, system: str, user: str, retries: int = 3) -> Reply:
         """Ask for a JSON object. Retries with backoff, then falls back to the next model."""
         error = None
         for model in self.models:
             for attempt in range(retries):
+                self.limiter.wait()
                 start = time.perf_counter()
                 try:
                     response = self.client.chat.completions.create(
