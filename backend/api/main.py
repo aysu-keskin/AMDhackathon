@@ -2,14 +2,17 @@
 
 Run: uvicorn backend.api.main:app --reload
 """
+import json
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import run_in_threadpool
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from backend.core import metrics
 from backend.core.analyze import Analyzer
+from backend.core.samples import REPLAY, SAMPLES
 
 state = {}
 
@@ -17,6 +20,8 @@ state = {}
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     state["analyzer"] = Analyzer()  # loads models, case index and standards once
+    state["metrics"] = metrics.load()
+    state["replay"] = json.loads(REPLAY.read_text(encoding="utf-8")) if REPLAY.exists() else {}
     yield
 
 
@@ -38,3 +43,20 @@ async def analyze(report: Report) -> dict:
     if "analyzer" not in state:
         raise HTTPException(503, "Still loading")
     return await run_in_threadpool(state["analyzer"].analyze, report.text)
+
+
+@app.get("/api/samples")
+def samples() -> list[dict]:
+    return [{**s, "has_replay": s["id"] in state.get("replay", {})} for s in SAMPLES]
+
+
+@app.get("/api/replay/{sample_id}")
+def replay(sample_id: str) -> dict:
+    if sample_id not in state.get("replay", {}):
+        raise HTTPException(404, "No recording for this sample")
+    return {**state["replay"][sample_id], "replay": True}
+
+
+@app.get("/api/metrics")
+def get_metrics() -> dict:
+    return state["metrics"]

@@ -1,0 +1,1082 @@
+{
+ "press": {
+  "report": "A press operator was trying to remove a stuck part from the die by hand when the mechanical power press cycled. The tip of his right index finger was amputated. He was taken to the hospital.",
+  "codes": {
+   "event": {
+    "code": "65",
+    "title": "Struck by running powered equipment, during maintenance, cleaning, testing; Caught, entangled in running powered equipment, normal operation",
+    "confidence": 0.9605,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "66",
+      "title": "Caught or wedged between objects, nonrunning; Injured by object held or wielded by person",
+      "confidence": 0.0222
+     },
+     {
+      "code": "64",
+      "title": "Struck by other falling object, n.e.c.; Struck by falling object, unspecified",
+      "confidence": 0.0066
+     }
+    ],
+    "llm_pick": "65"
+   },
+   "source": {
+    "code": "35",
+    "title": "Stamping machinery, presses, except printing; Metal, woodworking, and special material machinery, unspecified",
+    "confidence": 0.9416,
+    "label": "approximate",
+    "alternatives": [
+     {
+      "code": "36",
+      "title": "Butchering machinery; Packaging, wrapping, bundling machinery",
+      "confidence": 0.0243
+     },
+     {
+      "code": "34",
+      "title": "Conveyors belt, slot, chain; Hoists, lifts, scissor, telescoping",
+      "confidence": 0.0066
+     }
+    ],
+    "llm_pick": "35"
+   },
+   "nature": {
+    "code": "122",
+    "title": "Amputations, avulsions, enucleations, unspecified; Amputations involving bone loss",
+    "confidence": 0.9948,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "132",
+      "title": "Cuts, lacerations, punctures without injury to internal structures",
+      "confidence": 0.0011
+     },
+     {
+      "code": "124",
+      "title": "Fractures",
+      "confidence": 0.0009
+     }
+    ],
+    "llm_pick": null
+   },
+   "part": {
+    "code": "44",
+    "title": "Other finger(s), n.e.c.; Finger or thumb tip(s), nail(s)",
+    "confidence": 0.9984,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "6",
+      "title": "BODY SYSTEMS",
+      "confidence": 0.0003
+     },
+     {
+      "code": "54",
+      "title": "Foot (feet), toe(s), unspecified; Toes(s), toenail(s)",
+      "confidence": 0.0001
+     }
+    ],
+    "llm_pick": null
+   }
+  },
+  "similar_cases": [
+   {
+    "upa": 2342182,
+    "month": "2025-08",
+    "sector": "332",
+    "narrative": "An employee was helping to remove tooling that was stuck in a forging press (a full-revolution mechanical power press). The press cycled, resulting in partial amputations to two fingers on his left hand.",
+    "event": "65 · Struck by running powered equipment, during maintenance, cleaning, testing",
+    "source": "35 · Stamping machinery, presses, except printing",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2214987,
+    "month": "2024-09",
+    "sector": "332",
+    "narrative": "An employee was operating a mechanical press machine and amputated part of the index and middle fingers on her right hand.",
+    "event": "65 · Caught, entangled in running powered equipment, normal operation",
+    "source": "35 · Stamping machinery, presses, except printing",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2173270,
+    "month": "2024-06",
+    "sector": "332",
+    "narrative": "An employee was operating a 32-ton mechanical power press performing a presetting function when a finger on his left hand was caught in the press and the fingertip was amputated.",
+    "event": "65 · Caught, entangled in running powered equipment, normal operation",
+    "source": "35 · Stamping machinery, presses, except printing",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Finger or thumb tip(s), nail(s)"
+   },
+   {
+    "upa": 2235812,
+    "month": "2024-11",
+    "sector": "336",
+    "narrative": "An employee was feeding material into a press and aligning it in the die. When the press cycled, the employee's left index finger was caught in the press, resulting in a partial amputation.",
+    "event": "65 · Caught, entangled in running powered equipment, normal operation",
+    "source": "35 · Stamping machinery, presses, except printing",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2176892,
+    "month": "2024-06",
+    "sector": "332",
+    "narrative": "An employee was working on a sizing press. They were putting a part into the sizing press when the machine cycled. The employee sustained an amputation to their right index finger.",
+    "event": "65 · Caught, entangled in running powered equipment, normal operation",
+    "source": "35 · Stamping machinery, presses, except printing",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   }
+  ],
+  "action_plan": {
+   "missing_info": [
+    {
+     "en": "Was the press equipped with a two-hand control, pull-out device, or other point-of-operation guard at the time of the incident?",
+     "it": "La pressa era dotata di comando a due mani, dispositivo di estrazione o altra protezione del punto di operazione al momento dell'incidente?"
+    },
+    {
+     "en": "Was a lockout/tagout procedure implemented before the operator attempted to remove the stuck part?",
+     "it": "È stata implementata una procedura di lockout/tagout prima che l'operatore tentasse di rimuovere la parte bloccata?"
+    },
+    {
+     "en": "What specific training had the operator received regarding stuck part removal and press safety?",
+     "it": "Quale formazione specifica aveva ricevuto l'operatore riguardo alla rimozione di parti bloccate e alla sicurezza della pressa?"
+    },
+    {
+     "en": "Were there any witnesses or maintenance personnel involved in the incident?",
+     "it": "C'erano testimoni o personale di manutenzione coinvolto nell'incidente?"
+    }
+   ],
+   "actions": [
+    {
+     "type": "engineering",
+     "standard": "1910.217",
+     "action": {
+      "en": "Install and maintain a pull-out device on the mechanical power press, with attachments for each hand, adjusted to prevent the operator from reaching into the point of operation before the dies close.",
+      "it": "Installare e mantenere un dispositivo di estrazione sulla pressa meccanica, con attacchi per entrambe le mani, regolato per impedire all'operatore di raggiungere il punto di operazione prima che gli stampi si chiudano."
+     },
+     "why": {
+      "en": "The pull-out device is designed to withdraw the operator's hands from the point of operation before the dies close, preventing contact with the moving parts.",
+      "it": "Il dispositivo di estrazione è progettato per ritrarre le mani dell'operatore dal punto di operazione prima che gli stampi si chiudano, prevenendo il contatto con le parti in movimento."
+     }
+    },
+    {
+     "type": "administrative",
+     "standard": "1910.147",
+     "action": {
+      "en": "Implement a lockout/tagout procedure for all servicing and maintenance tasks, including removing stuck parts, requiring the press to be de-energized and locked out before any employee enters the point of operation.",
+      "it": "Implementare una procedura di lockout/tagout per tutte le attività di manutenzione e assistenza, inclusa la rimozione di parti bloccate, richiedendo che la pressa venga disenergizzata e bloccata prima che un dipendente entri nel punto di operazione."
+     },
+     "why": {
+      "en": "The incident occurred during a servicing task (removing a stuck part) where unexpected cycling of the press caused injury; lockout/tagout controls hazardous energy to prevent such unexpected energization.",
+      "it": "L'incidente è avvenuto durante un'attività di manutenzione (rimozione di una parte bloccata) in cui il ciclo inatteso della pressa ha causato lesioni; il lockout/tagout controlla l'energia pericolosa per prevenire tale energizzazione inattesa."
+     }
+    },
+    {
+     "type": "training",
+     "standard": "1910.217",
+     "action": {
+      "en": "Train all press operators on safe procedures for clearing jams or stuck parts, emphasizing that hands must never be placed in the point of operation while the press is energized, and that lockout/tagout must be used.",
+      "it": "Formare tutti gli operatori di presse sulle procedure sicure per sbloccare inceppamenti o parti bloccate, sottolineando che le mani non devono mai essere inserite nel punto di operazione mentre la pressa è energizzata e che deve essere utilizzato il lockout/tagout."
+     },
+     "why": {
+      "en": "Proper training ensures operators understand the hazards and follow safe work practices, reducing the likelihood of reaching into the point of operation during abnormal conditions.",
+      "it": "Una formazione adeguata garantisce che gli operatori comprendano i pericoli e seguano pratiche di lavoro sicure, riducendo la probabilità di raggiungere il punto di operazione durante condizioni anomale."
+     }
+    },
+    {
+     "type": "ppe",
+     "standard": "1910.132",
+     "action": {
+      "en": "Provide and require the use of cut-resistant gloves or other appropriate hand protection for tasks involving handling of dies or parts, where there is a risk of mechanical injury.",
+      "it": "Fornire e richiedere l'uso di guanti resistenti al taglio o altra protezione appropriata per le mani per attività che comportano la manipolazione di stampi o parti, dove esiste un rischio di lesioni meccaniche."
+     },
+     "why": {
+      "en": "Personal protective equipment can reduce the severity of injuries from contact with sharp or moving parts, though it does not eliminate the hazard.",
+      "it": "I dispositivi di protezione individuale possono ridurre la gravità delle lesioni da contatto con parti taglienti o in movimento, sebbene non eliminino il pericolo."
+     }
+    }
+   ],
+   "rejected": [],
+   "standards": [
+    {
+     "section": "1910.213",
+     "topic": "Woodworking machinery",
+     "excerpt": "(p) Sanding machines. (1) Feed rolls of self-feed sanding machines shall be protected with a semicylindrical guard to prevent the hands of the operator from coming in contact with the in-running rolls at any point. The guard shall be constructed of heavy material, preferably metal, and firmly secured to the frame carrying the rolls so as to remain in adjustment for any thickness of stock. The bott"
+    },
+    {
+     "section": "1910.217",
+     "topic": "Mechanical power presses",
+     "excerpt": "(iv) The pull-out device shall protect the operator as specified in paragraph (c)(3)(i)(b) of this section, and shall include attachments for each of the operator's hands.\n(a) Attachments shall be connected to and operated only by the press slide or upper die.\n(b) Attachments shall be adjusted to prevent the operator from reaching into the point of operation or to withdraw the operator's hands fro"
+    },
+    {
+     "section": "1910.242",
+     "topic": "Hand and portable powered tools: general",
+     "excerpt": "(a) General requirements. Each employer shall be responsible for the safe condition of tools and equipment used by employees, including tools and equipment which may be furnished by employees.\n(b) Compressed air used for cleaning. Compressed air shall not be used for cleaning purposes except where reduced to less than 30 p.s.i. and then only with effective chip guarding and personal protective equ"
+    },
+    {
+     "section": "1910.178",
+     "topic": "Powered industrial trucks (forklifts)",
+     "excerpt": "(vi)(a) Only approved power operated industrial trucks designated as EX shall be used in atmospheres in which combustible dust is or may be in suspension continuously, intermittently, or periodically under normal operating conditions, in quantities sufficient to produce explosive or ignitable mixtures, or where mechanical failure or abnormal operation of machinery or equipment might cause such mix"
+    },
+    {
+     "section": "1910.263",
+     "topic": "Bakery equipment",
+     "excerpt": "(3) Rear of divider. The back of the divider shall have a complete cover to enclose all of the moving parts, or each individual part shall be enclosed or guarded to remove the separate hazards. The rear cover shall be provided with a limit switch in order that the machine cannot operate when this cover is open. The guard on the back shall be hinged so that it cannot be completely removed and if a "
+    },
+    {
+     "section": "1910.147",
+     "topic": "Control of hazardous energy (lockout/tagout)",
+     "excerpt": "(a) Scope, application, and purpose—(1) Scope. (i) This standard covers the servicing and maintenance of machines and equipment in which the unexpected energization or start up of the machines or equipment, or release of stored energy could cause injury to employees. This standard establishes minimum performance requirements for the control of such hazardous energy.\n(ii) This standard does not cov"
+    },
+    {
+     "section": "1910.132",
+     "topic": "PPE: general requirements and hazard assessment",
+     "excerpt": "(a) Application. Protective equipment, including personal protective equipment for eyes, face, head, and extremities, protective clothing, respiratory devices, and protective shields and barriers, shall be provided, used, and maintained in a sanitary and reliable condition wherever it is necessary by reason of hazards of processes or environment, chemical hazards, radiological hazards, or mechanic"
+    }
+   ],
+   "ecfr_date": "2026-10-06"
+  },
+  "amd": {
+   "endpoint": "developer.amd.com.cn",
+   "calls": [
+    {
+     "purpose": "second opinion (event, source)",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 2.0,
+     "error": null
+    },
+    {
+     "purpose": "corrective-action draft",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 60.3,
+     "error": null
+    }
+   ]
+  },
+  "seconds_total": 63.8,
+  "recorded_at": "2026-10-15T15:45:23+00:00"
+ },
+ "forklift": {
+  "report": "An employee was walking through the warehouse aisle when a forklift that was backing up struck him. He suffered a fractured left leg and was hospitalized.",
+  "codes": {
+   "event": {
+    "code": "25",
+    "title": "Pedestrian struck by vehicle in nonroadway area, unspecified; Pedestrian struck by vehicle backing up in nonroadway area",
+    "confidence": 0.9952,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "27",
+      "title": "Collision with stationary object, nonroadway; Nonroadway noncollision, vehicle overturn",
+      "confidence": 0.0036
+     },
+     {
+      "code": "43",
+      "title": "Fall on same level due to slip or trip; Fall on same level, n.e.c.",
+      "confidence": 0.0002
+     }
+    ],
+    "llm_pick": "25"
+   },
+   "source": {
+    "code": "86",
+    "title": "Forklift, order picker, platform truck powered; Pallet jack riding",
+    "confidence": 0.9942,
+    "label": "approximate",
+    "alternatives": [
+     {
+      "code": "66",
+      "title": "Other constructed surface; Ground, travel, and support surfaces, unspecified",
+      "confidence": 0.001
+     },
+     {
+      "code": "21",
+      "title": "Utility carts, hand trucks, dollies; Boxes, crates, cartons",
+      "confidence": 0.0005
+     }
+    ],
+    "llm_pick": "86"
+   },
+   "nature": {
+    "code": "124",
+    "title": "Fractures",
+    "confidence": 0.9841,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "182",
+      "title": "Fractures and surface, flesh wounds; Fractures and soft tissue injuries",
+      "confidence": 0.0033
+     },
+     {
+      "code": "100",
+      "title": "Traumatic injuries or exposures, unspecified",
+      "confidence": 0.0032
+     }
+    ],
+    "llm_pick": null
+   },
+   "part": {
+    "code": "52",
+    "title": "Leg(s), unspecified; Lower leg(s)",
+    "confidence": 0.9553,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "58",
+      "title": "Ankle(s) and leg(s), n.e.c.; Foot (feet) and ankle(s)",
+      "confidence": 0.0192
+     },
+     {
+      "code": "83",
+      "title": "Trunk and other upper extremities; Trunk and other lower extremities",
+      "confidence": 0.0034
+     }
+    ],
+    "llm_pick": null
+   }
+  },
+  "similar_cases": [
+   {
+    "upa": 2250579,
+    "month": "2025-01",
+    "sector": "493",
+    "narrative": "An employee was driving a stand-up forklift in a warehouse. During a right turn out of an aisle, the forklift struck a structural beam. The employee suffered a throat injury and was hospitalized.",
+    "event": "27 · Collision with stationary object, nonroadway",
+    "source": "86 · Forklift, order picker, platform truck powered",
+    "nature": "Traumatic injuries or exposures, unspecified",
+    "part": "Exterior and musculoskeletal structures of the neck"
+   },
+   {
+    "upa": 2200724,
+    "month": "2024-08",
+    "sector": "491",
+    "narrative": "An employee was walking toward the breakroom when they were struck by a sit-down forklift that was backing up. The employee suffered an amputation of the left leg just below the knee.",
+    "event": "25 · Pedestrian struck by vehicle backing up in nonroadway area",
+    "source": "86 · Forklift, order picker, platform truck powered",
+    "nature": "Amputations involving bone loss",
+    "part": "Lower leg(s)"
+   },
+   {
+    "upa": 2181260,
+    "month": "2024-07",
+    "sector": "326",
+    "narrative": "An employee was walking in the warehouse when they were struck by a forklift. The employee was hospitalized with a fractured left hip.",
+    "event": "25 · Pedestrian struck by vehicle in nonroadway area, unspecified",
+    "source": "86 · Forklift, order picker, platform truck powered",
+    "nature": "Fractures",
+    "part": "Hip joint(s)"
+   },
+   {
+    "upa": 2251935,
+    "month": "2025-01",
+    "sector": "493",
+    "narrative": "An employee was walking toward a dock when a forklift backed into him, knocking him over and backing over his right leg. The leg was injured and he was hospitalized.",
+    "event": "25 · Pedestrian struck by vehicle backing up in nonroadway area",
+    "source": "86 · Forklift, order picker, platform truck powered",
+    "nature": "Traumatic injuries or exposures, unspecified",
+    "part": "Leg(s), unspecified"
+   },
+   {
+    "upa": 2138736,
+    "month": "2024-03",
+    "sector": "311",
+    "narrative": "An employee was walking back to the office when a forklift backing up with a load struck her in the right leg, resulting in a laceration.",
+    "event": "25 · Pedestrian struck by vehicle backing up in nonroadway area",
+    "source": "86 · Forklift, order picker, platform truck powered",
+    "nature": "Cuts, lacerations, punctures without injury to internal structures",
+    "part": "Leg(s), unspecified"
+   }
+  ],
+  "action_plan": {
+   "missing_info": [
+    {
+     "en": "Was the forklift equipped with an audible reverse warning signal that was operational at the time?",
+     "it": "Il carrello elevatore era dotato di un segnale acustico di retromarcia funzionante al momento dell'incidente?"
+    },
+    {
+     "en": "Were there designated pedestrian walkways or aisle markings separating pedestrian and forklift traffic in the warehouse?",
+     "it": "C'erano percorsi pedonali designati o segnaletica che separavano il traffico pedonale da quello dei carrelli elevatori nel magazzino?"
+    },
+    {
+     "en": "Had the forklift operator received recent refresher training on pedestrian safety and operating in aisles?",
+     "it": "L'operatore del carrello elevatore aveva ricevuto una formazione di aggiornamento recente sulla sicurezza dei pedoni e sull'operatività nei corridoi?"
+    },
+    {
+     "en": "Was the pedestrian employee wearing any high-visibility clothing or other PPE at the time?",
+     "it": "Il dipendente pedone indossava indumenti ad alta visibilità o altri DPI al momento dell'incidente?"
+    }
+   ],
+   "actions": [
+    {
+     "type": "engineering",
+     "standard": "1910.178",
+     "action": {
+      "en": "Implement physical separation measures such as guardrails or bollards to create dedicated pedestrian walkways in warehouse aisles where forklifts operate.",
+      "it": "Implementare misure di separazione fisica come ringhiere o dissuasori per creare percorsi pedonali dedicati nei corridoi del magazzino dove operano i carrelli elevatori."
+     },
+     "why": {
+      "en": "The standard requires evaluating pedestrian traffic in areas where vehicles operate to prevent collisions.",
+      "it": "La norma richiede di valutare il traffico pedonale nelle aree in cui operano i veicoli per prevenire collisioni."
+     }
+    },
+    {
+     "type": "engineering",
+     "standard": "1910.178",
+     "action": {
+      "en": "Install audible and visual warning devices on forklifts, such as backup alarms and strobe lights, and ensure they are maintained in working order.",
+      "it": "Installare dispositivi di avvertimento acustici e visivi sui carrelli elevatori, come allarmi di retromarcia e luci stroboscopiche, e assicurarsi che siano mantenuti in condizioni di funzionamento."
+     },
+     "why": {
+      "en": "The standard addresses unique hazardous environmental conditions and safe operation, which includes warning pedestrians of vehicle movement.",
+      "it": "La norma affronta condizioni ambientali uniche e potenzialmente pericolose e l'operatività sicura, che include avvisare i pedoni del movimento dei veicoli."
+     }
+    },
+    {
+     "type": "administrative",
+     "standard": "1910.178",
+     "action": {
+      "en": "Develop and enforce a traffic management plan that includes designated pedestrian walkways, speed limits, and rules for forklift operation in aisles, especially when backing up.",
+      "it": "Sviluppare e applicare un piano di gestione del traffico che includa percorsi pedonali designati, limiti di velocità e regole per l'operatività dei carrelli nei corridoi, specialmente in retromarcia."
+     },
+     "why": {
+      "en": "The standard requires evaluating narrow aisles and other restricted places where vehicles operate to ensure safe operation.",
+      "it": "La norma richiede di valutare corridoi stretti e altri luoghi ristretti in cui operano i veicoli per garantire un'operatività sicura."
+     }
+    },
+    {
+     "type": "training",
+     "standard": "1910.178",
+     "action": {
+      "en": "Provide refresher training to all forklift operators on pedestrian safety, including checking blind spots, using horns at intersections and when backing up, and following traffic rules.",
+      "it": "Fornire formazione di aggiornamento a tutti gli operatori di carrelli elevatori sulla sicurezza dei pedoni, inclusi il controllo dei punti ciechi, l'uso del clacson agli incroci e in retromarcia, e il rispetto delle regole del traffico."
+     },
+     "why": {
+      "en": "The standard mandates refresher training to ensure operators have the knowledge and skills needed for safe operation.",
+      "it": "La norma impone una formazione di aggiornamento per garantire che gli operatori abbiano le conoscenze e le abilità necessarie per un'operatività sicura."
+     }
+    },
+    {
+     "type": "ppe",
+     "standard": "1910.132",
+     "action": {
+      "en": "Conduct a hazard assessment for pedestrian workers in areas with forklift traffic and provide high-visibility vests or other appropriate PPE as determined by the assessment.",
+      "it": "Condurre una valutazione dei rischi per i lavoratori pedoni nelle aree con traffico di carrelli elevatori e fornire giubbotti ad alta visibilità o altri DPI appropriati come determinato dalla valutazione."
+     },
+     "why": {
+      "en": "The standard requires a hazard assessment to determine necessary PPE and training for its use.",
+      "it": "La norma richiede una valutazione dei rischi per determinare i DPI necessari e la formazione per il loro utilizzo."
+     }
+    }
+   ],
+   "rejected": [],
+   "standards": [
+    {
+     "section": "1910.178",
+     "topic": "Powered industrial trucks (forklifts)",
+     "excerpt": "(D) Pedestrian traffic in areas where the vehicle will be operated;\n(E) Narrow aisles and other restricted places where the vehicle will be operated;\n(F) Hazardous (classified) locations where the vehicle will be operated;\n(G) Ramps and other sloped surfaces that could affect the vehicle's stability;\n(H) Closed environments and other areas where insufficient ventilation or poor vehicle maintenance"
+    },
+    {
+     "section": "1910.265",
+     "topic": "Sawmills",
+     "excerpt": "(28) Lumber loading. Loads shall be built and secured to insure stability in transit.\n(29) Burners—(i) Guying. If the burner stack is not self-supporting, it shall be guyed or otherwise supported.\n(ii) Runway. The conveyor runway to the burner shall be equipped with a standard handrail. If the runway crosses a roadway or thoroughfare, standard toe boards shall be provided in addition.\n(30) Vehicle"
+    },
+    {
+     "section": "1910.106",
+     "topic": "Flammable liquids",
+     "excerpt": "(3) Dispensing systems—(i) Location. Dispensing devices at automotive service stations shall be so located that all parts of the vehicle being served will be on the premises of the service station.\n(ii) Inside location. Approved dispensing units may be located inside of buildings. The dispensing area shall be separated from other areas in an approved manner. The dispensing unit and its piping shal"
+    },
+    {
+     "section": "1910.243",
+     "topic": "Guarding of portable powered tools",
+     "excerpt": "(b) A rigid bar fastened across the discharge opening, secured to prevent removal without the use of tools. The bottom of the bar shall be no higher than the bottom edge of the blade enclosure.\n(iv) Mowers shall be provided with stops to prevent jackknifing or locking of the steering mechanism.\n(v) Vehicle stopping means shall be provided.\n(vi) Hand-operated wheel drive disengaging controls shall "
+    },
+    {
+     "section": "1910.30",
+     "topic": "Training requirements (walking-working surfaces)",
+     "excerpt": "(3) The employer must train each employee who uses a rope descent system in proper rigging and use of the equipment in accordance with § 1910.27.\n(4) The employer must train each employee who uses a designated area in the proper set-up and use of the area.\n(c) Retraining. The employer must retrain an employee when the employer has reason to believe the employee does not have the understanding and "
+    },
+    {
+     "section": "1910.147",
+     "topic": "Control of hazardous energy (lockout/tagout)",
+     "excerpt": "(B) Hot tap operations involving transmission and distribution systems for substances such as gas, steam, water or petroleum products when they are performed on pressurized pipelines, provided that the employer demonstrates that (1) continuity of service is essential; (2) shutdown of the system is impractical; and (3) documented procedures are followed, and special equipment is used which will pro"
+    },
+    {
+     "section": "1910.132",
+     "topic": "PPE: general requirements and hazard assessment",
+     "excerpt": "Non-mandatory appendix B contains an example of procedures that would comply with the requirement for a hazard assessment.\n(2) The employer shall verify that the required workplace hazard assessment has been performed through a written certification that identifies the workplace evaluated; the person certifying that the evaluation has been performed; the date(s) of the hazard assessment; and, whic"
+    }
+   ],
+   "ecfr_date": "2026-10-06"
+  },
+  "amd": {
+   "endpoint": "developer.amd.com.cn",
+   "calls": [
+    {
+     "purpose": "second opinion (event, source)",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 4.5,
+     "error": null
+    },
+    {
+     "purpose": "corrective-action draft",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 53.7,
+     "error": null
+    }
+   ]
+  },
+  "seconds_total": 57.2,
+  "recorded_at": "2026-10-15T15:46:20+00:00"
+ },
+ "conveyor": {
+  "report": "While clearing a jam on a running belt conveyor in the packaging line, an employee reached under the guard and her left hand was pulled into the pinch point at the tail pulley. She suffered crushing injuries and two fractured fingers.",
+  "codes": {
+   "event": {
+    "code": "65",
+    "title": "Struck by running powered equipment, during maintenance, cleaning, testing; Caught, entangled in running powered equipment, normal operation",
+    "confidence": 0.9985,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "43",
+      "title": "Fall on same level due to slip or trip; Fall on same level, n.e.c.",
+      "confidence": 0.0005
+     },
+     {
+      "code": "27",
+      "title": "Collision with stationary object, nonroadway; Nonroadway noncollision, vehicle overturn",
+      "confidence": 0.0001
+     }
+    ],
+    "llm_pick": "65"
+   },
+   "source": {
+    "code": "34",
+    "title": "Conveyors belt, slot, chain; Hoists, lifts, scissor, telescoping",
+    "confidence": 0.6364,
+    "label": "approximate",
+    "alternatives": [
+     {
+      "code": "36",
+      "title": "Butchering machinery; Packaging, wrapping, bundling machinery",
+      "confidence": 0.2547
+     },
+     {
+      "code": "35",
+      "title": "Stamping machinery, presses, except printing; Metal, woodworking, and special material machinery, unspecified",
+      "confidence": 0.0545
+     }
+    ],
+    "llm_pick": "34"
+   },
+   "nature": {
+    "code": "103",
+    "title": "Nonfatal 'crushing' injuries",
+    "confidence": 0.2273,
+    "label": "human",
+    "alternatives": [
+     {
+      "code": "122",
+      "title": "Amputations, avulsions, enucleations, unspecified; Amputations involving bone loss",
+      "confidence": 0.2175
+     },
+     {
+      "code": "124",
+      "title": "Fractures",
+      "confidence": 0.2094
+     }
+    ],
+    "llm_pick": null
+   },
+   "part": {
+    "code": "44",
+    "title": "Other finger(s), n.e.c.; Finger or thumb tip(s), nail(s)",
+    "confidence": 0.9,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "48",
+      "title": "Hand(s) and arm(s), n.e.c.; Hand(s) and wrist(s)",
+      "confidence": 0.0171
+     },
+     {
+      "code": "43",
+      "title": "Wrist(s)",
+      "confidence": 0.0094
+     }
+    ],
+    "llm_pick": null
+   }
+  },
+  "similar_cases": [
+   {
+    "upa": 2192436,
+    "month": "2024-07",
+    "sector": "325",
+    "narrative": "An employee was cleaning a conveyor belt and reached under the conveyor to clean the bottom side when the conveyor pulled their finger into the pulley and they sustained an amputation to a finger.",
+    "event": "65 · Struck by running powered equipment, during maintenance, cleaning, testing",
+    "source": "34 · Conveyors belt, slot, chain",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2123323,
+    "month": "2024-01",
+    "sector": "333",
+    "narrative": "An employee was clearing a jam on a trim saw. A piece of wood had gotten stuck under the conveyor belt. The saw blades were off but the conveyor belt was running. The employee's right hand was near a chain that caught his glove and amputated his right ring and middle fingers and the tip of his little finger. A guard was in place at the time.",
+    "event": "65 · Struck by running powered equipment, during maintenance, cleaning, testing",
+    "source": "35 · Stationary sawing machinery stationary, n.e.c.",
+    "nature": "Amputations involving bone loss",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2210973,
+    "month": "2024-09",
+    "sector": "311",
+    "narrative": "An employee was clearing a jam on a conveyor belt when the hand tool they were using to clear the jam was pulled into the machine and passed the metal guard. The  employee's left middle finger contacted the fixed, grated guard, resulting in a partial amputation. The machine was energized at the time.",
+    "event": "65 · Struck by running powered equipment, during maintenance, cleaning, testing",
+    "source": "34 · Conveyors belt, slot, chain",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2118588,
+    "month": "2024-01",
+    "sector": "454",
+    "narrative": "On [DATE], an employee was clearing a jam from a conveyor belt when his hand got caught between the belt and the machine guard, resulting in a partial amputation of the right ring finger.",
+    "event": "65 · Struck by running powered equipment, during maintenance, cleaning, testing",
+    "source": "34 · Conveyors belt, slot, chain",
+    "nature": "Amputations, avulsions, enucleations, unspecified",
+    "part": "Other finger(s), n.e.c."
+   },
+   {
+    "upa": 2379388,
+    "month": "2025-11",
+    "sector": "311",
+    "narrative": "An employee was assisting with repairing a screw conveyor in the third-floor bin room. The employee was manually rotating the belt on the conveyor when the forward/reverse switch was actuated. The employee's fingers were pulled under the belt and pulley, resulting in crush injuries to fingers on both hands.",
+    "event": "65 · Struck by running powered equipment, during maintenance, cleaning, testing",
+    "source": "34 · Conveyors screw, auger",
+    "nature": "Nonfatal 'crushing' injuries",
+    "part": "Other finger(s), n.e.c."
+   }
+  ],
+  "action_plan": {
+   "missing_info": [
+    {
+     "en": "Was the conveyor equipped with an emergency stop or pull cord that was accessible to the employee?",
+     "it": "Il nastro trasportatore era dotato di un arresto di emergenza o di una fune di sgancio accessibile al dipendente?"
+    },
+    {
+     "en": "Was the employee trained on lockout/tagout procedures for clearing jams on this conveyor?",
+     "it": "Il dipendente era stato formato sulle procedure di lockout/tagout per la rimozione di inceppamenti su questo nastro trasportatore?"
+    },
+    {
+     "en": "Was the guard that the employee reached under designed to be removable or interlocked with the conveyor's power?",
+     "it": "La protezione sotto cui il dipendente ha infilato la mano era progettata per essere rimovibile o interbloccata con l'alimentazione del nastro?"
+    },
+    {
+     "en": "Were there any written procedures for clearing jams on this conveyor, and did they require the conveyor to be stopped?",
+     "it": "Esistevano procedure scritte per la rimozione di inceppamenti su questo nastro e richiedevano l'arresto del nastro?"
+    }
+   ],
+   "actions": [
+    {
+     "type": "engineering",
+     "standard": "1910.219",
+     "action": {
+      "en": "Install a guard that completely encloses the tail pulley and pinch point, designed to prevent access to the nip point while the conveyor is running.",
+      "it": "Installare una protezione che racchiuda completamente il tamburo di coda e il punto di pizzicamento, progettata per impedire l'accesso al punto di contatto mentre il nastro è in movimento."
+     },
+     "why": {
+      "en": "The pinch point at the tail pulley is a recognized hazard under mechanical power-transmission apparatus guarding requirements.",
+      "it": "Il punto di pizzicamento al tamburo di coda è un pericolo riconosciuto ai sensi dei requisiti di protezione degli apparati di trasmissione meccanica di potenza."
+     }
+    },
+    {
+     "type": "engineering",
+     "standard": "1910.147",
+     "action": {
+      "en": "Install a lockout/tagout system that requires the conveyor to be de-energized and locked out before any jam clearing or maintenance is performed.",
+      "it": "Installare un sistema di lockout/tagout che richieda la disattivazione e il blocco dell'alimentazione del nastro prima di qualsiasi operazione di rimozione di inceppamenti o manutenzione."
+     },
+     "why": {
+      "en": "The incident occurred during a servicing task (clearing a jam) on running equipment, which is within the scope of hazardous energy control.",
+      "it": "L'incidente è avvenuto durante un'attività di manutenzione (rimozione di un inceppamento) su un'apparecchiatura in funzione, che rientra nell'ambito del controllo dell'energia pericolosa."
+     }
+    },
+    {
+     "type": "administrative",
+     "standard": "1910.147",
+     "action": {
+      "en": "Develop and implement written procedures for clearing jams on the conveyor that mandate stopping and locking out the equipment before any access to the pinch point.",
+      "it": "Sviluppare e implementare procedure scritte per la rimozione di inceppamenti sul nastro che impongano l'arresto e il blocco dell'apparecchiatura prima di qualsiasi accesso al punto di pizzicamento."
+     },
+     "why": {
+      "en": "Adequate procedures for hazardous energy control are required to ensure employees do not service equipment while it is energized.",
+      "it": "Procedure adeguate per il controllo dell'energia pericolosa sono richieste per garantire che i dipendenti non effettuino manutenzione su apparecchiature in tensione."
+     }
+    },
+    {
+     "type": "training",
+     "standard": "1910.147",
+     "action": {
+      "en": "Train all employees who clear jams or perform maintenance on the conveyor on lockout/tagout procedures, including the specific steps to isolate and verify zero energy state.",
+      "it": "Formare tutti i dipendenti che rimuovono inceppamenti o effettuano manutenzione sul nastro sulle procedure di lockout/tagout, inclusi i passaggi specifici per isolare e verificare lo stato di energia zero."
+     },
+     "why": {
+      "en": "Training is essential to ensure employees understand and follow energy control procedures to prevent unexpected startup during servicing.",
+      "it": "La formazione è essenziale per garantire che i dipendenti comprendano e seguano le procedure di controllo dell'energia per prevenire avvii inattesi durante la manutenzione."
+     }
+    },
+    {
+     "type": "ppe",
+     "standard": "1910.132",
+     "action": {
+      "en": "Provide and require the use of cut-resistant gloves for employees who must handle materials near the conveyor, while ensuring that such gloves do not create additional entanglement hazards.",
+      "it": "Fornire e richiedere l'uso di guanti resistenti al taglio per i dipendenti che devono maneggiare materiali vicino al nastro, assicurando che tali guanti non creino ulteriori pericoli di impigliamento."
+     },
+     "why": {
+      "en": "PPE is a lower-level control that can reduce the severity of injuries, but it must be selected to avoid increasing the risk of being caught in machinery.",
+      "it": "I DPI sono un controllo di livello inferiore che può ridurre la gravità delle lesioni, ma devono essere scelti per evitare di aumentare il rischio di rimanere impigliati nei macchinari."
+     }
+    }
+   ],
+   "rejected": [],
+   "standards": [
+    {
+     "section": "1910.219",
+     "topic": "Mechanical power-transmission apparatus (belts, gears, pulleys)",
+     "excerpt": "(a) General requirements. (1) This section covers all types and shapes of power-transmission belts, except the following when operating at two hundred and fifty (250) feet per minute or less: (i) Flat belts one (1) inch or less in width, (ii) flat belts two (2) inches or less in width which are free from metal lacings or fasteners, (iii) round belts one-half ( 1/2) inch or less in diameter; and (i"
+    },
+    {
+     "section": "1910.242",
+     "topic": "Hand and portable powered tools: general",
+     "excerpt": "(a) General requirements. Each employer shall be responsible for the safe condition of tools and equipment used by employees, including tools and equipment which may be furnished by employees.\n(b) Compressed air used for cleaning. Compressed air shall not be used for cleaning purposes except where reduced to less than 30 p.s.i. and then only with effective chip guarding and personal protective equ"
+    },
+    {
+     "section": "1910.243",
+     "topic": "Guarding of portable powered tools",
+     "excerpt": "(iv) The operating control on hand-held power tools shall be so located as to minimize the possibility of its accidental operation, if such accidental operation would constitute a hazard to employees.\n(v) This subparagraph does not apply to concrete vibrators, concrete breakers, powered tampers, jack hammers, rock drills, garden appliances, household and kitchen appliances, personal care appliance"
+    },
+    {
+     "section": "1910.263",
+     "topic": "Bakery equipment",
+     "excerpt": "(4) Hand trucks. (i) Casters shall be set back from corners to be out of the way of toes and heels, but not far enough back to cause the truck to be unstable.\n(ii) A lock or other device shall be provided to hold the handle in vertical position when the truck is not in use.\n(5) Lift trucks. A lock or other device shall be provided to hold the handle in vertical position when the truck is not in us"
+    },
+    {
+     "section": "1910.178",
+     "topic": "Powered industrial trucks (forklifts)",
+     "excerpt": "(3) Unauthorized personnel shall not be permitted to ride on powered industrial trucks. A safe place to ride shall be provided where riding of trucks is authorized.\n(4) The employer shall prohibit arms or legs from being placed between the uprights of the mast or outside the running lines of the truck.\n(5)(i) When a powered industrial truck is left unattended, load engaging means shall be fully lo"
+    },
+    {
+     "section": "1910.147",
+     "topic": "Control of hazardous energy (lockout/tagout)",
+     "excerpt": "(a) Scope, application, and purpose—(1) Scope. (i) This standard covers the servicing and maintenance of machines and equipment in which the unexpected energization or start up of the machines or equipment, or release of stored energy could cause injury to employees. This standard establishes minimum performance requirements for the control of such hazardous energy.\n(ii) This standard does not cov"
+    },
+    {
+     "section": "1910.132",
+     "topic": "PPE: general requirements and hazard assessment",
+     "excerpt": "(3) When the employer provides metatarsal guards and allows the employee, at his or her request, to use shoes or boots with built-in metatarsal protection, the employer is not required to reimburse the employee for the shoes or boots.\n(4) The employer is not required to pay for:\n(i) The logging boots required by 29 CFR 1910.266(d)(1)(v);\n(ii) Everyday clothing, such as long-sleeve shirts, long pan"
+    }
+   ],
+   "ecfr_date": "2026-10-06"
+  },
+  "amd": {
+   "endpoint": "developer.amd.com.cn",
+   "calls": [
+    {
+     "purpose": "second opinion (event, source)",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 2.5,
+     "error": null
+    },
+    {
+     "purpose": "corrective-action draft",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 70.9,
+     "error": null
+    }
+   ]
+  },
+  "seconds_total": 74.4,
+  "recorded_at": "2026-10-15T15:47:35+00:00"
+ },
+ "fryer": {
+  "report": "An employee was draining an industrial fryer at a snack food plant when the drain valve opened suddenly and hot oil splashed onto his forearms. He sustained second-degree burns and was admitted to the hospital.",
+  "codes": {
+   "event": {
+    "code": "53",
+    "title": "Contact with hot objects or substances; Exposure to environmental heat, outdoor",
+    "confidence": 0.9752,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "55",
+      "title": "Inhalation of harmful substance, single episode or single shift; Exposure through intact tissue",
+      "confidence": 0.0047
+     },
+     {
+      "code": "32",
+      "title": "Flash fire; Vehicle or machinery fire",
+      "confidence": 0.004
+     }
+    ],
+    "llm_pick": "53"
+   },
+   "source": {
+    "code": "52",
+    "title": "Fats, oils, cooking greases; Liquid foods and beverages",
+    "confidence": 0.6853,
+    "label": "approximate",
+    "alternatives": [
+     {
+      "code": "41",
+      "title": "Water, liquids nonchemical; Molten metal, slag",
+      "confidence": 0.1019
+     },
+     {
+      "code": "66",
+      "title": "Other constructed surface; Ground, travel, and support surfaces, unspecified",
+      "confidence": 0.025
+     }
+    ],
+    "llm_pick": "52"
+   },
+   "nature": {
+    "code": "152",
+    "title": "Thermal burns, degree unspecified; Thermal burns, second degree",
+    "confidence": 0.986,
+    "label": "trusted",
+    "alternatives": [
+     {
+      "code": "151",
+      "title": "Chemical burns, corrosions, degree unspecified; Chemical burns, corrosions, second degree",
+      "confidence": 0.0024
+     },
+     {
+      "code": "153",
+      "title": "Electrical burns, any degree; Electrocution, electric shock",
+      "confidence": 0.0011
+     }
+    ],
+    "llm_pick": null
+   },
+   "part": {
+    "code": "80",
+    "title": "Multiple body parts, unspecified",
+    "confidence": 0.1335,
+    "label": "human",
+    "alternatives": [
+     {
+      "code": "42",
+      "title": "Arm(s), unspecified; Forearm(s)",
+      "confidence": 0.1295
+     },
+     {
+      "code": "44",
+      "title": "Other finger(s), n.e.c.; Finger or thumb tip(s), nail(s)",
+      "confidence": 0.1117
+     }
+    ],
+    "llm_pick": null
+   }
+  },
+  "similar_cases": [
+   {
+    "upa": 2259687,
+    "month": "2025-02",
+    "sector": "311",
+    "narrative": "An employee was draining hot oil from the fryer into the floor drain and went to close the valve when they slipped and fell to the floor. They fell into hot oil that overflowed from the drain, resulting in burns to 45% of their body.",
+    "event": "43 · Fall on same level resulting in exposure or contact",
+    "source": "66 · Other constructed surface",
+    "nature": "Thermal burns, degree unspecified",
+    "part": "Multiple body parts, unspecified"
+   },
+   {
+    "upa": 2298009,
+    "month": "2025-05",
+    "sector": "722",
+    "narrative": "An employee was cleaning the kitchen for closing and sustained burns to their face and body after a fryer tipped over and hot oil splashed onto the employee.",
+    "event": "53 · Contact with hot objects or substances",
+    "source": "52 · Fats, oils, cooking greases",
+    "nature": "Thermal burns, degree unspecified",
+    "part": "Multiple body parts, unspecified"
+   },
+   {
+    "upa": 2152639,
+    "month": "2024-04",
+    "sector": "611",
+    "narrative": "Two employees were bleeding a steam station through a hose to a floor drain. One employee opened the valve, which caused the hose to jump out of the drain. Hot water (212 degrees Fahrenheit) splashed onto the injured employee, resulting in second-degree burns to multiple areas on left side of their body.",
+    "event": "53 · Contact with hot objects or substances",
+    "source": "41 · Water, liquids nonchemical",
+    "nature": "Thermal burns, second degree",
+    "part": "Multiple body parts, unspecified"
+   },
+   {
+    "upa": 2225871,
+    "month": "2024-10",
+    "sector": "722",
+    "narrative": "An employee was replacing a basket in a fryer after the fryer had been cleaned. The employee was splashed with hot oil and was hospitalized with burns on their face and arm.",
+    "event": "53 · Contact with hot objects or substances",
+    "source": "52 · Fats, oils, cooking greases",
+    "nature": "Thermal burns, degree unspecified",
+    "part": "Head and extremities"
+   },
+   {
+    "upa": 2140469,
+    "month": "2024-03",
+    "sector": "447",
+    "narrative": "An employee was changing out the oil in fryer baskets when he slipped on hot oil and fell, resulting in second-degree burns to his right arm from his shoulder down to his palm.",
+    "event": "43 · Fall on same level resulting in exposure or contact",
+    "source": "66 · Other constructed surface",
+    "nature": "Thermal burns, second degree",
+    "part": "Multiple upper extremities locations, n.e.c."
+   }
+  ],
+  "action_plan": {
+   "missing_info": [
+    {
+     "en": "Was the drain valve equipped with a lockout/tagout device or other energy isolation mechanism?",
+     "it": "La valvola di scarico era dotata di un dispositivo di lockout/tagout o di un altro meccanismo di isolamento dell'energia?"
+    },
+    {
+     "en": "Was there a written procedure for draining hot oil, and did the employee receive training on it?",
+     "it": "Esisteva una procedura scritta per lo scarico dell'olio caldo e il dipendente aveva ricevuto formazione su di essa?"
+    },
+    {
+     "en": "Were appropriate personal protective equipment (e.g., heat-resistant gloves, aprons, face shields) available and used by the employee?",
+     "it": "Erano disponibili e utilizzati dal dipendente dispositivi di protezione individuale adeguati (es. guanti resistenti al calore, grembiuli, visiere)?"
+    },
+    {
+     "en": "Was the fryer equipped with a safety device to prevent sudden valve opening, such as a slow-release valve or a guard?",
+     "it": "La friggitrice era dotata di un dispositivo di sicurezza per prevenire l'apertura improvvisa della valvola, come una valvola a rilascio lento o una protezione?"
+    }
+   ],
+   "actions": [
+    {
+     "type": "engineering",
+     "standard": "1910.147",
+     "action": {
+      "en": "Implement a lockout/tagout procedure for the drain valve of the industrial fryer to ensure the valve is isolated and cannot open unexpectedly during draining or maintenance.",
+      "it": "Implementare una procedura di lockout/tagout per la valvola di scarico della friggitrice industriale per garantire che la valvola sia isolata e non possa aprirsi inaspettatamente durante lo scarico o la manutenzione."
+     },
+     "why": {
+      "en": "The sudden opening of the drain valve released stored energy (hot oil) causing injury; controlling hazardous energy is required to prevent unexpected release.",
+      "it": "L'apertura improvvisa della valvola di scarico ha rilasciato energia immagazzinata (olio caldo) causando lesioni; il controllo dell'energia pericolosa è richiesto per prevenire rilasci inaspettati."
+     }
+    },
+    {
+     "type": "engineering",
+     "standard": "1910.132",
+     "action": {
+      "en": "Install a physical guard or shield around the drain valve and drain area to prevent direct splashes of hot oil onto employees during draining operations.",
+      "it": "Installare una protezione fisica o uno schermo attorno alla valvola di scarico e all'area di drenaggio per prevenire schizzi diretti di olio caldo sui dipendenti durante le operazioni di scarico."
+     },
+     "why": {
+      "en": "The hazard of hot oil splashing onto the employee's forearms indicates a need for engineering controls to separate the employee from the hazard.",
+      "it": "Il pericolo di schizzi di olio caldo sugli avambracci del dipendente indica la necessità di controlli ingegneristici per separare il dipendente dal pericolo."
+     }
+    },
+    {
+     "type": "administrative",
+     "standard": "1910.132",
+     "action": {
+      "en": "Conduct a hazard assessment of the fryer draining task to identify potential burn hazards and implement appropriate control measures, including safe work procedures.",
+      "it": "Condurre una valutazione dei rischi dell'attività di scarico della friggitrice per identificare i potenziali pericoli di ustione e implementare misure di controllo appropriate, incluse procedure di lavoro sicure."
+     },
+     "why": {
+      "en": "The incident indicates that the task involves hazards capable of causing injury; a hazard assessment is required to determine necessary controls and PPE.",
+      "it": "L'incidente indica che l'attività comporta pericoli in grado di causare lesioni; è richiesta una valutazione dei rischi per determinare i controlli e i DPI necessari."
+     }
+    },
+    {
+     "type": "training",
+     "standard": "1910.132",
+     "action": {
+      "en": "Provide training to employees on the proper procedures for draining hot oil, including the use of any safety devices, and the importance of following safe work practices to prevent splashes.",
+      "it": "Fornire formazione ai dipendenti sulle procedure corrette per lo scarico dell'olio caldo, inclusa l'uso di eventuali dispositivi di sicurezza e l'importanza di seguire pratiche di lavoro sicure per prevenire schizzi."
+     },
+     "why": {
+      "en": "The sudden valve opening and resulting splash suggest that employees may not have been adequately trained on safe draining techniques and hazard recognition.",
+      "it": "L'apertura improvvisa della valvola e lo schizzo risultante suggeriscono che i dipendenti potrebbero non essere stati adeguatamente formati sulle tecniche di scarico sicure e sul riconoscimento dei pericoli."
+     }
+    },
+    {
+     "type": "ppe",
+     "standard": "1910.132",
+     "action": {
+      "en": "Provide and require the use of appropriate personal protective equipment, such as heat-resistant gloves, long-sleeved aprons, and face shields, for employees draining hot oil.",
+      "it": "Fornire e richiedere l'uso di dispositivi di protezione individuale adeguati, come guanti resistenti al calore, grembiuli a maniche lunghe e visiere, per i dipendenti che scaricano olio caldo."
+     },
+     "why": {
+      "en": "The employee sustained burns to the forearms, indicating that PPE for extremities and body is necessary to protect against hot oil contact.",
+      "it": "Il dipendente ha riportato ustioni agli avambracci, indicando che i DPI per estremità e corpo sono necessari per proteggere dal contatto con olio caldo."
+     }
+    }
+   ],
+   "rejected": [],
+   "standards": [
+    {
+     "section": "1910.106",
+     "topic": "Flammable liquids",
+     "excerpt": "(v) Inspections. The Assistant Secretary or his designated representative shall make periodic inspections of all plants where the storage of flammable liquids is such as to require compliance with the foregoing requirements, in order to assure the following:\n(1) That all flammable liquid storage tanks are in compliance with these requirements and so maintained.\n(2) That detailed printed instructio"
+    },
+    {
+     "section": "1910.178",
+     "topic": "Powered industrial trucks (forklifts)",
+     "excerpt": "(7) Brakes shall be set and wheel blocks shall be in place to prevent movement of trucks, trailers, or railroad cars while loading or unloading. Fixed jacks may be necessary to support a semitrailer during loading or unloading when the trailer is not coupled to a tractor. The flooring of trucks, trailers, and railroad cars shall be checked for breaks and weakness before they are driven onto.\n(8) T"
+    },
+    {
+     "section": "1910.1200",
+     "topic": "Hazard communication",
+     "excerpt": "(iii) Any food, food additive, color additive, drug, cosmetic, or medical or veterinary device or product, including materials intended for use as ingredients in such products (e.g., flavors and fragrances), as such terms are defined in the Federal Food, Drug, and Cosmetic Act (21 U.S.C. 301 et seq.) or the Virus-Serum-Toxin Act of 1913 (21 U.S.C. 151 et seq.), and regulations issued under those A"
+    },
+    {
+     "section": "1910.29",
+     "topic": "Fall protection systems and falling object protection",
+     "excerpt": "(7) Strength criteria. Handrails and the top rails of stair rail systems are capable of withstanding, without failure, a force of at least 200 pounds (890 N) applied in any downward or outward direction within 2 inches (5 cm) of any point along the top edge of the rail.\n(g) Cages, wells, and platforms used with fixed ladders. The employer must ensure:\n(1) Cages and wells installed on fixed ladders"
+    },
+    {
+     "section": "1910.252",
+     "topic": "Welding, cutting and brazing: general requirements",
+     "excerpt": "(3) Welding or cutting containers—(i) Used containers. No welding, cutting, or other hot work shall be performed on used drums, barrels, tanks or other containers until they have been cleaned so thoroughly as to make absolutely certain that there are no flammable materials present or any substances such as greases, tars, acids, or other materials which when subjected to heat, might produce flammab"
+    },
+    {
+     "section": "1910.147",
+     "topic": "Control of hazardous energy (lockout/tagout)",
+     "excerpt": "(B) Hot tap operations involving transmission and distribution systems for substances such as gas, steam, water or petroleum products when they are performed on pressurized pipelines, provided that the employer demonstrates that (1) continuity of service is essential; (2) shutdown of the system is impractical; and (3) documented procedures are followed, and special equipment is used which will pro"
+    },
+    {
+     "section": "1910.132",
+     "topic": "PPE: general requirements and hazard assessment",
+     "excerpt": "(a) Application. Protective equipment, including personal protective equipment for eyes, face, head, and extremities, protective clothing, respiratory devices, and protective shields and barriers, shall be provided, used, and maintained in a sanitary and reliable condition wherever it is necessary by reason of hazards of processes or environment, chemical hazards, radiological hazards, or mechanic"
+    }
+   ],
+   "ecfr_date": "2026-10-06"
+  },
+  "amd": {
+   "endpoint": "developer.amd.com.cn",
+   "calls": [
+    {
+     "purpose": "second opinion (event, source)",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 3.5,
+     "error": null
+    },
+    {
+     "purpose": "corrective-action draft",
+     "model": "DeepSeek-V4-Flash",
+     "seconds": 54.7,
+     "error": null
+    }
+   ]
+  },
+  "seconds_total": 58.2,
+  "recorded_at": "2026-10-15T15:48:33+00:00"
+ }
+}

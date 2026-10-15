@@ -22,8 +22,12 @@ def tokenize(text: str) -> list[str]:
 
 CITATION = re.compile(r"\b1910\.\d+\b")
 FORBIDDEN = re.compile(
+    # English
     r"\b(violat\w*|non-?complian\w*|in breach|is liable|liability|penalt\w*|citation was issued|"
-    r"diagnos\w*|prescrib\w*|medication|treatment plan)\b",
+    r"diagnos\w*|prescrib\w*|medication|treatment plan|"
+    # Italian: violation, non-compliance, liable, sanction/fine, diagnosis, prescribe, medication, therapy
+    r"violazion\w*|violat[oaie]\b|non conformit\w*|inadempien\w*|responsabil\w* penal\w*|sanzion\w*|multa|"
+    r"diagnos[ie]\w*|prescriv\w*|prescrizione medica|farmac\w*|terapi\w*)\b",
     re.IGNORECASE,
 )
 
@@ -73,7 +77,11 @@ def validate_actions(actions: list[dict], allowed_sections: set[str], known_sect
     """Keep actions whose citations are known and were in the excerpts; drop verdict language."""
     kept, rejected = [], []
     for action in actions:
-        text = " ".join(str(action.get(k, "")) for k in ("action", "why", "standard"))
+        # Fields may be plain strings or {"en": ..., "it": ...}; check every language.
+        text = " ".join(
+            " ".join(map(str, value.values())) if isinstance(value, dict) else str(value)
+            for value in (action.get(k, "") for k in ("action", "why", "standard"))
+        )
         cited = set(CITATION.findall(text))
         problems = []
         if not cited:

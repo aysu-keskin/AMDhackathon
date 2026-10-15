@@ -41,9 +41,10 @@ DRAFT_SYSTEM = (
     "Say a standard 'may be relevant'; never state that anyone violated a rule, never give legal conclusions, "
     "never give medical diagnosis or treatment advice. Give 3 to 6 actions and cover more than one level of "
     "the hierarchy when the excerpts allow. Also list up to 4 short questions about facts missing "
-    "from the report that would change the actions. Answer with JSON only: "
-    '{"missing_info": ["..."], "actions": [{"type": "engineering|administrative|training|ppe", '
-    '"action": "...", "standard": "1910.xxx", "why": "..."}]}'
+    "from the report that would change the actions. Write every text field twice: English (en) and Italian "
+    "(it), same meaning. Answer with JSON only: "
+    '{"missing_info": [{"en": "...", "it": "..."}], "actions": [{"type": "engineering|administrative|training|ppe", '
+    '"standard": "1910.xxx", "action": {"en": "...", "it": "..."}, "why": {"en": "...", "it": "..."}}]}'
 )
 
 
