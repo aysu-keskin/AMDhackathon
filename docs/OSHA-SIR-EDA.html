@@ -1,0 +1,360 @@
+<title>OSHA SIR Keşif Raporu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: tek sütunlu teknik rapor; bölümler numaralı çünkü okuma sırası veri hattının sırası. Vurgu rengi iş güvenliği sarısı, eski kod sistemi petrol mavisi. */
+:root{
+  --bg:#F5F6F2; --surface:#FFFFFF; --ink:#1B2220; --muted:#5B6662; --line:#D8DDD8;
+  --accent:#D99A0B; --accent-ink:#8A5A00; --accent-soft:#FBF0D3;
+  --old:#2E6E73; --old-2:#7FB0B3; --new:#D99A0B; --new-2:#B2551B;
+  --warn:#B2551B; --ok:#2E7D4F;
+  --f-display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --surface:#1C2320; --ink:#E7ECE8; --muted:#9AA8A2; --line:#2E3834;
+  --accent:#F2B634; --accent-ink:#F5C55A; --accent-soft:#2E2715;
+  --old:#6FB4B8; --old-2:#3F7A7E; --new:#F2B634; --new-2:#E2804A; --warn:#E2804A; --ok:#6CC08F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --surface:#1C2320; --ink:#E7ECE8; --muted:#9AA8A2; --line:#2E3834;
+  --accent:#F2B634; --accent-ink:#F5C55A; --accent-soft:#2E2715;
+  --old:#6FB4B8; --old-2:#3F7A7E; --new:#F2B634; --new-2:#E2804A; --warn:#E2804A; --ok:#6CC08F; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--f-body);margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:24px;font-weight:700;display:flex;gap:12px;align-items:baseline}
+h2 .no{font-family:var(--f-mono);font-size:14px;color:var(--accent-ink);font-weight:500}
+h3{font-size:16px;font-weight:700;margin-top:6px}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:17px;color:var(--muted);max-width:66ch}
+header{display:grid;gap:14px;padding-bottom:22px;border-bottom:3px solid var(--ink)}
+.hazard{height:8px;background:repeating-linear-gradient(-45deg,var(--accent) 0 12px,var(--ink) 12px 24px);border-radius:2px;max-width:180px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:6px}
+.fact{background:var(--surface);padding:12px 14px;display:grid;gap:2px}
+.fact b{font:700 22px var(--f-display);font-variant-numeric:tabular-nums}
+.fact span{font-size:12.5px;color:var(--muted)}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+nav.toc a{font:500 12.5px var(--f-mono);color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:4px 9px;border-radius:3px;background:var(--surface)}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--accent);outline:none}
+section{display:grid;gap:14px;padding-top:40px;scroll-margin-top:12px}
+.findings{display:grid;gap:0;border-top:1px solid var(--line)}
+.finding{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.finding i{font:500 13px var(--f-mono);color:var(--accent-ink);font-style:normal;padding-top:2px}
+.finding p b{font-weight:600}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:22px}
+.grid2>*{min-width:0;display:grid;gap:10px;align-content:start}
+.panel{background:var(--surface);border:1px solid var(--line);padding:16px;border-radius:4px;min-width:0}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 4px 4px 0}
+.callout.warn{border-color:var(--warn)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:7px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font:600 11.5px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--bg);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.code{font-family:var(--f-mono);font-size:12.5px;white-space:nowrap}
+.ex{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:140px}
+.dim{color:var(--muted)}
+.tag{font:500 11px var(--f-mono);background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:3px;white-space:nowrap}
+.bars{display:grid;gap:5px}
+.bar-row{display:grid;grid-template-columns:minmax(90px,38%) 1fr auto;gap:4px 10px;align-items:center;font-size:13px}
+.bar-lab{min-width:0;overflow-wrap:anywhere}
+.bar-track{height:12px;background:var(--bg);border-radius:2px;overflow:hidden}
+.bar-fill{display:block;height:100%;background:var(--accent)}
+.bar-val{font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:12px;text-align:right;min-width:52px}
+.bar-note{grid-column:2/4;font-size:11.5px;color:var(--muted);margin-top:-4px}
+.chart{width:100%;height:auto;display:block}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .ax{fill:var(--muted);font:11px var(--f-mono)}
+.chart .mk{fill:var(--warn)}
+.chart .mark{stroke:var(--warn);stroke-dasharray:4 4;stroke-width:1.5}
+.chart .ln{stroke-width:2.2;stroke-linejoin:round}
+.chart .s1{stroke:var(--new);fill:var(--new)} .chart .s4{stroke:var(--new-2);fill:var(--new-2)}
+.chart .s2{stroke:var(--old);fill:var(--old)} .chart .s3{stroke:var(--old-2);fill:var(--old-2)}
+.chart polyline.ln{fill:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend i{width:14px;height:3px;display:inline-block;border-radius:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:12.5px var(--f-mono);border:1px solid var(--line);background:var(--surface);padding:3px 8px;border-radius:3px}
+.chip b{font-weight:500;color:var(--accent-ink)}
+.samples{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px}
+.sample{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:14px;display:grid;gap:10px;min-width:0}
+.sample blockquote{margin:0;font-style:italic;font-size:14px}
+.sample figcaption{display:grid;gap:3px;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.sample figcaption b{font:500 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink);margin-right:4px}
+.impact{display:grid;gap:0;border-top:2px solid var(--ink)}
+.imp{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:6px 18px;padding:12px 0;border-bottom:1px solid var(--line)}
+.imp h3{margin:0;font-size:15px}
+.imp h3 small{display:block;font:500 11.5px var(--f-mono);color:var(--accent-ink);margin-top:2px}
+.imp div{display:grid;gap:6px;min-width:0}
+ul{margin:0;padding-left:20px;display:grid;gap:4px;max-width:70ch}
+.sev{font:600 11px var(--f-mono);padding:1px 6px;border-radius:3px;white-space:nowrap}
+.sev.h{background:var(--warn);color:var(--surface)} .sev.m{background:var(--accent);color:#1B2220} .sev.l{background:var(--line);color:var(--ink)}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);display:grid;gap:4px}
+@media (max-width:560px){.imp{grid-template-columns:1fr}.bar-row{grid-template-columns:minmax(80px,42%) 1fr auto}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="hazard" aria-hidden="true"></div>
+  <span class="eyebrow">AMD Hackathon ACT III · DarkSea28 · Veri keşfi · 14 Ekim 2026</span>
+  <h1>OSHA SIR Keşif Raporu</h1>
+  <p class="lede">OSHA'nın ağır iş kazası raporları (Severe Injury Reports): sütunlar, satırlar, kod sistemleri ve bunların S fikrinin (iş güvenliği olay asistanı) mimarisine etkisi.</p>
+  <div class="facts">
+    <div class="fact"><b>105.996</b><span>kayıt (satır)</span></div>
+    <div class="fact"><b>28</b><span>sütun</span></div>
+    <div class="fact"><b>34.472</b><span>imalat kaydı (%32,5)</span></div>
+    <div class="fact"><b>17.746</b><span>yeni kod sisteminde (2024+)</span></div>
+    <div class="fact"><b>5.481</b><span>imalat + yeni sistem</span></div>
+    <div class="fact"><b>31 kelime</b><span>ortanca anlatı uzunluğu</span></div>
+  </div>
+  <nav class="toc" aria-label="Bölümler">
+    <a href="#ozet">Özet</a><a href="#dosya">1 Dosya</a><a href="#sutun">2 Sütunlar</a><a href="#zaman">3 Zaman</a><a href="#kirilma">4 Kod kırılması</a><a href="#sektor">5 Sektör</a><a href="#anlati">6 Anlatı</a><a href="#hedef">7 Hedef kodlar</a><a href="#cografya">8 Coğrafya</a><a href="#kalite">9 Kalite</a><a href="#mimari">10 Mimariye etkisi</a>
+  </nav>
+</header>
+
+<section id="ozet">
+  <h2>Ana bulgular</h2>
+  <div class="findings">
+    <div class="finding"><i>1</i><p><b>Ocak 2024'te kod sistemi tek gecede değişiyor ve aynı numaralar başka anlama geliyor.</b> Yaralanma kodu 124 eskiden "fıtık", şimdi "kırık". Olay grubu 64 eskiden "makineye sıkışma", şimdi "düşen nesne çarpması". İki sistemi karıştıran her model ve her istatistik sessizce yanlış olur.</p></div>
+    <div class="finding"><i>2</i><p><b>Ürünün asıl sistemi olacak yeni sistemde imalat verisi az: 5.481 kayıt.</b> Tüm sektörlerde yeni sistemde 17.746 kayıt var. Eğitimde bütün sektörleri kullanıp değerlendirmeyi imalatta yapmak mantıklı.</p></div>
+    <div class="finding"><i>3</i><p><b>Yaralanma türü anlatının içinde açıkça yazıyor.</b> Ampütasyon bayrağı olan kayıtların %95,8'inde "amputat…" kelimesi geçiyor, olmayanların yalnızca %0,5'inde. Yaralanma türü ve vücut bölgesi kolay hedefler; olay ve kaynak zor hedefler. Güven katmanı en çok bu ikisinde iş görecek.</p></div>
+    <div class="finding"><i>4</i><p><b>Yeni sistemde iki haneli yaralanma grubu 12, kırık ile ampütasyonu birleştiriyor</b> (imalatta %72). İki hane düzeyinde "kırık mı, ampütasyon mu" ayrımı kayboluyor. Yaralanma türünde üç haneye inmek gerekiyor.</p></div>
+    <div class="finding"><i>5</i><p><b>Sınıflar çok dengesiz.</b> İmalatta olay türünün %44'ü tek bir grupta (çalışan makine), en sık 5 grup kayıtların %82'si. 16 olay grubunda 30'dan az örnek var. Nadir gruplar "diğer" altında toplanmalı ya da doğrudan insana bırakılmalı.</p></div>
+    <div class="finding"><i>6</i><p><b>Anlatılar kısa, kalıplı ve İngilizce</b> (ortanca 182 karakter). Ama yıllar içinde uzuyor: ortanca 2015'te 167, 2025'te 213 karakter. Kelime araması (BM25) benzer vaka bulmak için uygun; uzunluktaki kayma eğitim ve test arasında küçük bir dağılım farkı yaratıyor.</p></div>
+    <div class="finding"><i>7</i><p><b>Kişisel veri riski anlatıda düşük, diğer sütunlarda yüksek.</b> Anlatılarda "Mr./Ms. + isim" kalıbı hiç yok, işveren adı yalnızca %0,17'sinde geçiyor. İşveren adı, açık adres ve koordinat ise her satırda var; demoda bunlar hiç gösterilmemeli.</p></div>
+    <div class="finding"><i>8</i><p><b>Kayıtların yalnızca %33,5'inde OSHA denetim numarası var</b> (imalatta %46,7). "Önerilen standart, cezası kesilen standartla örtüşüyor mu" ölçümü en iyi ihtimalle bu alt kümede yapılabilir.</p></div>
+  </div>
+</section>
+
+<section id="dosya">
+  <h2><span class="no">01</span>Dosya ve kapsam</h2>
+  <div class="grid2">
+    <div>
+      <p>Kaynak osha.gov'daki <span class="code">January2015toNovember2025.zip</span> dosyası (15,5 MB). İçinde tek bir CSV var: 57,4 MB, UTF-8, 105.996 satır, 28 sütun. Okurken bozuk satır çıkmadı. Lisans durumu: ABD devlet eseri, telif yok.</p>
+      <p>Kapsam: işverenlerin 24 saat içinde OSHA'ya bildirmek zorunda olduğu <b>ağır</b> kazalar, yani hastaneye yatış, ampütasyon veya göz kaybı. Hafif yaralanmalar bu veride yok. Kendi eyalet planını uygulayan eyaletler de büyük ölçüde dışarıda; California gibi büyük eyaletlerin az kayıtla görünmesinin sebebi bu.</p>
+    </div>
+    <div class="callout">
+      <p><b>Satır = bir kaza raporu.</b> Her satırda serbest metin bir anlatı ve OSHA uzmanlarının bu anlatıya verdiği dört kod var: olay, kaynak, yaralanma türü, vücut bölgesi. Ürünün öğreneceği şey tam olarak bu eşleme: anlatı → kodlar.</p>
+    </div>
+  </div>
+</section>
+
+<section id="sutun">
+  <h2><span class="no">02</span>Sütun sözlüğü</h2>
+  <p>28 sütun altı role ayrılıyor. Modelin girdisi tek bir sütun (<span class="code">Final Narrative</span>). Hedefler dört kod sütunu; her kodun yanında bir başlık sütunu var. İşveren ve adres sütunlarındaki örnekler bu raporda gizlendi.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Sütun</th><th>Rol</th><th class="num">Tip</th><th class="num">Boş</th><th class="num">Farklı değer</th><th>Açıklama</th><th>Örnek</th></tr></thead>
+    <tbody><tr><td class="code">ID</td><td><span class="tag">Kimlik</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">105.991</td><td>OSHA rapor numarası (yıl+ay ile başlıyor). Benzersiz değil: 5 numara iki farklı olayda kullanılmış.</td><td class="ex">2015010021</td></tr><tr><td class="code">UPA</td><td><span class="tag">Kimlik</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">105.996</td><td>Kayıt anahtarı. Tek benzersiz sütun, birleştirme anahtarı olarak bu kullanılmalı.</td><td class="ex">929709</td></tr><tr><td class="code">EventDate</td><td><span class="tag">Zaman</span></td><td class="num">metin</td><td class="num">—</td><td class="num">3.985</td><td>Olay tarihi (ay/gün/yıl). Bozuk tarih yok. 1 Oca 2015 – 30 Kas 2025.</td><td class="ex">1/1/2015</td></tr><tr><td class="code">Employer</td><td><span class="tag">Kişisel/işveren</span></td><td class="num">metin</td><td class="num">—</td><td class="num">71.454</td><td>İşveren adı. Aynı firma farklı yazımlarla geçiyor. Demoda gösterilmez.</td><td class="ex"><span class="dim">gizlendi</span></td></tr><tr><td class="code">Address1</td><td><span class="tag">Yer</span></td><td class="num">metin</td><td class="num">—</td><td class="num">89.637</td><td>Açık adres. Demoda gösterilmez.</td><td class="ex"><span class="dim">gizlendi</span></td></tr><tr><td class="code">Address2</td><td><span class="tag">Yer</span></td><td class="num">metin</td><td class="num">%91,2</td><td class="num">8.355</td><td>Adres ek satırı. Büyük kısmı boş.</td><td class="ex"><span class="dim">gizlendi</span></td></tr><tr><td class="code">City</td><td><span class="tag">Yer</span></td><td class="num">metin</td><td class="num">—</td><td class="num">8.221</td><td>Şehir (büyük harf).</td><td class="ex">CAPE CORAL</td></tr><tr><td class="code">State</td><td><span class="tag">Yer</span></td><td class="num">metin</td><td class="num">—</td><td class="num">56</td><td>Eyalet (tam ad, büyük harf). 56 değer: 50 eyalet + DC + bölgeler (Guam, Porto Riko …).</td><td class="ex">FLORIDA</td></tr><tr><td class="code">Zip</td><td><span class="tag">Yer</span></td><td class="num">ondalık</td><td class="num">—</td><td class="num">14.398</td><td>Posta kodu, ondalık sayı olarak saklanmış: baştaki sıfırlar kayıp (ör. 07030 → 7030.0).</td><td class="ex">33909.0</td></tr><tr><td class="code">Latitude</td><td><span class="tag">Yer</span></td><td class="num">ondalık</td><td class="num">%0,1</td><td class="num">2.471</td><td>Enlem, 2 haneye yuvarlanmış (~1 km).</td><td class="ex">26.68</td></tr><tr><td class="code">Longitude</td><td><span class="tag">Yer</span></td><td class="num">ondalık</td><td class="num">%0,1</td><td class="num">4.831</td><td>Boylam, 2 haneye yuvarlanmış.</td><td class="ex">-81.91</td></tr><tr><td class="code">Primary NAICS</td><td><span class="tag">Sektör</span></td><td class="num">metin</td><td class="num">—</td><td class="num">1.287</td><td>İşyerinin sektör kodu (6 hane). 31–33 = imalat. 180 kayıtta kısa kod, 1 kayıtta "48-49", 2 boş.</td><td class="ex">444110</td></tr><tr><td class="code">Hospitalized</td><td><span class="tag">Sonuç</span></td><td class="num">ondalık</td><td class="num">—</td><td class="num">7</td><td>Hastaneye yatan kişi sayısı (0–6). 0 olan kayıtların neredeyse hepsi yalnızca ampütasyon.</td><td class="ex">1.0</td></tr><tr><td class="code">Amputation</td><td><span class="tag">Sonuç</span></td><td class="num">ondalık</td><td class="num">7 satır</td><td class="num">3</td><td>Ampütasyon yaşayan kişi sayısı (0–2). 7 satır boş; veri hattında 0 ile doldurulmalı.</td><td class="ex">0.0</td></tr><tr><td class="code">Loss of Eye</td><td><span class="tag">Sonuç</span></td><td class="num">ondalık</td><td class="num">5 satır</td><td class="num">2</td><td>Göz kaybı (0/1). Yalnızca 35 kayıt. 5 satır boş; veri hattında 0 ile doldurulmalı.</td><td class="ex">0.0</td></tr><tr><td class="code">Inspection</td><td><span class="tag">Denetim</span></td><td class="num">metin</td><td class="num">%66,5</td><td class="num">35.311</td><td>OSHA denetim numarası. Boşsa denetim yapılmamış. İhlal verisiyle birleştirmenin tek yolu.</td><td class="ex">1020547</td></tr><tr><td class="code">Final Narrative</td><td><span class="tag">Anlatı · girdi</span></td><td class="num">metin</td><td class="num">—</td><td class="num">105.930</td><td>Olayın serbest metin anlatısı, OSHA tarafından kişisel bilgiden arındırılmış. Modelin tek girdisi.</td><td class="ex">An employee was hospitalized after slippin…</td></tr><tr><td class="code">Nature</td><td><span class="tag">Hedef kod</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">251</td><td>Yaralanma türü kodu (OIICS). 1–4 hane, hiyerarşik.</td><td class="ex">1972</td></tr><tr><td class="code">NatureTitle</td><td><span class="tag">Hedef başlık</span></td><td class="num">metin</td><td class="num">—</td><td class="num">349</td><td>Yaralanma türü başlığı. Aynı kodun iki sistemde farklı başlığı var.</td><td class="ex">Soreness, pain, hurt-nonspecified injury</td></tr><tr><td class="code">Part of Body</td><td><span class="tag">Hedef kod</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">205</td><td>Vücut bölgesi kodu. Tek haneli "6 = Vücut sistemleri" de var.</td><td class="ex">422</td></tr><tr><td class="code">Part of Body Title</td><td><span class="tag">Hedef başlık</span></td><td class="num">metin</td><td class="num">—</td><td class="num">275</td><td>Vücut bölgesi başlığı.</td><td class="ex">Elbow(s)</td></tr><tr><td class="code">Event</td><td><span class="tag">Hedef kod</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">476</td><td>Olay türü kodu (ne oldu). Ürünün ana hedefi.</td><td class="ex">422</td></tr><tr><td class="code">EventTitle</td><td><span class="tag">Hedef başlık</span></td><td class="num">metin</td><td class="num">—</td><td class="num">649</td><td>Olay türü başlığı.</td><td class="ex">Fall on same level due to slipping </td></tr><tr><td class="code">Source</td><td><span class="tag">Hedef kod</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">1.489</td><td>Birincil kaynak kodu (neye bağlı: makine, zemin, forklift …). En çok sınıflı hedef.</td><td class="ex">660</td></tr><tr><td class="code">SourceTitle</td><td><span class="tag">Hedef başlık</span></td><td class="num">metin</td><td class="num">—</td><td class="num">1.957</td><td>Kaynak başlığı.</td><td class="ex">Floors, walkways, ground surfaces, unspeci…</td></tr><tr><td class="code">Secondary Source</td><td><span class="tag">Kod</span></td><td class="num">ondalık</td><td class="num">%52,2</td><td class="num">1.303</td><td>İkincil kaynak. Eski sistemde %63 boş; yeni sistemde her kayıtta dolu ama çoğu "uygulanamaz" (991).</td><td class="ex">9272.0</td></tr><tr><td class="code">Secondary Source Title</td><td><span class="tag">Kod</span></td><td class="num">metin</td><td class="num">%52,2</td><td class="num">1.662</td><td>İkincil kaynak başlığı.</td><td class="ex">High winds, gusts, turbulence</td></tr><tr><td class="code">FederalState</td><td><span class="tag">Yetki</span></td><td class="num">tam sayı</td><td class="num">—</td><td class="num">2</td><td>1 = federal OSHA bölgesi (%97,6). 0 = eyalet planı olan eyaletler (CA, VA, WA …), %2,4. Anlamı veri sözlüğünden teyit edilmeli.</td><td class="ex">1</td></tr></tbody>
+  </table></div>
+  <p class="dim">Kod yapısı: kodlar hiyerarşik ve baştaki sıfır yok. İlk hane bölüm, ilk iki hane grup, üç ve dört hane alt kırılımlar (ör. olay 6412 → grup 64 → alt grup 641). Vücut bölgesinde tek haneli "6 = Vücut sistemleri" kodu 4.940 kayıtta geçiyor.</p>
+</section>
+
+<section id="zaman">
+  <h2><span class="no">03</span>Zaman</h2>
+  <div class="grid2">
+    <div>
+      <h3>Yıllara göre kayıt</h3>
+      <div class="bars "><div class="bar-row"><div class="bar-lab">2015</div><div class="bar-track"><span class="bar-fill" style="width:88.1%"></span></div><div class="bar-val">9.823</div></div><div class="bar-row"><div class="bar-lab">2016</div><div class="bar-track"><span class="bar-fill" style="width:90.4%"></span></div><div class="bar-val">10.084</div></div><div class="bar-row"><div class="bar-lab">2017</div><div class="bar-track"><span class="bar-fill" style="width:93.6%"></span></div><div class="bar-val">10.445</div></div><div class="bar-row"><div class="bar-lab">2018</div><div class="bar-track"><span class="bar-fill" style="width:100.0%"></span></div><div class="bar-val">11.156</div></div><div class="bar-row"><div class="bar-lab">2019</div><div class="bar-track"><span class="bar-fill" style="width:99.2%"></span></div><div class="bar-val">11.071</div></div><div class="bar-row"><div class="bar-lab">2020</div><div class="bar-track"><span class="bar-fill" style="width:79.9%"></span></div><div class="bar-val">8.915</div></div><div class="bar-row"><div class="bar-lab">2021</div><div class="bar-track"><span class="bar-fill" style="width:78.0%"></span></div><div class="bar-val">8.703</div></div><div class="bar-row"><div class="bar-lab">2022</div><div class="bar-track"><span class="bar-fill" style="width:81.7%"></span></div><div class="bar-val">9.110</div></div><div class="bar-row"><div class="bar-lab">2023</div><div class="bar-track"><span class="bar-fill" style="width:80.2%"></span></div><div class="bar-val">8.943</div></div><div class="bar-row"><div class="bar-lab">2024</div><div class="bar-track"><span class="bar-fill" style="width:81.0%"></span></div><div class="bar-val">9.034</div></div><div class="bar-row"><div class="bar-lab">2025</div><div class="bar-track"><span class="bar-fill" style="width:78.1%"></span></div><div class="bar-val">8.712</div><div class="bar-note">11 ay</div></div></div>
+      <p class="dim">Yıllık 8.700–11.200 arası. 2018–2019 zirve, 2020–2021'de belirgin düşüş var (pandemi dönemine denk geliyor, sebebi veride yazmıyor). 2025 yalnızca Kasım sonuna kadar.</p>
+    </div>
+    <div>
+      <h3>Aylık kayıt sayısı</h3>
+      <div class="panel"><svg viewBox="0 0 720 230" class="chart" role="img"><line x1="46" x2="708" y1="200.0" y2="200.0" class="grid"/><text x="40" y="204.0" class="ax" text-anchor="end">0</text><line x1="46" x2="708" y1="153.0" y2="153.0" class="grid"/><text x="40" y="157.0" class="ax" text-anchor="end">300</text><line x1="46" x2="708" y1="106.0" y2="106.0" class="grid"/><text x="40" y="110.0" class="ax" text-anchor="end">600</text><line x1="46" x2="708" y1="59.0" y2="59.0" class="grid"/><text x="40" y="63.0" class="ax" text-anchor="end">900</text><line x1="46" x2="708" y1="12.0" y2="12.0" class="grid"/><text x="40" y="16.0" class="ax" text-anchor="end">1.200</text><text x="46.0" y="222" class="ax" text-anchor="middle">'15</text><text x="107.1" y="222" class="ax" text-anchor="middle">'16</text><text x="168.2" y="222" class="ax" text-anchor="middle">'17</text><text x="229.3" y="222" class="ax" text-anchor="middle">'18</text><text x="290.4" y="222" class="ax" text-anchor="middle">'19</text><text x="351.5" y="222" class="ax" text-anchor="middle">'20</text><text x="412.6" y="222" class="ax" text-anchor="middle">'21</text><text x="473.8" y="222" class="ax" text-anchor="middle">'22</text><text x="534.9" y="222" class="ax" text-anchor="middle">'23</text><text x="596.0" y="222" class="ax" text-anchor="middle">'24</text><text x="657.1" y="222" class="ax" text-anchor="middle">'25</text><line x1="596.0" x2="596.0" y1="12" y2="200" class="mark"/><text x="601.0" y="24" class="ax mk">Ocak 2024</text><polyline points="46.0,66.2 51.1,80.5 56.2,67.3 61.3,74.8 66.4,75.8 71.5,70.4 76.6,51.9 81.6,68.6 86.7,60.9 91.8,75.9 96.9,84.5 102.0,84.2 107.1,73.3 112.2,75.3 117.3,82.0 122.4,81.6 127.5,84.5 132.6,55.1 137.7,52.4 142.8,31.9 147.8,60.4 152.9,66.2 158.0,74.0 163.1,83.4 168.2,67.8 173.3,75.1 178.4,59.3 183.5,75.3 188.6,66.7 193.7,51.6 198.8,44.4 203.9,48.0 209.0,68.6 214.0,57.6 219.1,75.8 224.2,73.4 229.3,57.3 234.4,70.0 239.5,61.3 244.6,63.2 249.7,45.4 254.8,38.2 259.9,34.7 265.0,33.5 270.1,67.6 275.2,47.6 280.2,59.9 285.3,73.6 290.4,46.9 295.5,61.5 300.6,56.0 305.7,62.8 310.8,58.8 315.9,59.9 321.0,37.1 326.1,41.3 331.2,46.2 336.3,47.2 341.4,73.6 346.4,74.2 351.5,63.7 356.6,77.2 361.7,83.8 366.8,106.5 371.9,94.4 377.0,73.9 382.1,78.4 387.2,78.0 392.3,71.2 397.4,74.8 402.5,99.9 407.6,101.6 412.6,99.0 417.7,75.3 422.8,85.3 427.9,87.5 433.0,93.2 438.1,74.7 443.2,76.2 448.3,84.5 453.4,88.6 458.5,85.8 463.6,91.4 468.7,95.0 473.8,91.4 478.8,80.5 483.9,65.1 489.0,90.8 494.1,79.1 499.2,66.4 504.3,78.9 509.4,65.9 514.5,90.5 519.6,85.3 524.7,85.6 529.8,93.3 534.9,78.9 540.0,89.1 545.0,81.6 550.1,83.3 555.2,88.8 560.3,77.2 565.4,74.0 570.5,72.2 575.6,80.6 580.7,78.0 585.8,89.9 590.9,105.5 596.0,78.7 601.1,92.8 606.2,90.6 611.2,89.9 616.3,75.0 621.4,73.6 626.5,69.7 631.6,67.3 636.7,81.4 641.8,77.2 646.9,97.2 652.0,91.3 657.1,77.0 662.2,88.6 667.3,74.8 672.4,79.7 677.4,75.0 682.5,66.5 687.6,55.1 692.7,70.3 697.8,75.0 702.9,79.4 708.0,93.8" class="ln s1" fill="none"/><circle cx="708.0" cy="93.8" r="3" class="dot s1"/></svg></div>
+      <p class="dim">Aylık seri düzgün, eksik ay yok. Kesikli çizgi kod sisteminin değiştiği ay. Kayıt sayısında kırılma yok: sadece kodlamanın anlamı değişiyor.</p>
+    </div>
+  </div>
+</section>
+
+<section id="kirilma">
+  <h2><span class="no">04</span>Kod sistemi kırılması (Ocak 2024)</h2>
+  <p>OSHA 1 Ocak 2024'ten itibaren olayları OIICS'in yeni sürümüyle kodluyor. Geçiş kademeli değil: Aralık 2023 ile Ocak 2024 arasında grup payları bir gecede yer değiştiriyor. Aşağıdaki grafik tüm sektörlerde dört olay grubunun aylık payını gösteriyor.</p>
+  <div class="panel">
+    <svg viewBox="0 0 720 230" class="chart" role="img"><line x1="46" x2="708" y1="200.0" y2="200.0" class="grid"/><text x="40" y="204.0" class="ax" text-anchor="end">%0</text><line x1="46" x2="708" y1="153.0" y2="153.0" class="grid"/><text x="40" y="157.0" class="ax" text-anchor="end">%8</text><line x1="46" x2="708" y1="106.0" y2="106.0" class="grid"/><text x="40" y="110.0" class="ax" text-anchor="end">%15</text><line x1="46" x2="708" y1="59.0" y2="59.0" class="grid"/><text x="40" y="63.0" class="ax" text-anchor="end">%22</text><line x1="46" x2="708" y1="12.0" y2="12.0" class="grid"/><text x="40" y="16.0" class="ax" text-anchor="end">%30</text><text x="46.0" y="222" class="ax" text-anchor="middle">23/01</text><text x="74.8" y="222" class="ax" text-anchor="middle"></text><text x="103.6" y="222" class="ax" text-anchor="middle"></text><text x="132.3" y="222" class="ax" text-anchor="middle"></text><text x="161.1" y="222" class="ax" text-anchor="middle"></text><text x="189.9" y="222" class="ax" text-anchor="middle"></text><text x="218.7" y="222" class="ax" text-anchor="middle">23/07</text><text x="247.5" y="222" class="ax" text-anchor="middle"></text><text x="276.3" y="222" class="ax" text-anchor="middle"></text><text x="305.0" y="222" class="ax" text-anchor="middle"></text><text x="333.8" y="222" class="ax" text-anchor="middle"></text><text x="362.6" y="222" class="ax" text-anchor="middle"></text><text x="391.4" y="222" class="ax" text-anchor="middle">24/01</text><text x="420.2" y="222" class="ax" text-anchor="middle"></text><text x="449.0" y="222" class="ax" text-anchor="middle"></text><text x="477.7" y="222" class="ax" text-anchor="middle"></text><text x="506.5" y="222" class="ax" text-anchor="middle"></text><text x="535.3" y="222" class="ax" text-anchor="middle"></text><text x="564.1" y="222" class="ax" text-anchor="middle">24/07</text><text x="592.9" y="222" class="ax" text-anchor="middle"></text><text x="621.7" y="222" class="ax" text-anchor="middle"></text><text x="650.4" y="222" class="ax" text-anchor="middle"></text><text x="679.2" y="222" class="ax" text-anchor="middle"></text><text x="708.0" y="222" class="ax" text-anchor="middle"></text><line x1="391.4" x2="391.4" y1="12" y2="200" class="mark"/><text x="396.4" y="24" class="ax mk">Ocak 2024</text><polyline points="46.0,89.7 74.8,99.1 103.6,87.8 132.3,67.1 161.1,101.0 189.9,87.2 218.7,101.0 247.5,73.4 276.3,92.2 305.0,80.9 333.8,98.5 362.6,106.6 391.4,195.0 420.2,196.2 449.0,193.7 477.7,195.6 506.5,194.4 535.3,191.2 564.1,195.0 592.9,191.9 621.7,192.5 650.4,191.9 679.2,196.9 708.0,198.1" class="ln s2" fill="none"/><circle cx="708.0" cy="198.1" r="3" class="dot s2"/><polyline points="46.0,84.7 74.8,106.0 103.6,108.5 132.3,130.4 161.1,126.7 189.9,127.9 218.7,123.5 247.5,149.9 276.3,144.9 305.0,137.3 333.8,120.4 362.6,95.3 391.4,192.5 420.2,188.7 449.0,191.9 477.7,189.3 506.5,198.1 535.3,192.5 564.1,196.2 592.9,195.6 621.7,195.6 650.4,193.7 679.2,195.0 708.0,192.5" class="ln s3" fill="none"/><circle cx="708.0" cy="192.5" r="3" class="dot s3"/><polyline points="46.0,196.9 74.8,200.0 103.6,198.1 132.3,197.5 161.1,198.1 189.9,198.1 218.7,199.4 247.5,200.0 276.3,198.1 305.0,198.1 333.8,198.1 362.6,200.0 391.4,34.6 420.2,52.7 449.0,53.4 477.7,58.4 506.5,37.7 535.3,57.7 564.1,76.5 592.9,48.3 621.7,47.7 650.4,50.2 679.2,50.2 708.0,50.2" class="ln s1" fill="none"/><circle cx="708.0" cy="50.2" r="3" class="dot s1"/><polyline points="46.0,196.2 74.8,197.5 103.6,199.4 132.3,199.4 161.1,195.0 189.9,199.4 218.7,196.9 247.5,198.7 276.3,199.4 305.0,198.1 333.8,198.1 362.6,196.9 391.4,107.9 420.2,96.6 449.0,82.2 477.7,97.2 506.5,82.8 535.3,93.5 564.1,82.2 592.9,85.9 621.7,87.2 650.4,84.7 679.2,74.7 708.0,78.4" class="ln s4" fill="none"/><circle cx="708.0" cy="78.4" r="3" class="dot s4"/></svg>
+    <div class="legend" style="margin-top:8px">
+      <span><i style="background:var(--old)"></i>62 (eski: nesne çarpması)</span>
+      <span><i style="background:var(--old-2)"></i>42 (eski: aynı seviyede düşme)</span>
+      <span><i style="background:var(--new)"></i>65 (yeni: çalışan makine parçası)</span>
+      <span><i style="background:var(--new-2)"></i>41 (yeni: alt seviyeye düşme)</span>
+    </div>
+  </div>
+  <div class="grid2">
+    <div>
+      <h3>Aynı numara, farklı anlam</h3>
+      <div class="tbl"><table><thead><tr><th>Kod tipi</th><th>No</th><th>2015–2023</th><th>2024+</th></tr></thead><tbody><tr><td>Nature</td><td class="code">124</td><td>Fıtık (travmatik)</td><td>Kırık</td></tr><tr><td>Nature</td><td class="code">133</td><td>Delici yara</td><td>Sıyrık</td></tr><tr><td>Nature</td><td class="code">134</td><td>Ateşli silah yarası</td><td>Ezik, morluk</td></tr><tr><td>Event</td><td class="code">129</td><td>Kişi kaynaklı yaralanma, kasıtsız (diğer)</td><td>Kasıtlı kendine zarar (diğer)</td></tr><tr><td>Event</td><td class="code">64x</td><td>Makineye sıkışma/ezilme</td><td>Düşen nesne çarpması</td></tr><tr><td>Source</td><td class="code">139</td><td>Halojenler ve bileşikleri</td><td>Yanıcı sıvı ve katılar</td></tr><tr><td>Source</td><td class="code">150</td><td>Tarım ilaçları</td><td>İlaçlar</td></tr><tr><td>Part of Body</td><td class="code">21</td><td>Boyun içi</td><td>Boynun dış ve kas-iskelet yapısı</td></tr></tbody></table></div>
+    </div>
+    <div>
+      <h3>Ölçek</h3>
+      <ul>
+        <li>İki sistemde de geçen kodların başlıkları karşılaştırıldı. Noktalama ve boşluk farkı ayıklandıktan sonra <b>başlığı değişen</b> kod sayıları: olay 113 kodun 96'sı, yaralanma 70'in 54'ü, vücut bölgesi 49'un 17'si, kaynak 398'in 297'si.</li>
+        <li>Bunların bir kısmı yalnızca yeniden adlandırma ("Transportation incident" → "Transportation incidents"), bir kısmı tamamen başka bir kavram (124 fıtık → kırık). Hangisinin hangisi olduğunu tek tek ayırmak yerine iki sistemi hiç karıştırmamak daha güvenli.</li>
+        <li>İkincil kaynak alanı da değişmiş: eskiden %63'ü boştu, yenide her kayıtta dolu ama %32,5'i "uygulanamaz" (991).</li>
+      </ul>
+      <div class="callout warn"><p><b>Sonuç:</b> Kodlar ancak "sistem + numara" çiftiyle anlamlı. Hiçbir tablo, model ya da grafik iki sistemi birleştirmemeli.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sektor">
+  <h2><span class="no">05</span>Sektör ve sonuçlar</h2>
+  <div class="grid2">
+    <div>
+      <h3>En çok kayıt veren sektörler (NAICS 2 hane)</h3>
+      <div class="bars "><div class="bar-row"><div class="bar-lab"><span class="code">23</span> İnşaat</div><div class="bar-track"><span class="bar-fill" style="width:100.0%"></span></div><div class="bar-val">19.021</div><div class="bar-note">ampütasyon %15,4</div></div><div class="bar-row"><div class="bar-lab"><span class="code">33</span> İmalat (metal, makine, araç)</div><div class="bar-track"><span class="bar-fill" style="width:84.6%"></span></div><div class="bar-val">16.089</div><div class="bar-note">ampütasyon %44,9</div></div><div class="bar-row"><div class="bar-lab"><span class="code">32</span> İmalat (ahşap, kâğıt, kimya, plastik)</div><div class="bar-track"><span class="bar-fill" style="width:57.7%"></span></div><div class="bar-val">10.982</div><div class="bar-note">ampütasyon %43,2</div></div><div class="bar-row"><div class="bar-lab"><span class="code">31</span> İmalat (gıda, tekstil)</div><div class="bar-track"><span class="bar-fill" style="width:38.9%"></span></div><div class="bar-val">7.401</div><div class="bar-note">ampütasyon %46,4</div></div><div class="bar-row"><div class="bar-lab"><span class="code">42</span> Toptan ticaret</div><div class="bar-track"><span class="bar-fill" style="width:32.2%"></span></div><div class="bar-val">6.121</div><div class="bar-note">ampütasyon %26,2</div></div><div class="bar-row"><div class="bar-lab"><span class="code">56</span> İdari ve destek hizmetleri</div><div class="bar-track"><span class="bar-fill" style="width:31.1%"></span></div><div class="bar-val">5.910</div><div class="bar-note">ampütasyon %19,5</div></div><div class="bar-row"><div class="bar-lab"><span class="code">44</span> Perakende</div><div class="bar-track"><span class="bar-fill" style="width:28.7%"></span></div><div class="bar-val">5.455</div><div class="bar-note">ampütasyon %20,3</div></div><div class="bar-row"><div class="bar-lab"><span class="code">62</span> Sağlık ve sosyal hizmet</div><div class="bar-track"><span class="bar-fill" style="width:26.4%"></span></div><div class="bar-val">5.018</div><div class="bar-note">ampütasyon %7,1</div></div><div class="bar-row"><div class="bar-lab"><span class="code">48</span> Taşımacılık</div><div class="bar-track"><span class="bar-fill" style="width:25.0%"></span></div><div class="bar-val">4.749</div><div class="bar-note">ampütasyon %16,6</div></div><div class="bar-row"><div class="bar-lab"><span class="code">49</span> Kurye ve depolama</div><div class="bar-track"><span class="bar-fill" style="width:24.4%"></span></div><div class="bar-val">4.632</div><div class="bar-note">ampütasyon %13,6</div></div><div class="bar-row"><div class="bar-lab"><span class="code">21</span> Madencilik, petrol</div><div class="bar-track"><span class="bar-fill" style="width:14.9%"></span></div><div class="bar-val">2.843</div><div class="bar-note">ampütasyon %29,7</div></div><div class="bar-row"><div class="bar-lab"><span class="code">45</span> Perakende (diğer)</div><div class="bar-track"><span class="bar-fill" style="width:14.0%"></span></div><div class="bar-val">2.656</div><div class="bar-note">ampütasyon %12,8</div></div></div>
+      <p class="dim">İnşaat tek başına en büyük sektör, ama üç imalat kodu (31, 32, 33) toplamda 34.472 kayıtla daha büyük. İmalatta kayıtların yaklaşık %45'i ampütasyon; inşaatta %15, sağlıkta %7.</p>
+    </div>
+    <div>
+      <h3>İmalat alt sektörleri (NAICS 3 hane)</h3>
+      <div class="bars "><div class="bar-row"><div class="bar-lab"><span class="code">311</span> Gıda</div><div class="bar-track"><span class="bar-fill" style="width:100.0%"></span></div><div class="bar-val">6.430</div><div class="bar-note">ampütasyon %47,5</div></div><div class="bar-row"><div class="bar-lab"><span class="code">332</span> Metal ürünler</div><div class="bar-track"><span class="bar-fill" style="width:80.3%"></span></div><div class="bar-val">5.163</div><div class="bar-note">ampütasyon %48,3</div></div><div class="bar-row"><div class="bar-lab"><span class="code">336</span> Ulaşım araçları</div><div class="bar-track"><span class="bar-fill" style="width:45.2%"></span></div><div class="bar-val">2.909</div><div class="bar-note">ampütasyon %38,6</div></div><div class="bar-row"><div class="bar-lab"><span class="code">333</span> Makine</div><div class="bar-track"><span class="bar-fill" style="width:41.5%"></span></div><div class="bar-val">2.670</div><div class="bar-note">ampütasyon %45,7</div></div><div class="bar-row"><div class="bar-lab"><span class="code">331</span> Ana metal</div><div class="bar-track"><span class="bar-fill" style="width:41.0%"></span></div><div class="bar-val">2.638</div><div class="bar-note">ampütasyon %40,4</div></div><div class="bar-row"><div class="bar-lab"><span class="code">321</span> Ahşap ürünler</div><div class="bar-track"><span class="bar-fill" style="width:40.5%"></span></div><div class="bar-val">2.604</div><div class="bar-note">ampütasyon %50,4</div></div><div class="bar-row"><div class="bar-lab"><span class="code">326</span> Plastik ve kauçuk</div><div class="bar-track"><span class="bar-fill" style="width:37.4%"></span></div><div class="bar-val">2.404</div><div class="bar-note">ampütasyon %50,2</div></div><div class="bar-row"><div class="bar-lab"><span class="code">325</span> Kimya</div><div class="bar-track"><span class="bar-fill" style="width:29.8%"></span></div><div class="bar-val">1.913</div><div class="bar-note">ampütasyon %32,8</div></div><div class="bar-row"><div class="bar-lab"><span class="code">327</span> Mineral ürünler (cam, beton)</div><div class="bar-track"><span class="bar-fill" style="width:26.4%"></span></div><div class="bar-val">1.699</div><div class="bar-note">ampütasyon %37,2</div></div><div class="bar-row"><div class="bar-lab"><span class="code">322</span> Kâğıt</div><div class="bar-track"><span class="bar-fill" style="width:23.1%"></span></div><div class="bar-val">1.488</div><div class="bar-note">ampütasyon %44,2</div></div></div>
+      <p class="dim">Gıda ve metal ürünler en büyük iki alt sektör. Ahşap ve plastikte kazaların yarısı ampütasyon.</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Sonuç sütunları</h3>
+      <div class="tbl" style="border:0"><table>
+        <thead><tr><th>Sütun</th><th class="num">0</th><th class="num">1</th><th class="num">2+</th><th class="num">Boş</th></tr></thead>
+        <tbody>
+          <tr><td>Hastaneye yatış</td><td class="num">20.155</td><td class="num">85.196</td><td class="num">645</td><td class="num">0</td></tr>
+          <tr><td>Ampütasyon</td><td class="num">78.028</td><td class="num">27.944</td><td class="num">17</td><td class="num">7</td></tr>
+          <tr><td>Göz kaybı</td><td class="num">105.956</td><td class="num">35</td><td class="num">0</td><td class="num">5</td></tr>
+        </tbody></table></div>
+    </div>
+    <div>
+      <ul>
+        <li>Sütunlar evet/hayır değil, kişi sayısı. Hastaneye yatışta 6 kişiye kadar çıkan çok kişili olaylar var (ör. helikopter düşmesi, basınçlı boru patlaması).</li>
+        <li>Hastaneye yatış 0 olan kayıtların %99,97'si ampütasyon: hastaneye yatırılmadan ayakta tedavi edilen ampütasyonlar.</li>
+        <li>Bu sütunlar anlatıdan neredeyse birebir okunabiliyor (bkz. 6. bölüm), bu yüzden "ciddiyet tahmini" bir ürün iddiası olarak zayıf. Arayüzde ciddiyet etiketi olarak gösterilebilir.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="anlati">
+  <h2><span class="no">06</span>Anlatı metni (modelin girdisi)</h2>
+  <div class="grid2">
+    <div>
+      <h3>Uzunluk dağılımı</h3>
+      <div class="bars "><div class="bar-row"><div class="bar-lab">0–50 kr</div><div class="bar-track"><span class="bar-fill" style="width:1.2%"></span></div><div class="bar-val">336</div></div><div class="bar-row"><div class="bar-lab">50–100 kr</div><div class="bar-track"><span class="bar-fill" style="width:31.5%"></span></div><div class="bar-val">8.981</div></div><div class="bar-row"><div class="bar-lab">100–150 kr</div><div class="bar-track"><span class="bar-fill" style="width:88.8%"></span></div><div class="bar-val">25.290</div></div><div class="bar-row"><div class="bar-lab">150–200 kr</div><div class="bar-track"><span class="bar-fill" style="width:100.0%"></span></div><div class="bar-val">28.472</div></div><div class="bar-row"><div class="bar-lab">200–250 kr</div><div class="bar-track"><span class="bar-fill" style="width:68.5%"></span></div><div class="bar-val">19.494</div></div><div class="bar-row"><div class="bar-lab">250–300 kr</div><div class="bar-track"><span class="bar-fill" style="width:38.1%"></span></div><div class="bar-val">10.846</div></div><div class="bar-row"><div class="bar-lab">300–400 kr</div><div class="bar-track"><span class="bar-fill" style="width:31.1%"></span></div><div class="bar-val">8.843</div></div><div class="bar-row"><div class="bar-lab">400–600 kr</div><div class="bar-track"><span class="bar-fill" style="width:11.6%"></span></div><div class="bar-val">3.290</div></div><div class="bar-row"><div class="bar-lab">600+ kr</div><div class="bar-track"><span class="bar-fill" style="width:1.6%"></span></div><div class="bar-val">444</div></div></div>
+      <p class="dim">Ortalama 199, ortanca 182 karakter; ortanca 31, ortalama 35 kelime. En uzunu 2.134 karakter. 40 karakterden kısa 94 anlatı var ("Forklift Incident." gibi).</p>
+    </div>
+    <div>
+      <h3>Yıllara göre ortanca uzunluk</h3>
+      <div class="bars "><div class="bar-row"><div class="bar-lab">2015</div><div class="bar-track"><span class="bar-fill" style="width:72.6%"></span></div><div class="bar-val">167 kr</div></div><div class="bar-row"><div class="bar-lab">2016</div><div class="bar-track"><span class="bar-fill" style="width:73.5%"></span></div><div class="bar-val">169 kr</div></div><div class="bar-row"><div class="bar-lab">2017</div><div class="bar-track"><span class="bar-fill" style="width:74.8%"></span></div><div class="bar-val">172 kr</div></div><div class="bar-row"><div class="bar-lab">2018</div><div class="bar-track"><span class="bar-fill" style="width:76.5%"></span></div><div class="bar-val">176 kr</div></div><div class="bar-row"><div class="bar-lab">2019</div><div class="bar-track"><span class="bar-fill" style="width:76.1%"></span></div><div class="bar-val">175 kr</div></div><div class="bar-row"><div class="bar-lab">2020</div><div class="bar-track"><span class="bar-fill" style="width:77.4%"></span></div><div class="bar-val">178 kr</div></div><div class="bar-row"><div class="bar-lab">2021</div><div class="bar-track"><span class="bar-fill" style="width:78.3%"></span></div><div class="bar-val">180 kr</div></div><div class="bar-row"><div class="bar-lab">2022</div><div class="bar-track"><span class="bar-fill" style="width:80.4%"></span></div><div class="bar-val">185 kr</div></div><div class="bar-row"><div class="bar-lab">2023</div><div class="bar-track"><span class="bar-fill" style="width:83.9%"></span></div><div class="bar-val">193 kr</div></div><div class="bar-row"><div class="bar-lab">2024</div><div class="bar-track"><span class="bar-fill" style="width:85.7%"></span></div><div class="bar-val">197 kr</div></div><div class="bar-row"><div class="bar-lab">2025</div><div class="bar-track"><span class="bar-fill" style="width:92.6%"></span></div><div class="bar-val">213 kr</div></div></div>
+      <p class="dim">Anlatılar her yıl biraz daha uzun ve ayrıntılı. Yeni sistemle eğitilen model, eskiye göre daha zengin metin görecek.</p>
+    </div>
+  </div>
+  <h3>İmalat anlatılarında en sık kelimeler</h3>
+  <div class="chips"><span class="chip">machine <b>11.973</b></span><span class="chip">finger <b>11.692</b></span><span class="chip">hand <b>9.154</b></span><span class="chip">caught <b>8.162</b></span><span class="chip">fell <b>6.898</b></span><span class="chip">amputation <b>6.683</b></span><span class="chip">amputated <b>6.418</b></span><span class="chip">between <b>6.121</b></span><span class="chip">fingertip <b>5.779</b></span><span class="chip">index <b>5.019</b></span><span class="chip">hospitalized <b>4.966</b></span><span class="chip">middle <b>4.881</b></span><span class="chip">using <b>3.633</b></span><span class="chip">fingers <b>3.436</b></span><span class="chip">ring <b>3.347</b></span><span class="chip">causing <b>3.234</b></span><span class="chip">struck <b>3.155</b></span><span class="chip">forklift <b>3.047</b></span></div>
+  <p class="dim">Yaygın bağlaçlar, "employee" ve sağ/sol çıkarıldı. Kelime dağarcığı dar ve kalıplı: makine, parmak, el, sıkışma, düşme. Kelime tabanlı bir model ve BM25 araması için iyi bir zemin.</p>
+
+  <h3>Etiket anlatıda yazıyor mu?</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Kelime</th><th>Etiket</th><th class="num">Etiket varken kelime geçiyor</th><th class="num">Kelime geçiyorsa etiket doğru</th></tr></thead>
+    <tbody>
+      <tr><td class="code">amputat…</td><td>Ampütasyon bayrağı</td><td class="num">%95,8</td><td class="num">bayraksızda %0,5</td></tr>
+      <tr><td class="code">amputat…</td><td>Yaralanma = ampütasyon</td><td class="num">%96,2</td><td class="num">%99,0</td></tr>
+      <tr><td class="code">burn…</td><td>Yaralanma = yanık</td><td class="num">%98,1</td><td class="num">%96,2</td></tr>
+      <tr><td class="code">fractur…</td><td>Yaralanma = kırık</td><td class="num">%57,0</td><td class="num">%92,1</td></tr>
+      <tr><td class="code">hospital…</td><td>Hastaneye yatış bayrağı</td><td class="num">%31,6</td><td class="num">yatışsızda %1,3</td></tr>
+    </tbody></table></div>
+  <p>Yaralanma türü çoğu zaman anlatıda adıyla yazıyor; bu yüzden yaralanma türü ve vücut bölgesinde doğruluk yüksek (testte 0,93 ve 0,89). Olay ve kaynak ise yorum gerektiriyor ("sıkışma mı, çarpma mı", "makine mi, makine parçası mı"); asıl zorluk ve asıl değer orada.</p>
+  <ul>
+    <li>Anlatıların %9,5'inde tarih geçiyor. Bu bilgi sızıntı sayılmaz ama zamana göre bölmede modelin tarih kelimelerini ezberlemesine yol açabilir; tarihler temizlenmeli.</li>
+    <li>"He/his" anlatıların %40'ında, "she/her" %8'inde geçiyor; çalışan cinsiyeti modele dolaylı olarak giriyor, ürün kararlarında kullanılmamalı.</li>
+    <li>40 jenerik anlatı birden çok kez geçiyor ve toplam 106 satır tutuyor ("An employee fell from a ladder." 6 kez geçiyor). Her metnin tek kopyası bırakılırsa 66 satır düşer. Benzer vaka indeksinde tekrar kalmamalı, yoksa her aramada çıkarlar.</li>
+  </ul>
+  <h3>Örnek kayıtlar (imalat, yeni sistem, rastgele)</h3>
+  <div class="samples"><figure class="sample"><blockquote>On April 14, 2025, employees were on a roof putting metal decking on the roof. Their fall protection (yo-yo lanyards) became entangled. One employee disconnected the cord to untangle the lines and he fell approximately 10 feet from the lowest point of the roof to the ground. The employee sustained two fractured ribs and bruising to his side.</blockquote><figcaption><span><b>Olay</b> 4142 · Other fall to lower level, 6 to 30 feet</span><span><b>Kaynak</b> 6532 · Roof surface</span><span><b>Yaralanma</b> 124 · Fractures</span><span><b>Bölge</b> 3112 · Rib(s), oblique area</span></figcaption></figure><figure class="sample"><blockquote>An employee picked up a short stack of material to put blocks underneath when a stack of steel material that was being lifted by a forklift shifted and fell on the employee&#x27;s ankles. The employee sustained a fractured ankle and a torn Archilles tendon that required surgery.</blockquote><figcaption><span><b>Olay</b> 6439 · Struck by other falling object, n.e.c.</span><span><b>Kaynak</b> 2149 · Variable restraint containers, n.e.c.</span><span><b>Yaralanma</b> 1824 · Fractures and soft tissue injuries</span><span><b>Bölge</b> 53 · Ankle(s)</span></figcaption></figure><figure class="sample"><blockquote>An employee was operating a honey roaster. The employee loaded a basket of ingredients to lower into the roasting kettle. There was slack in the hoisting chain, and the employee reached around the roaster&#x27;s plexiglass guard to move the basket into the kettle. The employee was splashed with oil, resulting in second-degree burns to their arm, calf, and abdomen.</blockquote><figcaption><span><b>Olay</b> 533 · Contact with hot objects or substances</span><span><b>Kaynak</b> 5221 · Fats, oils, cooking greases</span><span><b>Yaralanma</b> 1522 · Thermal burns, second degree</span><span><b>Bölge</b> 899 · Multiple body parts, n.e.c.</span></figcaption></figure><figure class="sample"><blockquote>An employee was clearing a jam on a de-nesting machine when the machine&#x27;s conveyor amputated their left index fingertip.</blockquote><figcaption><span><b>Olay</b> 652 · Struck by running powered equipment, during maintenance, cleaning, testing</span><span><b>Kaynak</b> 3479 · Material handling and warehousing machinery, n.e.c.</span><span><b>Yaralanma</b> 1220 · Amputations, avulsions, enucleations, unspecified</span><span><b>Bölge</b> 4421 · Finger or thumb tip(s), nail(s)</span></figcaption></figure></div>
+</section>
+
+<section id="hedef">
+  <h2><span class="no">07</span>Hedef kodlar</h2>
+  <p>Tabloda her hücre "eski sistem / yeni sistem" şeklinde. Değerlendirme imalatta yapılıyor: eski sistemde 2015–2023 (28.991 kayıt), yeni sistemde 2024–Kasım 2025 (5.481 kayıt).</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Hedef</th><th class="num">Tam kod sayısı</th><th class="num">2 haneli grup</th><th class="num">En büyük grup payı</th><th class="num">İlk 5 grup payı</th><th class="num">&lt;30 örnekli grup</th></tr></thead>
+    <tbody><tr><td>Olay (Event)</td><td class="num">268 / 151</td><td class="num">41 / 30</td><td class="num">%46,0 / %44,4</td><td class="num">%81,0 / %81,6</td><td class="num">18 / 16</td></tr><tr><td>Kaynak (Source)</td><td class="num">827 / 519</td><td class="num">73 / 62</td><td class="num">%20,3 / %21,9</td><td class="num">%54,0 / %54,2</td><td class="num">25 / 37</td></tr><tr><td>Yaralanma türü (Nature)</td><td class="num">133 / 77</td><td class="num">20 / 16</td><td class="num">%52,3 / %72,0</td><td class="num">%93,6 / %95,1</td><td class="num">10 / 7</td></tr><tr><td>Vücut bölgesi (Part of Body)</td><td class="num">113 / 111</td><td class="num">38 / 34</td><td class="num">%52,7 / %51,6</td><td class="num">%73,8 / %72,2</td><td class="num">10 / 12</td></tr></tbody>
+  </table></div>
+  <ul>
+    <li><b>Kaynak en zor hedef:</b> 62 grup ve 519 tam kod; ilk 5 grup kayıtların yalnızca %54'ü; 37 grupta 30'dan az örnek. Önceki testte 0,66 doğruluk almasının sebebi bu.</li>
+    <li>Başlıkta "unspecified" (belirtilmemiş) geçen kayıtlar: olay %21,7, kaynak %23,5, vücut bölgesi %23,3. Bunların çoğu grup düzeyinde yine bilgi taşıyor; grup düzeyinde tamamen belirsiz olan olay kayıtları yalnızca %2–3.</li>
+  </ul>
+  <div class="grid2">
+    <div><h3>Olay grupları · yeni sistem · imalat</h3><div class="tbl"><table><thead><tr><th>Grup</th><th class="num">Kayıt</th><th class="num">Pay</th><th>Gruptaki en sık iki alt kod (kayıt)</th></tr></thead><tbody><tr><td class="code">65</td><td class="num">2.436</td><td class="num">%44,4</td><td>Struck by running powered equipment, during maintenance, cleaning, testing <span class="dim">(1.130)</span> · Caught, entangled in running powered equipment, normal operation <span class="dim">(853)</span></td></tr><tr><td class="code">64</td><td class="num">726</td><td class="num">%13,2</td><td>Struck by other falling object, n.e.c. <span class="dim">(272)</span> · Struck by suspended or swinging objects, n.e.c. <span class="dim">(78)</span></td></tr><tr><td class="code">41</td><td class="num">471</td><td class="num">%8,6</td><td>Other fall to lower level, unspecified <span class="dim">(154)</span> · Other fall to lower level, less than 6 feet <span class="dim">(135)</span></td></tr><tr><td class="code">66</td><td class="num">438</td><td class="num">%8,0</td><td>Caught or wedged between objects, nonrunning <span class="dim">(220)</span> · Injured by object held or wielded by person <span class="dim">(71)</span></td></tr><tr><td class="code">43</td><td class="num">402</td><td class="num">%7,3</td><td>Fall on same level due to slip or trip <span class="dim">(278)</span> · Fall on same level, n.e.c. <span class="dim">(51)</span></td></tr><tr><td class="code">53</td><td class="num">245</td><td class="num">%4,5</td><td>Contact with hot objects or substances <span class="dim">(175)</span> · Exposure to environmental heat, indoor <span class="dim">(28)</span></td></tr><tr><td class="code">27</td><td class="num">155</td><td class="num">%2,8</td><td>Collision with stationary object, nonroadway <span class="dim">(72)</span> · Nonroadway noncollision, vehicle overturn <span class="dim">(17)</span></td></tr><tr><td class="code">25</td><td class="num">127</td><td class="num">%2,3</td><td>Pedestrian struck by vehicle in nonroadway area, unspecified <span class="dim">(39)</span> · Pedestrian struck by vehicle backing up in nonroadway area <span class="dim">(33)</span></td></tr></tbody></table></div></div>
+    <div><h3>Olay grupları · eski sistem · imalat</h3><div class="tbl"><table><thead><tr><th>Grup</th><th class="num">Kayıt</th><th class="num">Pay</th><th>Gruptaki en sık iki alt kod (kayıt)</th></tr></thead><tbody><tr><td class="code">64</td><td class="num">13.330</td><td class="num">%46,0</td><td>Caught in running equipment or machinery during regular operation <span class="dim">(4.703)</span> · Caught in running equipment or machinery during maintenance, cleaning <span class="dim">(3.768)</span></td></tr><tr><td class="code">62</td><td class="num">4.427</td><td class="num">%15,3</td><td>Struck by object falling from vehicle or machinery-other than vehicle part <span class="dim">(797)</span> · Injured by slipping or swinging object held by injured worker <span class="dim">(583)</span></td></tr><tr><td class="code">43</td><td class="num">2.370</td><td class="num">%8,2</td><td>Other fall to lower level, unspecified <span class="dim">(886)</span> · Other fall to lower level less than 6 feet <span class="dim">(709)</span></td></tr><tr><td class="code">42</td><td class="num">1.995</td><td class="num">%6,9</td><td>Fall on same level due to slipping <span class="dim">(620)</span> · Fall on same level due to tripping over an object <span class="dim">(556)</span></td></tr><tr><td class="code">63</td><td class="num">1.350</td><td class="num">%4,7</td><td>Struck against moving part of machinery or equipment <span class="dim">(1.140)</span> · Struck against stationary object or equipment, n.e.c. <span class="dim">(85)</span></td></tr><tr><td class="code">53</td><td class="num">1.297</td><td class="num">%4,5</td><td>Contact with hot objects or substances <span class="dim">(873)</span> · Exposure to environmental heat <span class="dim">(409)</span></td></tr><tr><td class="code">27</td><td class="num">777</td><td class="num">%2,7</td><td>Part of occupant s body caught between vehicle and other object in nonroadway transport incident <span class="dim">(341)</span> · Jack-knifed or overturned, nonroadway <span class="dim">(68)</span></td></tr><tr><td class="code">24</td><td class="num">621</td><td class="num">%2,1</td><td>Pedestrian struck by vehicle in nonroadway area, unspecified <span class="dim">(298)</span> · Pedestrian struck by vehicle backing up in nonroadway area <span class="dim">(155)</span></td></tr></tbody></table></div></div>
+  </div>
+  <h3>Kaynak grupları · yeni sistem · imalat</h3>
+  <div class="tbl"><table><thead><tr><th>Grup</th><th class="num">Kayıt</th><th class="num">Pay</th><th>Gruptaki en sık iki alt kod (kayıt)</th></tr></thead><tbody><tr><td class="code">35</td><td class="num">1.201</td><td class="num">%21,9</td><td>Stamping machinery, presses, except printing <span class="dim">(218)</span> · Metal, woodworking, and special material machinery, unspecified <span class="dim">(144)</span></td></tr><tr><td class="code">36</td><td class="num">563</td><td class="num">%10,3</td><td>Packaging, wrapping, bundling machinery <span class="dim">(76)</span> · Food and beverage processing machinery, n.e.c. <span class="dim">(71)</span></td></tr><tr><td class="code">66</td><td class="num">455</td><td class="num">%8,3</td><td>Other constructed surface <span class="dim">(312)</span> · Stairs, steps <span class="dim">(43)</span></td></tr><tr><td class="code">34</td><td class="num">446</td><td class="num">%8,1</td><td>Conveyors belt, slot, chain <span class="dim">(110)</span> · Conveyors, unspecified <span class="dim">(87)</span></td></tr><tr><td class="code">86</td><td class="num">308</td><td class="num">%5,6</td><td>Forklift, order picker, platform truck powered <span class="dim">(237)</span> · Pallet jack riding <span class="dim">(36)</span></td></tr><tr><td class="code">42</td><td class="num">251</td><td class="num">%4,6</td><td>Beams and rails, metal <span class="dim">(55)</span> · Panels, sheets, plates, metal <span class="dim">(49)</span></td></tr><tr><td class="code">21</td><td class="num">213</td><td class="num">%3,9</td><td>Reels, rolls, spools, coils <span class="dim">(35)</span> · Skids, pallets <span class="dim">(33)</span></td></tr><tr><td class="code">30</td><td class="num">211</td><td class="num">%3,8</td><td>Machinery, unspecified <span class="dim">(211)</span></td></tr></tbody></table></div>
+  <div class="grid2">
+    <div><h3>Yaralanma grupları · yeni sistem · imalat</h3><div class="tbl"><table><thead><tr><th>Grup</th><th class="num">Kayıt</th><th class="num">Pay</th><th>Gruptaki en sık iki alt kod (kayıt)</th></tr></thead><tbody><tr><td class="code">12</td><td class="num">3.944</td><td class="num">%72,0</td><td>Amputations, avulsions, enucleations, unspecified <span class="dim">(1.608)</span> · Fractures <span class="dim">(1.288)</span></td></tr><tr><td class="code">15</td><td class="num">374</td><td class="num">%6,8</td><td>Thermal burns, degree unspecified <span class="dim">(163)</span> · Thermal burns, second degree <span class="dim">(58)</span></td></tr><tr><td class="code">13</td><td class="num">362</td><td class="num">%6,6</td><td>Cuts, lacerations, punctures without injury to internal structures <span class="dim">(308)</span> · Bruises, contusions <span class="dim">(24)</span></td></tr><tr><td class="code">10</td><td class="num">312</td><td class="num">%5,7</td><td>Traumatic injuries or exposures, unspecified <span class="dim">(178)</span> · Nonfatal &#x27;crushing&#x27; injuries <span class="dim">(128)</span></td></tr><tr><td class="code">18</td><td class="num">221</td><td class="num">%4,0</td><td>Fractures and surface, flesh wounds <span class="dim">(95)</span> · Fractures and soft tissue injuries <span class="dim">(68)</span></td></tr><tr><td class="code">17</td><td class="num">70</td><td class="num">%1,3</td><td>Heat exhaustion, fatigue <span class="dim">(30)</span> · Effects of heat, n.e.c. <span class="dim">(18)</span></td></tr></tbody></table></div><p class="dim">Grup 12 hem kırığı (124) hem ampütasyonu (122x) içeriyor. Ürün yaralanmada üç hane kullanmalı.</p></div>
+    <div><h3>Vücut bölgesi grupları · yeni sistem · imalat</h3><div class="tbl"><table><thead><tr><th>Grup</th><th class="num">Kayıt</th><th class="num">Pay</th><th>Gruptaki en sık iki alt kod (kayıt)</th></tr></thead><tbody><tr><td class="code">44</td><td class="num">2.829</td><td class="num">%51,6</td><td>Finger or thumb tip(s), nail(s) <span class="dim">(1.217)</span> · Other finger(s), n.e.c. <span class="dim">(1.216)</span></td></tr><tr><td class="code">52</td><td class="num">491</td><td class="num">%9,0</td><td>Lower leg(s) <span class="dim">(161)</span> · Leg(s), unspecified <span class="dim">(153)</span></td></tr><tr><td class="code">42</td><td class="num">309</td><td class="num">%5,6</td><td>Arm(s), unspecified <span class="dim">(123)</span> · Forearm(s) <span class="dim">(112)</span></td></tr><tr><td class="code">54</td><td class="num">186</td><td class="num">%3,4</td><td>Foot (feet), toe(s), unspecified <span class="dim">(102)</span> · Toes(s), toenail(s) <span class="dim">(54)</span></td></tr><tr><td class="code">83</td><td class="num">145</td><td class="num">%2,6</td><td>Trunk and other upper extremities <span class="dim">(84)</span> · Trunk and other lower extremities <span class="dim">(57)</span></td></tr><tr><td class="code">51</td><td class="num">140</td><td class="num">%2,6</td><td>Hip joint(s) <span class="dim">(140)</span></td></tr></tbody></table></div></div>
+  </div>
+</section>
+
+<section id="cografya">
+  <h2><span class="no">08</span>Coğrafya ve denetim</h2>
+  <div class="grid2">
+    <div>
+      <h3>En çok kayıt veren eyaletler</h3>
+      <div class="bars "><div class="bar-row"><div class="bar-lab">Texas</div><div class="bar-track"><span class="bar-fill" style="width:100.0%"></span></div><div class="bar-val">17.491</div></div><div class="bar-row"><div class="bar-lab">Florida</div><div class="bar-track"><span class="bar-fill" style="width:66.9%"></span></div><div class="bar-val">11.708</div></div><div class="bar-row"><div class="bar-lab">Pennsylvania</div><div class="bar-track"><span class="bar-fill" style="width:47.8%"></span></div><div class="bar-val">8.361</div></div><div class="bar-row"><div class="bar-lab">Ohio</div><div class="bar-track"><span class="bar-fill" style="width:47.2%"></span></div><div class="bar-val">8.253</div></div><div class="bar-row"><div class="bar-lab">Illinois</div><div class="bar-track"><span class="bar-fill" style="width:36.6%"></span></div><div class="bar-val">6.394</div></div><div class="bar-row"><div class="bar-lab">Georgia</div><div class="bar-track"><span class="bar-fill" style="width:34.2%"></span></div><div class="bar-val">5.984</div></div><div class="bar-row"><div class="bar-lab">New York</div><div class="bar-track"><span class="bar-fill" style="width:30.2%"></span></div><div class="bar-val">5.287</div></div><div class="bar-row"><div class="bar-lab">Wisconsin</div><div class="bar-track"><span class="bar-fill" style="width:24.6%"></span></div><div class="bar-val">4.302</div></div><div class="bar-row"><div class="bar-lab">Alabama</div><div class="bar-track"><span class="bar-fill" style="width:20.2%"></span></div><div class="bar-val">3.536</div></div><div class="bar-row"><div class="bar-lab">Missouri</div><div class="bar-track"><span class="bar-fill" style="width:18.7%"></span></div><div class="bar-val">3.263</div></div></div>
+    </div>
+    <div>
+      <ul>
+        <li>Teksas ve Florida başı çekiyor. California, Washington gibi büyük eyaletlerin az görünmesinin sebebi kendi eyalet planlarının olması.</li>
+        <li><span class="code">FederalState = 0</span> olan 2.492 kayıt (%2,4) çoğunlukla eyalet planlı eyaletlerden: California 539, Virginia 367, Washington 170.</li>
+        <li>Koordinatlar 2 haneye yuvarlanmış (yaklaşık 1 km). Harita kullanılırsa nokta değil bölge düzeyinde gösterilmeli.</li>
+        <li>Denetim numarası kayıtların %33,5'inde var; yıllara göre %27,5 (2020) ile %37,7 (2015) arasında. İmalatta %46,7.</li>
+        <li>Ürün açısından coğrafya ikincil: Türkiye'deki bir fabrika için eyalet bilgisinin anlamı yok. Sektör (NAICS) kıyası daha değerli.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="kalite">
+  <h2><span class="no">09</span>Veri kalitesi</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Sorun</th><th>Ölçü</th><th>Etki</th><th>Yapılacak</th></tr></thead>
+    <tbody>
+      <tr><td>Kod sistemi değişimi</td><td class="num">Ocak 2024</td><td><span class="sev h">yüksek</span></td><td>Sistem sütunu ekle; iki sistemi ayrı modelle/başlıkla işle</td></tr>
+      <tr><td><span class="code">ID</span> benzersiz değil</td><td class="num">5 çift</td><td><span class="sev m">orta</span></td><td>Anahtar olarak <span class="code">UPA</span> kullan</td></tr>
+      <tr><td>Nadir sınıflar</td><td class="num">16 olay, 37 kaynak grubu &lt;30</td><td><span class="sev m">orta</span></td><td>"Diğer" grubu ya da otomatik "insana bırak"</td></tr>
+      <tr><td>Tekrarlanan jenerik anlatılar</td><td class="num">40 metin, 106 satır</td><td><span class="sev m">orta</span></td><td>Benzer vaka indeksinde tek kopya bırak (66 satır düşer) ya da hepsini çıkar</td></tr>
+      <tr><td>Çok kısa anlatılar</td><td class="num">94 satır &lt;40 kr</td><td><span class="sev l">düşük</span></td><td>Eğitimden çıkar ya da ağırlığını düşür</td></tr>
+      <tr><td>Anlatıda tarih</td><td class="num">%9,5</td><td><span class="sev l">düşük</span></td><td>Tarihleri maskele</td></tr>
+      <tr><td>NAICS kodu bozuk/kısa</td><td class="num">183 satır</td><td><span class="sev l">düşük</span></td><td>İlk 2 haneden sektör çıkar; geçersizleri "bilinmiyor" yap</td></tr>
+      <tr><td>Posta kodu sayı olarak saklanmış</td><td class="num">baştaki 0 kayıp</td><td><span class="sev l">düşük</span></td><td>Kullanılmıyor; gerekirse 5 haneye doldur</td></tr>
+      <tr><td>Yeni sistemde başlık biçimi farklı</td><td class="num">2024+ tüm başlıklar</td><td><span class="sev l">düşük</span></td><td>Baş/son boşlukları kırp, çift boşluğu virgüle çevir (ör. <span class="code">" Fractures   "</span>, <span class="code">"…machinery  n.e.c."</span>); eşleme ve gösterimden önce normalleştir</td></tr>
+      <tr><td>Boş başlık</td><td class="num">1'er satır</td><td><span class="sev l">düşük</span></td><td>Koddan başlık eşlemesiyle doldur</td></tr>
+      <tr><td>İşveren adı, adres, koordinat</td><td class="num">her satırda</td><td><span class="sev h">yüksek (gizlilik)</span></td><td>Uygulamaya hiç taşıma; sadece anlatı + kodlar + NAICS</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="mimari">
+  <h2><span class="no">10</span>Mimariye etkisi</h2>
+  <p>Daha önce konuştuğumuz karar noktalarına (K1–K8) veri tarafından gelen kanıt:</p>
+  <div class="impact">
+    <div class="imp"><h3>Kod sistemi<small>K2</small></h3><div><p>Ürün yeni sistemi kullanmalı (OSHA bugün bunu kullanıyor). Eğitimde yeni sistemdeki <b>tüm sektörler</b> (17.746) kullanılmalı, ölçüm imalatta (5.481) yapılmalı; yalnızca imalatla eğitmek veriyi üçte bire düşürür. Eski sistem sadece ölçüm sayfasında "kod sistemi değişikliği" hikâyesi için kalır.</p></div></div>
+    <div class="imp"><h3>Kodlama<small>K1</small></h3><div><p>Yaralanma türü ve vücut bölgesi kolay hedefler (etiket anlatıda yazıyor), klasik model yeter. Olay ve kaynak zor hedefler; LLM'in ikinci görüşü ancak burada değer katar. Yaralanma türünde 2 hane yetmez (grup 12 kırık ile ampütasyonu birleştiriyor), 3 haneye inilmeli.</p></div></div>
+    <div class="imp"><h3>Güven katmanı<small>K1</small></h3><div><p>30'dan az örnekli gruplar modelin güvenle tahmin edemeyeceği sınıflar; bu gruplara düşen tahminler otomatik olarak "insana bırak" olmalı. Kaynakta bu çok sık olacak (37 grup).</p></div></div>
+    <div class="imp"><h3>Benzer vaka<small>K5</small></h3><div><p>Anlatılar kısa, İngilizce, kalıplı ve dar kelime dağarcıklı: <b>BM25 + tahmin edilen olay grubuna göre filtre</b> güçlü bir başlangıç. Jenerik tekrarlar (40 metin, 106 satır) tek kopyaya indirilmeli, 94 çok kısa anlatı indeksten çıkarılmalı. İndeks yeni sistemle sınırlanırsa gösterilen kodlar kullanıcıyla aynı dili konuşur.</p></div></div>
+    <div class="imp"><h3>Standartlar<small>K6</small></h3><div><p>İmalatta olayların %44'ü çalışan makine, kaynağın %22'si presler ve metal işleme makineleri, %10'u paketleme, gıda ve diğer özel işlem makineleri, %8'i konveyörler. Elle hazırlanacak 30–40 standartlık tablo bu ilk 10 kaynak grubunu kapsarsa vakaların büyük çoğunluğu kapsanır.</p></div></div>
+    <div class="imp"><h3>Tesis paneli<small>opsiyonel</small></h3><div><p>Sektör kıyası için ITA verisi şart değil: SIR'de 6 haneli NAICS var, "senin alt sektöründeki ağır kazaların dağılımı" doğrudan buradan çıkar. Oran değil dağılım olur (çalışan sayısı yok), bu açıkça yazılmalı.</p></div></div>
+    <div class="imp"><h3>Ölçüm<small>değerlendirme</small></h3><div><p>İhlal verisiyle birleştirme kayıtların en çok üçte birinde (imalatta yarısında) mümkün. Anlatıdaki tarihler maskelenmeli. Anlatılar yıllar içinde uzadığı için zamana göre bölme şart; rastgele bölme sonucu iyimser gösterir.</p></div></div>
+    <div class="imp"><h3>Gizlilik<small>arayüz</small></h3><div><p>Uygulamaya yalnızca anlatı, kodlar, tarih (ay düzeyinde) ve NAICS taşınmalı. İşveren, adres ve koordinat veri hattında atılmalı. Bu, Evolus'un "kişisel veri yüklenmez" koşuluyla da uyumlu.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <span>Kaynak: OSHA Severe Injury Reports, January2015toNovember2025.csv (ABD devlet eseri). İndirme: 14 Ekim 2026.</span>
+  <span>Analiz: pandas ile tek geçiş; tüm oranlar ham veriden. "İmalat" = NAICS 31–33. "Yeni sistem" = olay tarihi 1 Ocak 2024 ve sonrası.</span>
+</footer>
+</div>
