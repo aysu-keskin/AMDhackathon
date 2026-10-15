@@ -9,6 +9,7 @@ __pycache__/
 # Data (downloaded and generated; never committed)
 data/raw/*
 data/processed/*
+data/models/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 

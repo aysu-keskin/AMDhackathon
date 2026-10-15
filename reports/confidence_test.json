@@ -1,0 +1,151 @@
+{
+  "rule": "B: target 93%, source never trusted, lowest 20% to human",
+  "thresholds": {
+    "event": {
+      "human_below": 0.5604,
+      "trusted_from": 0.6574446776515117,
+      "valid_rows": 396
+    },
+    "source": {
+      "human_below": 0.2742,
+      "trusted_from": null,
+      "valid_rows": 395
+    },
+    "nature": {
+      "human_below": 0.6603,
+      "trusted_from": 0.5657056655778379,
+      "valid_rows": 396
+    },
+    "part": {
+      "human_below": 0.4785,
+      "trusted_from": 0.4104454844993775,
+      "valid_rows": 393
+    }
+  },
+  "test": {
+    "event": {
+      "rows": 2625,
+      "accuracy": 0.8122,
+      "labels": {
+        "trusted": {
+          "share": 0.691,
+          "accuracy": 0.9283,
+          "accuracy_95ci": [
+            0.9155,
+            0.9393
+          ]
+        },
+        "approximate": {
+          "share": 0.0922,
+          "accuracy": 0.6901,
+          "accuracy_95ci": [
+            0.6292,
+            0.745
+          ]
+        },
+        "human": {
+          "share": 0.2168,
+          "accuracy": 0.4938,
+          "accuracy_95ci": [
+            0.4529,
+            0.5348
+          ]
+        }
+      },
+      "human_vs_rest_error_ratio": 5.08
+    },
+    "source": {
+      "rows": 2593,
+      "accuracy": 0.6332,
+      "labels": {
+        "trusted": {
+          "share": 0.0,
+          "accuracy": null,
+          "accuracy_95ci": [
+            NaN,
+            NaN
+          ]
+        },
+        "approximate": {
+          "share": 0.796,
+          "accuracy": 0.7238,
+          "accuracy_95ci": [
+            0.7041,
+            0.7427
+          ]
+        },
+        "human": {
+          "share": 0.204,
+          "accuracy": 0.2798,
+          "accuracy_95ci": [
+            0.2432,
+            0.3195
+          ]
+        }
+      },
+      "human_vs_rest_error_ratio": 2.61
+    },
+    "nature": {
+      "rows": 2628,
+      "accuracy": 0.8657,
+      "labels": {
+        "trusted": {
+          "share": 0.7763,
+          "accuracy": 0.9686,
+          "accuracy_95ci": [
+            0.9601,
+            0.9754
+          ]
+        },
+        "approximate": {
+          "share": 0.0,
+          "accuracy": null,
+          "accuracy_95ci": [
+            NaN,
+            NaN
+          ]
+        },
+        "human": {
+          "share": 0.2237,
+          "accuracy": 0.5085,
+          "accuracy_95ci": [
+            0.4682,
+            0.5487
+          ]
+        }
+      },
+      "human_vs_rest_error_ratio": 15.67
+    },
+    "part": {
+      "rows": 2600,
+      "accuracy": 0.8408,
+      "labels": {
+        "trusted": {
+          "share": 0.7996,
+          "accuracy": 0.9447,
+          "accuracy_95ci": [
+            0.934,
+            0.9537
+          ]
+        },
+        "approximate": {
+          "share": 0.0,
+          "accuracy": null,
+          "accuracy_95ci": [
+            NaN,
+            NaN
+          ]
+        },
+        "human": {
+          "share": 0.2004,
+          "accuracy": 0.4261,
+          "accuracy_95ci": [
+            0.3843,
+            0.469
+          ]
+        }
+      },
+      "human_vs_rest_error_ratio": 10.38
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "event": {
+    "human_below": 0.5604,
+    "trusted_from": 0.6574446776515117,
+    "valid_rows": 396
+  },
+  "source": {
+    "human_below": 0.2742,
+    "trusted_from": null,
+    "valid_rows": 395
+  },
+  "nature": {
+    "human_below": 0.6603,
+    "trusted_from": 0.5657056655778379,
+    "valid_rows": 396
+  },
+  "part": {
+    "human_below": 0.4785,
+    "trusted_from": 0.4104454844993775,
+    "valid_rows": 393
+  }
+}
