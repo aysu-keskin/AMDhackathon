@@ -93,11 +93,14 @@ def ping() -> None:
 
 def call_all(exp: Experiment, cands: dict, llm: TokenFactory) -> dict:
     CACHE.parent.mkdir(parents=True, exist_ok=True)
+    # Later lines override earlier ones. Only real model answers (parsed or not) count as done;
+    # infrastructure failures (connection drops, outages) produced no answer and are retried.
     done = {}
     if CACHE.exists():
         for line in CACHE.read_text(encoding="utf-8").splitlines():
             item = json.loads(line)
-            done[item["upa"]] = item
+            if item["data"] is not None or item["error"] == "unparseable JSON":
+                done[item["upa"]] = item
 
     def work(i: int):
         row = exp.sample.iloc[i]
@@ -136,6 +139,11 @@ def run() -> None:
     exp = Experiment()
     cands = exp.candidates(exp.sample)
     replies = call_all(exp, cands, TokenFactory())
+    missing = [u for u in exp.sample["upa"].astype(int)
+               if u not in replies or (replies[u]["data"] is None and replies[u]["error"] != "unparseable JSON")]
+    if missing:
+        print(f"{len(missing)} reports have no model answer (network/provider failures). Run --run again to retry them.")
+        return
 
     s = exp.sample
     event_truth, source_truth = s["event_group"].to_numpy(), s["source_group"].to_numpy()

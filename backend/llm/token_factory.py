@@ -11,7 +11,7 @@ import time
 from dataclasses import dataclass
 
 from dotenv import load_dotenv
-from openai import OpenAI
+from openai import APIConnectionError, APIStatusError, APITimeoutError, OpenAI, RateLimitError
 
 from backend.pipeline.paths import ROOT
 
@@ -67,11 +67,17 @@ class TokenFactory:
             raise RuntimeError("Set LLM_MODEL in .env")
         self.limiter = RateLimiter(REQUESTS_PER_MINUTE)
 
-    def json_chat(self, system: str, user: str, retries: int = 3) -> Reply:
-        """Ask for a JSON object. Retries with backoff, then falls back to the next model."""
+    def json_chat(self, system: str, user: str, retries: int = 3, network_retries: int = 8) -> Reply:
+        """Ask for a JSON object.
+
+        - Our own connection drops or timeouts: wait and retry the SAME model (the model isn't at fault).
+        - 429: wait as long as the server asks (Retry-After), same model.
+        - 5xx or 400 from the provider: retry a few times, then fall back to the next model.
+        """
         error = None
         for model in self.models:
-            for attempt in range(retries):
+            provider_failures, network_failures = 0, 0
+            while provider_failures < retries and network_failures < network_retries:
                 self.limiter.wait()
                 start = time.perf_counter()
                 try:
@@ -86,10 +92,22 @@ class TokenFactory:
                         return Reply(json.loads(strip_fence(raw)), raw, model, seconds)
                     except json.JSONDecodeError:
                         return Reply(None, raw, model, seconds, "unparseable JSON")
-                except Exception as exc:  # network errors, 429, 503 from the provider
+                except (APIConnectionError, APITimeoutError) as exc:
                     error = f"{type(exc).__name__}: {exc}"
-                    time.sleep(2 ** attempt * 3)
-        return Reply(None, "", self.models[-1], 0.0, error)
+                    network_failures += 1
+                    time.sleep(min(120, 5 * 2 ** network_failures))
+                except RateLimitError as exc:
+                    error = f"{type(exc).__name__}: {exc}"
+                    time.sleep(float(exc.response.headers.get("retry-after", 60)) + 1)
+                except APIStatusError as exc:
+                    error = f"{type(exc).__name__}: {exc}"
+                    provider_failures += 1
+                    if exc.status_code == 400:
+                        break
+                    time.sleep(2 ** provider_failures * 3)
+            if network_failures >= network_retries:
+                break  # our network is down; another model won't help
+        return Reply(None, "", self.models[0], 0.0, error)
 
     def list_models(self) -> list[str]:
         return [m.id for m in self.client.models.list()]
