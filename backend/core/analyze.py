@@ -9,6 +9,7 @@ Flow:
 4. Validator drops actions that cite unknown/unprovided standards or use legal/medical verdicts.
 """
 import json
+import os
 import time
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlparse
@@ -28,6 +29,9 @@ from backend.retrieval.standards import StandardsIndex, validate_actions
 MODEL_FILE = ROOT / "data" / "models" / "baseline_new.joblib"
 THRESHOLDS = json.loads((ROOT / "backend" / "model" / "thresholds.json").read_text(encoding="utf-8"))
 ALWAYS_INCLUDE = ("1910.147", "1910.132")  # lockout/tagout, PPE hazard assessment
+# Team decision 2026-10-15: Gemma keeps the tested second opinion; the long action draft goes to a faster
+# model (Gemma took 1-4 minutes on it). Gemma is the fallback if the draft model fails.
+DRAFT_MODELS = [m for m in (os.environ.get("LLM_DRAFT_MODEL", "DeepSeek-V4-Flash"), os.environ.get("LLM_MODEL")) if m]
 TITLE_COLUMN = {"event": "event_title", "source": "source_title", "nature": "nature_title", "part": "part_title"}
 
 DRAFT_SYSTEM = (
@@ -107,7 +111,8 @@ class Analyzer:
         draft_prompt = self.draft_prompt(text, codes, neighbours, excerpts)
         with ThreadPoolExecutor(max_workers=2) as pool:
             second_future = pool.submit(self.llm.json_chat, SECOND_OPINION_SYSTEM, second_prompt)
-            draft_future = pool.submit(self.llm.json_chat, DRAFT_SYSTEM, draft_prompt, json_mode=True)
+            draft_future = pool.submit(self.llm.json_chat, DRAFT_SYSTEM, draft_prompt, json_mode=True,
+                                       models=DRAFT_MODELS)
             second, draft = second_future.result(), draft_future.result()
 
         llm_event = read_group((second.data or {}).get("event"), event_cands)

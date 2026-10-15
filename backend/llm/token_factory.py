@@ -68,7 +68,7 @@ class TokenFactory:
         self.limiter = RateLimiter(REQUESTS_PER_MINUTE)
 
     def json_chat(self, system: str, user: str, retries: int = 3, network_retries: int = 8,
-                  json_mode: bool = False) -> Reply:
+                  json_mode: bool = False, models: list[str] | None = None) -> Reply:
         """Ask for a JSON object.
 
         - Our own connection drops or timeouts: wait and retry the SAME model (the model isn't at fault).
@@ -76,7 +76,8 @@ class TokenFactory:
         - 5xx or 400 from the provider: retry a few times, then fall back to the next model.
         """
         error = None
-        for model in self.models:
+        models = models or self.models
+        for model in models:
             provider_failures, network_failures = 0, 0
             while provider_failures < retries and network_failures < network_retries:
                 self.limiter.wait()
@@ -110,7 +111,7 @@ class TokenFactory:
                     time.sleep(2 ** provider_failures * 3)
             if network_failures >= network_retries:
                 break  # our network is down; another model won't help
-        return Reply(None, "", self.models[0], 0.0, error)
+        return Reply(None, "", models[0], 0.0, error)
 
     def list_models(self) -> list[str]:
         return [m.id for m in self.client.models.list()]
