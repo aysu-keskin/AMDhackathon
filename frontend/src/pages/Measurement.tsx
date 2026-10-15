@@ -117,7 +117,8 @@ export function Measurement() {
   )
 }
 
-const LINE_COLORS: Record<string, string> = { "62": "var(--chart-1)", "42": "var(--chart-2)", "65": "var(--chart-4)", "41": "var(--chart-5)" }
+// Old system in petrol tones, new system in amber/rust — the same palette as docs/OSHA-SIR-EDA.html.
+const LINE_COLORS: Record<string, string> = { "62": "#2E6E73", "42": "#7FB0B3", "65": "#D99A0B", "41": "#B2551B" }
 
 function ShiftChart({ series, groups }: { series: Record<string, number | string>[]; groups: Record<string, string> }) {
   const W = 640, H = 220, P = { l: 36, r: 12, t: 12, b: 28 }
