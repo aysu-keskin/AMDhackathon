@@ -21,3 +21,6 @@ frontend/dist/
 # IDE
 .idea/
 .vscode/
+
+# Local dev launcher (machine-specific paths)
+.claude/

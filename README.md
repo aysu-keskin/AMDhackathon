@@ -10,12 +10,26 @@ Background: [project brief](docs/S-Is-Guvenligi-Olay-Asistani.md) · [data explo
 
 ## Setup
 
+Use **Python 3.12**. On Windows, Python 3.13.13 crashes inside asyncio as soon as SciPy's linear algebra is
+loaded (access violation), which takes down the API server.
+
 ```bash
-python -m venv .venv
+py -3.12 -m venv .venv        # Windows; python3.12 -m venv .venv elsewhere
 .venv/Scripts/activate        # Windows; use .venv/bin/activate on macOS/Linux
 pip install -r backend/requirements.txt
-cp .env.example .env          # then fill in the keys
+cp .env.example .env          # then fill in the Token Factory key
 ```
+
+## Run
+
+```bash
+uvicorn backend.api.main:app --port 8000      # API (loads models in ~10 s)
+npm --prefix frontend install
+npm --prefix frontend run dev                 # UI on http://localhost:5173 (proxies /api to :8000)
+```
+
+The model file is produced by `python -m backend.model.baseline` (≈ 25 min, CPU) after the data steps below,
+and the standards excerpts by `python -m backend.pipeline.standards`.
 
 ## Data
 
