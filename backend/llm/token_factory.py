@@ -67,7 +67,8 @@ class TokenFactory:
             raise RuntimeError("Set LLM_MODEL in .env")
         self.limiter = RateLimiter(REQUESTS_PER_MINUTE)
 
-    def json_chat(self, system: str, user: str, retries: int = 3, network_retries: int = 8) -> Reply:
+    def json_chat(self, system: str, user: str, retries: int = 3, network_retries: int = 8,
+                  json_mode: bool = False) -> Reply:
         """Ask for a JSON object.
 
         - Our own connection drops or timeouts: wait and retry the SAME model (the model isn't at fault).
@@ -85,6 +86,8 @@ class TokenFactory:
                         model=model,
                         temperature=0,
                         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+                        # The second-opinion prompt was tested without json_mode; keep it that way there.
+                        **({"response_format": {"type": "json_object"}} if json_mode else {}),
                     )
                     raw = response.choices[0].message.content or ""
                     seconds = time.perf_counter() - start
