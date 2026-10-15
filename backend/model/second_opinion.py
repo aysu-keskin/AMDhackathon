@@ -38,6 +38,13 @@ def group_titles(cases: pd.DataFrame, prefix: str) -> dict[str, str]:
     return titles.to_dict()
 
 
+def read_group(answer, candidates) -> str | None:
+    """'65' or '65: Struck by ...' -> '65' when 65 is a candidate (see the deviation in the pre-registration)."""
+    text = str(answer or "").strip()
+    group = text.split(":", 1)[0].strip()
+    return group if group in candidates else None
+
+
 def top_k(model, texts: pd.Series) -> tuple[np.ndarray, np.ndarray]:
     proba = model.predict_proba(texts)
     order = np.argsort(-proba, axis=1)[:, :TOP_K]
@@ -153,9 +160,8 @@ def run() -> None:
     for i, upa in enumerate(s["upa"].astype(int)):
         item = replies[upa]
         data = item["data"] or {}
-        e, src = str(data.get("event", "")), str(data.get("source", ""))
-        llm_event.append(e if e in event_top[i] else None)
-        llm_source.append(src if src in source_top[i] else None)
+        llm_event.append(read_group(data.get("event"), event_top[i]))
+        llm_source.append(read_group(data.get("source"), source_top[i]))
         failed += item["data"] is None
         seconds.append(item["seconds"])
         models[item["model"]] = models.get(item["model"], 0) + 1

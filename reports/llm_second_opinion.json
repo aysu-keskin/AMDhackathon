@@ -41,19 +41,19 @@
     },
     "rule_a": {
       "trusted": {
-        "share": 0.196,
-        "accuracy": 0.9184,
+        "share": 0.654,
+        "accuracy": 0.948,
         "accuracy_95ci": [
-          0.8471,
-          0.9581
+          0.9183,
+          0.9673
         ]
       },
       "approximate": {
-        "share": 0.594,
-        "accuracy": 0.8855,
+        "share": 0.136,
+        "accuracy": 0.6324,
         "accuracy_95ci": [
-          0.8443,
-          0.9169
+          0.5136,
+          0.737
         ]
       },
       "human": {
@@ -64,23 +64,23 @@
           0.5241
         ]
       },
-      "passes": false
+      "passes": true
     },
     "rule_b": {
       "trusted": {
-        "share": 0.214,
-        "accuracy": 0.9065,
+        "share": 0.714,
+        "accuracy": 0.944,
         "accuracy_95ci": [
-          0.8365,
-          0.9484
+          0.9151,
+          0.9634
         ]
       },
       "approximate": {
-        "share": 0.576,
-        "accuracy": 0.8889,
+        "share": 0.076,
+        "accuracy": 0.4211,
         "accuracy_95ci": [
-          0.8474,
-          0.9202
+          0.2785,
+          0.5781
         ]
       },
       "human": {
@@ -91,18 +91,18 @@
           0.5241
         ]
       },
-      "passes": false
+      "passes": true
     },
-    "decision": "baseline only",
+    "decision": "B",
     "baseline_top1_accuracy": 0.796,
-    "llm_alone_accuracy": 0.282,
+    "llm_alone_accuracy": 0.838,
     "truth_in_top5": 0.972,
-    "agreement": 0.26
+    "agreement": 0.816
   },
   "source": {
     "baseline_top1_accuracy": 0.622,
-    "after_llm_reorder_top1_accuracy": 0.622,
-    "llm_alone_accuracy": 0.232,
+    "after_llm_reorder_top1_accuracy": 0.65,
+    "llm_alone_accuracy": 0.65,
     "truth_in_top3": 0.82,
     "truth_in_top5": 0.868
   }
