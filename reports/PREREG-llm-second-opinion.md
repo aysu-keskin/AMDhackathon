@@ -51,3 +51,22 @@ On the 500-report sample:
 Baseline-only labels on the same 500 reports; LLM-alone accuracy for event and source; how often the true
 group is in the top 5 candidates; source top-1 accuracy before and after the LLM reorder; latency and
 failed calls.
+
+## Deviation (written 2026-10-15, after the strict result, before any re-scoring)
+
+**What happened.** The single run finished: 500/500 reports answered (499 by Gemma-4-31B-IT, 1 by the
+DeepSeek-V4-Flash fallback during a network outage). Network failures produced no answer and were retried
+on the same model (see commit "Retry network failures..."). Under strict scoring, neither rule passed
+(`reports/llm_second_opinion_strict.json`, decision "baseline only").
+
+**Why a deviation.** In about 60% of answers Gemma copied the whole candidate line, e.g.
+`"65: Struck by running powered equipment..."` instead of `"65"`. Strict scoring treated these as "outside
+the candidates", although the answer names a candidate. This is a parsing problem in our scoring, not the
+model choosing something else.
+
+**Change (scoring only).** An answer is read as group `G` if it equals `G` or starts with `G` followed by
+`:`, and `G` is one of the candidates. Everything else stays as pre-registered: same answers (no new
+calls), same rules A/B, same thresholds, same pass condition and decision rule.
+
+**Reporting.** Both results are reported: strict (pre-registered) and re-scored (this deviation). The
+re-scored result is weaker evidence, because the scoring rule was fixed after seeing the strict result.

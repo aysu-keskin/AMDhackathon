@@ -1,0 +1,109 @@
+{
+  "prereg": "reports/PREREG-llm-second-opinion.md",
+  "sample": 500,
+  "seed": 2026,
+  "models_used": {
+    "Gemma-4-31B-IT": 499,
+    "DeepSeek-V4-Flash": 1
+  },
+  "failed_or_unparseable": 0,
+  "latency_seconds": {
+    "median": 14.78,
+    "p90": 70.35
+  },
+  "event": {
+    "baseline_only": {
+      "trusted": {
+        "share": 0.704,
+        "accuracy": 0.9119,
+        "accuracy_95ci": [
+          0.8777,
+          0.9373
+        ]
+      },
+      "approximate": {
+        "share": 0.086,
+        "accuracy": 0.7442,
+        "accuracy_95ci": [
+          0.5976,
+          0.8507
+        ]
+      },
+      "human": {
+        "share": 0.21,
+        "accuracy": 0.4286,
+        "accuracy_95ci": [
+          0.3381,
+          0.5241
+        ]
+      },
+      "passes": false
+    },
+    "rule_a": {
+      "trusted": {
+        "share": 0.196,
+        "accuracy": 0.9184,
+        "accuracy_95ci": [
+          0.8471,
+          0.9581
+        ]
+      },
+      "approximate": {
+        "share": 0.594,
+        "accuracy": 0.8855,
+        "accuracy_95ci": [
+          0.8443,
+          0.9169
+        ]
+      },
+      "human": {
+        "share": 0.21,
+        "accuracy": 0.4286,
+        "accuracy_95ci": [
+          0.3381,
+          0.5241
+        ]
+      },
+      "passes": false
+    },
+    "rule_b": {
+      "trusted": {
+        "share": 0.214,
+        "accuracy": 0.9065,
+        "accuracy_95ci": [
+          0.8365,
+          0.9484
+        ]
+      },
+      "approximate": {
+        "share": 0.576,
+        "accuracy": 0.8889,
+        "accuracy_95ci": [
+          0.8474,
+          0.9202
+        ]
+      },
+      "human": {
+        "share": 0.21,
+        "accuracy": 0.4286,
+        "accuracy_95ci": [
+          0.3381,
+          0.5241
+        ]
+      },
+      "passes": false
+    },
+    "decision": "baseline only",
+    "baseline_top1_accuracy": 0.796,
+    "llm_alone_accuracy": 0.282,
+    "truth_in_top5": 0.972,
+    "agreement": 0.26
+  },
+  "source": {
+    "baseline_top1_accuracy": 0.622,
+    "after_llm_reorder_top1_accuracy": 0.622,
+    "llm_alone_accuracy": 0.232,
+    "truth_in_top3": 0.82,
+    "truth_in_top5": 0.868
+  }
+}
