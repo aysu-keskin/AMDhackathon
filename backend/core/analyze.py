@@ -8,6 +8,7 @@ Flow:
 3. Confidence labels: rule B for event (team decision 2026-10-15), thresholds from validation for the rest.
 4. Validator drops actions that cite unknown/unprovided standards or use legal/medical verdicts.
 """
+import gc
 import json
 import os
 import time
@@ -33,6 +34,11 @@ ALWAYS_INCLUDE = ("1910.147", "1910.132")  # lockout/tagout, PPE hazard assessme
 # model (Gemma took 1-4 minutes on it). Gemma is the fallback if the draft model fails.
 SECOND_OPINION_MODEL = "Gemma-4-31B-IT"  # the model rule B was measured with
 DRAFT_MODELS = [m for m in (os.environ.get("LLM_DRAFT_MODEL", "DeepSeek-V4-Flash"), os.environ.get("LLM_MODEL")) if m]
+CASE_COLUMNS = [
+    "upa", "month", "sector3", "narrative_masked", "is_duplicate_copy", "is_short_narrative",
+    "event_group", "event_title", "source_group", "source_title", "nature_code3", "nature_title",
+    "part_group", "part_title",
+]
 TITLE_COLUMN = {"event": "event_title", "source": "source_title", "nature": "nature_title", "part": "part_title"}
 
 DRAFT_SYSTEM = (
@@ -65,13 +71,19 @@ def label_for(name: str, confidence: float, rare: bool, agree: bool | None, meas
 class Analyzer:
     def __init__(self):
         self.models = joblib.load(MODEL_FILE)
-        cases = pd.read_parquet(SIR_PARQUET)
-        cases = cases[cases["code_system"] == "new"]
+        for spec in self.models.values():
+            # float32 halves the memory; scripts/check_float32 confirms predictions don't change.
+            classifier = spec["model"][-1]
+            classifier.coef_ = classifier.coef_.astype(np.float32)
+        # Only the new-system rows and the columns the case index and titles use (memory on the free tier).
+        cases = pd.read_parquet(SIR_PARQUET, columns=CASE_COLUMNS, filters=[("code_system", "==", "new")])
         self.case_index = CaseIndex(cases)
         self.titles = {
             name: cases.groupby(spec["column"])[TITLE_COLUMN[name]].agg(lambda s: "; ".join(s.value_counts().index[:2])).to_dict()
             for name, spec in self.models.items()
         }
+        del cases
+        gc.collect()
         self.standards = StandardsIndex()
         self.llm = TokenFactory()
 
