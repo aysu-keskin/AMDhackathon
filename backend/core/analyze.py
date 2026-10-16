@@ -118,6 +118,8 @@ class Analyzer:
             if isinstance(reply.data, dict) and isinstance(reply.data.get("actions"), list):
                 return reply, None
             evolus_error = reply.error or "no actions in the agent's answer"
+            if reply.raw:  # show what the agent said instead, to fix its instructions or settings
+                evolus_error += f"; answer began: {reply.raw[:200]!r}"
         return self.llm.json_chat(DRAFT_SYSTEM, prompt, json_mode=True, models=DRAFT_MODELS), evolus_error
 
     def analyze(self, text: str) -> dict:
