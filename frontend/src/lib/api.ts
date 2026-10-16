@@ -28,6 +28,7 @@ export type Analysis = {
     standards: { section: string; topic: string; excerpt: string }[]
     ecfr_date: string
   }
+  second_opinion?: { model: string | null; measured_model: string; measured: boolean }
   amd: { endpoint: string; calls: { purpose: string; model: string; seconds: number; error: string | null }[] }
   seconds_total: number
   replay?: boolean

@@ -31,6 +31,7 @@ THRESHOLDS = json.loads((ROOT / "backend" / "model" / "thresholds.json").read_te
 ALWAYS_INCLUDE = ("1910.147", "1910.132")  # lockout/tagout, PPE hazard assessment
 # Team decision 2026-10-15: Gemma keeps the tested second opinion; the long action draft goes to a faster
 # model (Gemma took 1-4 minutes on it). Gemma is the fallback if the draft model fails.
+SECOND_OPINION_MODEL = "Gemma-4-31B-IT"  # the model rule B was measured with
 DRAFT_MODELS = [m for m in (os.environ.get("LLM_DRAFT_MODEL", "DeepSeek-V4-Flash"), os.environ.get("LLM_MODEL")) if m]
 TITLE_COLUMN = {"event": "event_title", "source": "source_title", "nature": "nature_title", "part": "part_title"}
 
@@ -48,11 +49,13 @@ DRAFT_SYSTEM = (
 )
 
 
-def label_for(name: str, confidence: float, rare: bool, agree: bool | None) -> str:
+def label_for(name: str, confidence: float, rare: bool, agree: bool | None, measured_check: bool = True) -> str:
+    """measured_check: the second opinion came from the model we measured (Gemma). If not (outage,
+    fallback to another model), event falls back to the classifier-only rule, which was also measured."""
     rule = THRESHOLDS[name]
     if confidence < rule["human_below"] or rare:
         return "human"
-    if name == "event":
+    if name == "event" and measured_check:
         return "trusted" if agree else "approximate"  # rule B
     if rule["trusted_from"] is not None and confidence >= rule["trusted_from"]:
         return "trusted"
@@ -118,6 +121,8 @@ class Analyzer:
 
         llm_event = read_group((second.data or {}).get("event"), event_cands)
         llm_source = read_group((second.data or {}).get("source"), source_cands)
+        # Rule B was measured with Gemma only; another model's agreement is shown but doesn't earn "trusted".
+        measured_check = second.data is not None and second.model == SECOND_OPINION_MODEL
 
         result_codes = {}
         for name, candidates in codes.items():
@@ -129,7 +134,7 @@ class Analyzer:
                 options = sorted(candidates, key=lambda c: c["code"] != llm_source)[:3]  # LLM pick first
             result_codes[name] = {
                 **(options[0] if name == "source" else top),
-                "label": label_for(name, top["confidence"], rare, agree),
+                "label": label_for(name, top["confidence"], rare, agree, measured_check),
                 "alternatives": options[1:] if name == "source" else candidates[1:3],
                 "llm_pick": llm_event if name == "event" else llm_source if name == "source" else None,
             }
@@ -154,6 +159,11 @@ class Analyzer:
                 "rejected": rejected,
                 "standards": [{"section": e["section"], "topic": e["topic"], "excerpt": e["text"][:400]} for e in excerpts],
                 "ecfr_date": self.standards.ecfr_date,
+            },
+            "second_opinion": {
+                "model": second.model if second.data is not None else None,
+                "measured_model": SECOND_OPINION_MODEL,
+                "measured": measured_check,
             },
             "amd": {
                 "endpoint": urlparse(str(self.llm.client.base_url)).netloc,

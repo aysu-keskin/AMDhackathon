@@ -169,6 +169,13 @@ function Result({ result }: { result: Analysis }) {
       {result.replay && (
         <Alert><RotateCcw /><AlertDescription>{fill(t.replayBanner, { date: result.recorded_at?.slice(0, 16).replace("T", " ") ?? "" })}</AlertDescription></Alert>
       )}
+      {result.second_opinion && !result.second_opinion.measured && (
+        <Alert><AlertTriangle /><AlertDescription>
+          {result.second_opinion.model
+            ? fill(t.fallbackBanner, { measured: result.second_opinion.measured_model, model: result.second_opinion.model })
+            : t.noSecondOpinion}
+        </AlertDescription></Alert>
+      )}
 
       <section className="grid gap-3">
         <h2 className="text-lg font-semibold">{t.codesTitle}</h2>
@@ -263,6 +270,8 @@ function CodeCard({ name, result, choice, onChoose }: {
   const options = [c as CodeOption, ...c.alternatives]
   const shown = options.find((o) => o.code === choice) ?? c
   const llm = c.llm_pick
+  // Older recordings predate the second_opinion field; they all came from Gemma.
+  const llmModel = result.second_opinion?.model ?? "Gemma"
   return (
     <Card className={cn("gap-3 py-4", c.label === "human" && !choice && "ring-2 ring-rose-300 dark:ring-rose-800")}>
       <CardHeader className="px-4">
@@ -281,7 +290,7 @@ function CodeCard({ name, result, choice, onChoose }: {
       </CardHeader>
       <CardContent className="grid gap-2 px-4 text-xs text-muted-foreground">
         <span>{Math.round(c.confidence * 100)}% {t.confidence}
-          {llm && (name === "event" || name === "source") && <> · {llm === c.code ? t.gemmaAgrees : fill(t.gemmaPicks, { code: llm })}</>}
+          {llm && (name === "event" || name === "source") && <> · {llm === c.code ? fill(t.gemmaAgrees, { model: llmModel }) : fill(t.gemmaPicks, { model: llmModel, code: llm })}</>}
         </span>
         {(c.label !== "trusted") && (
           <Select value={choice ?? (c.label === "human" ? undefined : c.code)} onValueChange={onChoose}>
