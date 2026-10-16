@@ -35,8 +35,8 @@ class EvolusAgent:
         request = urllib.request.Request(
             f"{self.base_url}/agents/{self.agent_id}/ask",
             data=json.dumps({"content": prompt, "skipChatHistory": True}).encode("utf-8"),
-            headers={"Authorization": f"Bearer {self.api_key}", "X-Api-Key": self.api_key,
-                     "X-Application-Id": self.app_id, "Content-Type": "application/json"},
+            # Header names from the workspace's Developer keys page.
+            headers={"X-APIKEY": self.api_key, "X-Application-Id": self.app_id, "Content-Type": "application/json"},
             method="POST",
         )
         try:
