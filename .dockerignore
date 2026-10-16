@@ -1,0 +1,9 @@
+.venv
+.env
+.git
+.idea
+.claude
+data
+docs
+frontend
+**/__pycache__

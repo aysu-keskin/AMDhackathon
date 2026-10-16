@@ -33,8 +33,8 @@ FORBIDDEN = re.compile(
 
 
 class StandardsIndex:
-    def __init__(self):
-        data = json.loads(STANDARDS_JSON.read_text(encoding="utf-8"))
+    def __init__(self, path=None):
+        data = json.loads((path or STANDARDS_JSON).read_text(encoding="utf-8"))
         self.ecfr_date = data["ecfr_date"]
         self.entries = data["entries"]
         self.sections = {e["section"]: e["topic"] for e in self.entries}

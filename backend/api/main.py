@@ -26,7 +26,14 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="DarkSea28 Incident Assistant", lifespan=lifespan)
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173"], allow_methods=["*"], allow_headers=["*"])
+# The hosted UI runs on Vercel (*.vercel.app); no cookies are used, so no credentials are allowed.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_origin_regex=r"https://[a-z0-9-]+\.vercel\.app",
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
 
 
 class Report(BaseModel):

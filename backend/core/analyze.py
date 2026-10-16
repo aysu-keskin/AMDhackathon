@@ -19,6 +19,7 @@ import joblib
 import numpy as np
 import pandas as pd
 
+from backend.core.bundle import BUNDLE_CASES, BUNDLE_MODEL, BUNDLE_STANDARDS, CASE_COLUMNS
 from backend.llm.token_factory import TokenFactory
 from backend.model.second_opinion import SYSTEM as SECOND_OPINION_SYSTEM
 from backend.model.second_opinion import build_prompt, read_group
@@ -27,18 +28,15 @@ from backend.pipeline.prepare import DATE_PATTERN
 from backend.retrieval.bm25 import CaseIndex
 from backend.retrieval.standards import StandardsIndex, validate_actions
 
-MODEL_FILE = ROOT / "data" / "models" / "baseline_new.joblib"
+LOCAL_MODEL = ROOT / "data" / "models" / "baseline_new.joblib"
+# The committed deployment bundle (backend/core/bundle.py) is used when present; local artifacts otherwise.
+MODEL_FILE = BUNDLE_MODEL if BUNDLE_MODEL.exists() else LOCAL_MODEL
 THRESHOLDS = json.loads((ROOT / "backend" / "model" / "thresholds.json").read_text(encoding="utf-8"))
 ALWAYS_INCLUDE = ("1910.147", "1910.132")  # lockout/tagout, PPE hazard assessment
 # Team decision 2026-10-15: Gemma keeps the tested second opinion; the long action draft goes to a faster
 # model (Gemma took 1-4 minutes on it). Gemma is the fallback if the draft model fails.
 SECOND_OPINION_MODEL = "Gemma-4-31B-IT"  # the model rule B was measured with
 DRAFT_MODELS = [m for m in (os.environ.get("LLM_DRAFT_MODEL", "DeepSeek-V4-Flash"), os.environ.get("LLM_MODEL")) if m]
-CASE_COLUMNS = [
-    "upa", "month", "sector3", "narrative_masked", "is_duplicate_copy", "is_short_narrative",
-    "event_group", "event_title", "source_group", "source_title", "nature_code3", "nature_title",
-    "part_group", "part_title",
-]
 TITLE_COLUMN = {"event": "event_title", "source": "source_title", "nature": "nature_title", "part": "part_title"}
 
 DRAFT_SYSTEM = (
@@ -76,7 +74,10 @@ class Analyzer:
             classifier = spec["model"][-1]
             classifier.coef_ = classifier.coef_.astype(np.float32)
         # Only the new-system rows and the columns the case index and titles use (memory on the free tier).
-        cases = pd.read_parquet(SIR_PARQUET, columns=CASE_COLUMNS, filters=[("code_system", "==", "new")])
+        if BUNDLE_CASES.exists():
+            cases = pd.read_parquet(BUNDLE_CASES)
+        else:
+            cases = pd.read_parquet(SIR_PARQUET, columns=CASE_COLUMNS, filters=[("code_system", "==", "new")])
         self.case_index = CaseIndex(cases)
         self.titles = {
             name: cases.groupby(spec["column"])[TITLE_COLUMN[name]].agg(lambda s: "; ".join(s.value_counts().index[:2])).to_dict()
@@ -84,7 +85,7 @@ class Analyzer:
         }
         del cases
         gc.collect()
-        self.standards = StandardsIndex()
+        self.standards = StandardsIndex(BUNDLE_STANDARDS if BUNDLE_STANDARDS.exists() else None)
         self.llm = TokenFactory()
 
     def code(self, text: str) -> dict:

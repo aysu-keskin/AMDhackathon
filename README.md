@@ -46,6 +46,19 @@ column (`old` before 2024-01-01, `new` after; OSHA changed code meanings on that
 titles, date-masked narratives, and duplicate/short-narrative flags. Employer, address and coordinates
 are left in the raw CSV only.
 
+## Deployment (free tiers)
+
+- **API → Railway** (`Dockerfile`, `railway.json`). Set these variables in Railway, never in git:
+  `TOKEN_FACTORY_BASE_URL`, `TOKEN_FACTORY_API_KEY`, `LLM_MODEL=Gemma-4-31B-IT`,
+  `LLM_FALLBACK_MODEL=DeepSeek-V4-Flash`, `LLM_DRAFT_MODEL=DeepSeek-V4-Flash`. Peak memory ≈ 360 MB.
+- **UI → Vercel**: root directory `frontend`, variable `VITE_API_URL=https://<railway-domain>`.
+  If the API is unreachable the UI still serves the measurement page and labelled recordings from
+  `frontend/public/data` (`python -m backend.core.export_static`).
+- **Deployment bundle** (`deploy/bundle`, ≈ 37 MB, `python -m backend.core.bundle`): the exact measured
+  model (float32 coefficients: identical top-1 on all 2,628 reports of 2025 manufacturing), the new-system
+  case slice used for similar cases, and the eCFR excerpts. Derived from OSHA Severe Injury Reports and
+  eCFR, both U.S. Government works in the public domain. Full data is still downloaded by the scripts above.
+
 ## License
 
 MIT
