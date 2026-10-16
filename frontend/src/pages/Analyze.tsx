@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { api, pick, type Action, type Analysis, type CodeName, type CodeOption, type Label, type Sample } from "@/lib/api"
+import { api, apiOnline, pick, type Action, type Analysis, type CodeName, type CodeOption, type Label, type Sample } from "@/lib/api"
 import { fill, useLang } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 
@@ -27,7 +27,12 @@ export function Analyze() {
   const [busySince, setBusySince] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => { api.samples().then(setSamples).catch(() => setSamples([])) }, [])
+  const [online, setOnline] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    api.samples().then(setSamples).catch(() => setSamples([]))
+    apiOnline().then(setOnline)
+  }, [])
 
   async function run(fn: () => Promise<Analysis>) {
     setError(null); setResult(null); setBusySince(Date.now())
@@ -45,7 +50,7 @@ export function Analyze() {
             <Textarea value={text} onChange={(e) => setText(e.target.value)} placeholder={t.reportPlaceholder}
               className="min-h-28" maxLength={4000} />
             <div className="flex flex-wrap items-center gap-3">
-              <Button disabled={busySince !== null || text.trim().length < 20} onClick={() => run(() => api.analyze(text))}>
+              <Button disabled={busySince !== null || online === false || text.trim().length < 20} onClick={() => run(() => api.analyze(text))}>
                 {busySince ? <Loader2 className="animate-spin" /> : <Play />} {t.analyze}
               </Button>
             </div>
@@ -58,7 +63,7 @@ export function Analyze() {
                       {s.title[lang]}
                     </button>
                     <div className="flex shrink-0 gap-1">
-                      <Button size="sm" variant="outline" disabled={busySince !== null}
+                      <Button size="sm" variant="outline" disabled={busySince !== null || online === false}
                         onClick={() => { setText(s.text); run(() => api.analyze(s.text)) }}>{t.runLive}</Button>
                       {s.has_replay && (
                         <Button size="sm" variant="ghost" disabled={busySince !== null}
@@ -74,6 +79,9 @@ export function Analyze() {
           </CardContent>
         </Card>
 
+        {online === false && (
+          <Alert><AlertTriangle /><AlertDescription>{t.offlineBanner}</AlertDescription></Alert>
+        )}
         {busySince && <Progress since={busySince} />}
         {error && (
           <Alert variant="destructive"><AlertTriangle /><AlertDescription>{t.error}: {error}</AlertDescription></Alert>

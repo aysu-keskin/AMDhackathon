@@ -42,17 +42,38 @@ export function pick(value: Bilingual | string | undefined, lang: Lang): string 
   return typeof value === "string" ? value : value[lang] || value.en
 }
 
+// Production: the API lives on another host (VITE_API_URL). Development: Vite proxies /api.
+const API = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "")
+
 async function json<T>(response: Response): Promise<T> {
   if (!response.ok) throw new Error(`${response.status} ${await response.text()}`)
   return response.json()
 }
 
+// Bundled copies (public/data, made by backend/core/export_static.py) keep the UI useful when the API is offline.
+const bundled = <T,>(file: string) => fetch(`/data/${file}`).then((r) => json<T>(r))
+
+async function withFallback<T>(live: () => Promise<T>, offline: () => Promise<T>): Promise<T> {
+  try { return await live() } catch { return offline() }
+}
+
+export async function apiOnline(): Promise<boolean> {
+  try {
+    const r = await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(6000) })
+    return r.ok && (await r.json()).ok === true
+  } catch { return false }
+}
+
 export const api = {
   analyze: (text: string) =>
-    fetch("/api/analyze", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
+    fetch(`${API}/api/analyze`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
       .then((r) => json<Analysis>(r)),
-  samples: () => fetch("/api/samples").then((r) => json<Sample[]>(r)),
-  replay: (id: string) => fetch(`/api/replay/${id}`).then((r) => json<Analysis>(r)),
+  samples: () => withFallback(
+    () => fetch(`${API}/api/samples`).then((r) => json<Sample[]>(r)),
+    () => bundled<Sample[]>("samples.json")),
+  replay: (id: string) => withFallback(
+    () => fetch(`${API}/api/replay/${id}`).then((r) => json<Analysis>(r)),
+    () => bundled<Record<string, Analysis>>("replay.json").then((all) => all[id])),
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  metrics: () => fetch("/api/metrics").then((r) => json<any>(r)),
+  metrics: () => withFallback(() => fetch(`${API}/api/metrics`).then((r) => json<any>(r)), () => bundled<any>("metrics.json")),
 }

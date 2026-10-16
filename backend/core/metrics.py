@@ -16,7 +16,8 @@ SHIFT_GROUPS = {"62": "old: struck by object", "42": "old: fall on same level",
 
 
 def read(name: str) -> dict:
-    return json.loads((REPORTS / name).read_text(encoding="utf-8"))
+    # Empty bands were written as NaN (e.g. source is never "trusted"); NaN isn't valid JSON for browsers.
+    return json.loads((REPORTS / name).read_text(encoding="utf-8"), parse_constant=lambda _: None)
 
 
 def code_system_shift() -> list[dict]:
