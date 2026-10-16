@@ -42,7 +42,8 @@ class Report(BaseModel):
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"ok": "analyzer" in state}
+    # "evolus" tells the UI that drafts go through the Evolus agent (slower, so it shows a longer wait).
+    return {"ok": "analyzer" in state, "evolus": "analyzer" in state and state["analyzer"].evolus.configured}
 
 
 @app.post("/api/analyze")

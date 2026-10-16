@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { api, apiOnline, pick, type Action, type Analysis, type CodeName, type CodeOption, type Label, type Sample } from "@/lib/api"
+import { api, apiHealth, pick, type Action, type Analysis, type CodeName, type CodeOption, type Label, type Sample } from "@/lib/api"
 import { fill, useLang } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 
@@ -28,10 +28,11 @@ export function Analyze() {
   const [error, setError] = useState<string | null>(null)
 
   const [online, setOnline] = useState<boolean | null>(null)
+  const [evolus, setEvolus] = useState(false)
 
   useEffect(() => {
     api.samples().then(setSamples).catch(() => setSamples([]))
-    apiOnline().then(setOnline)
+    apiHealth().then((h) => { setOnline(h.online); setEvolus(h.evolus) })
   }, [])
 
   async function run(fn: () => Promise<Analysis>) {
@@ -85,20 +86,20 @@ export function Analyze() {
         {online === false && (
           <Alert><AlertTriangle /><AlertDescription>{t.offlineBanner}</AlertDescription></Alert>
         )}
-        {busySince && <Progress since={busySince} />}
+        {busySince && <Progress since={busySince} evolus={evolus} />}
         {error && (
           <Alert variant="destructive"><AlertTriangle /><AlertDescription>{t.error}: {error}</AlertDescription></Alert>
         )}
         {result && <Result key={result.recorded_at ?? result.seconds_total} result={result} />}
       </div>
       <aside className="grid content-start gap-6">
-        {result ? <AmdPanel result={result} /> : <Intro />}
+        {result ? <AmdPanel result={result} /> : <Intro evolus={evolus} />}
       </aside>
     </div>
   )
 }
 
-function Intro() {
+function Intro({ evolus }: { evolus: boolean }) {
   const { t } = useLang()
   return (
     <Card>
@@ -107,14 +108,14 @@ function Intro() {
         <p>{t.amdHelp}</p>
         <ul className="grid gap-1">
           <li>• {t.stepGemma}</li>
-          <li>• {t.stepDraft}</li>
+          <li>• {evolus ? t.stepDraftEvolus : t.stepDraft}</li>
         </ul>
       </CardContent>
     </Card>
   )
 }
 
-function Progress({ since }: { since: number }) {
+function Progress({ since, evolus }: { since: number; evolus: boolean }) {
   const { t } = useLang()
   const [now, setNow] = useState(Date.now())
   useEffect(() => { const id = setInterval(() => setNow(Date.now()), 500); return () => clearInterval(id) }, [])
@@ -124,7 +125,7 @@ function Progress({ since }: { since: number }) {
     { label: t.stepCoder, done: seconds >= 1 },
     { label: t.stepCases, done: seconds >= 1 },
     { label: t.stepGemma, done: false },
-    { label: t.stepDraft, done: false },
+    { label: evolus ? t.stepDraftEvolus : t.stepDraft, done: false },
   ]
   return (
     <Card>
@@ -135,7 +136,7 @@ function Progress({ since }: { since: number }) {
             <span className={cn(!s.done && "font-medium")}>{s.label}</span>
           </div>
         ))}
-        <p className="text-xs text-muted-foreground">{fill(t.elapsed, { s: seconds })}</p>
+        <p className="text-xs text-muted-foreground">{fill(evolus ? t.elapsedEvolus : t.elapsed, { s: seconds })}</p>
       </CardContent>
     </Card>
   )
@@ -351,6 +352,14 @@ function AmdPanel({ result }: { result: Analysis }) {
           <div key={c.purpose} className="grid gap-0.5">
             <span className="font-medium">{c.model}</span>
             <span className="text-xs text-muted-foreground">{c.purpose} · {c.seconds} s{c.error ? ` · ${c.error}` : ""}</span>
+            {c.via === "evolus" && (
+              <span className="mt-1 rounded-md bg-emerald-50 p-2 text-xs text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">{t.viaEvolus}</span>
+            )}
+            {c.via === "token_factory" && c.evolus_error && (
+              <span className="mt-1 rounded-md bg-amber-50 p-2 text-xs text-amber-900 dark:bg-amber-950 dark:text-amber-200" title={c.evolus_error}>
+                {t.evolusFallback}
+              </span>
+            )}
           </div>
         ))}
         <span className="text-xs text-muted-foreground">{t.total}: {result.seconds_total} s</span>

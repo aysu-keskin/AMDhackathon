@@ -29,7 +29,15 @@ export type Analysis = {
     ecfr_date: string
   }
   second_opinion?: { model: string | null; measured_model: string; measured: boolean }
-  amd: { endpoint: string; calls: { purpose: string; model: string; seconds: number; error: string | null }[] }
+  // via/evolus_error/evolus are missing in recordings made before the Evolus agent was added.
+  amd: {
+    endpoint: string
+    evolus?: boolean
+    calls: {
+      purpose: string; model: string; seconds: number; error: string | null
+      via?: "evolus" | "token_factory"; evolus_error?: string | null
+    }[]
+  }
   seconds_total: number
   replay?: boolean
   recorded_at?: string
@@ -57,12 +65,15 @@ async function withFallback<T>(live: () => Promise<T>, offline: () => Promise<T>
   try { return await live() } catch { return offline() }
 }
 
-export async function apiOnline(): Promise<boolean> {
+export type Health = { online: boolean; evolus: boolean }
+
+export async function apiHealth(): Promise<Health> {
   try {
     // Railway "serverless" sleeps when idle; waking up and loading the models takes up to ~30 s.
     const r = await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(45000) })
-    return r.ok && (await r.json()).ok === true
-  } catch { return false }
+    const body = r.ok ? await r.json() : {}
+    return { online: body.ok === true, evolus: body.evolus === true }
+  } catch { return { online: false, evolus: false } }
 }
 
 export const api = {
