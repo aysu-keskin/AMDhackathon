@@ -1,14 +1,41 @@
 import { useEffect, useState } from "react"
 import { Check, X } from "lucide-react"
+import { motion } from "motion/react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { api, type CodeName } from "@/lib/api"
-import { useLang } from "@/lib/i18n"
+import { fill, useLang } from "@/lib/i18n"
 
 const BRIEF: Record<CodeName, number> = { event: 0.842, source: 0.6625, nature: 0.926, part: 0.8875 }
 const CODES: CodeName[] = ["event", "nature", "part", "source"]
 const pct = (x: number | null | undefined, digits = 1) => (x == null ? "—" : `${(x * 100).toFixed(digits)}%`)
+
+// A number with a thin bar under it, so a column of accuracies can be compared at a glance.
+function Meter({ value, digits = 1, strong = false }: { value: number | null | undefined; digits?: number; strong?: boolean }) {
+  return (
+    <span className="ml-auto grid w-24 gap-1 text-right">
+      <span className={strong ? "font-medium" : undefined}>{pct(value, digits)}</span>
+      {value != null && (
+        <span className="h-1 overflow-hidden rounded-full bg-muted">
+          <span className="block h-full rounded-full bg-primary/60" style={{ width: `${value * 100}%` }} />
+        </span>
+      )}
+    </span>
+  )
+}
+
+function Stat({ value, label, note }: { value: string; label: string; note?: string }) {
+  return (
+    <Card size="sm" className="gap-1.5">
+      <CardContent className="grid gap-1">
+        <span className="text-3xl font-semibold tabular-nums tracking-tight">{value}</span>
+        <span className="text-sm font-medium leading-snug">{label}</span>
+        {note && <span className="text-xs text-muted-foreground">{note}</span>}
+      </CardContent>
+    </Card>
+  )
+}
 
 export function Measurement() {
   const { t } = useLang()
@@ -18,8 +45,20 @@ export function Measurement() {
   if (m === null) return <p className="text-muted-foreground">…</p>
   if (m === false) return <p className="text-destructive">{t.error}</p>
 
+  const test = m.confidence_test.test
   return (
     <div className="grid gap-6">
+      <section className="grid gap-3">
+        <h2 className="text-lg font-semibold">{t.mStatsTitle}</h2>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <Stat value={pct(test.event.labels.trusted.accuracy)} label={t.mStatEvent}
+            note={fill(t.mStatEventNote, { b: pct(m.second_opinion.rescored.event.rule_b.trusted.accuracy) })} />
+          <Stat value={pct(test.nature.labels.trusted.accuracy)} label={t.mStatNature} />
+          <Stat value={pct(test.part.labels.trusted.accuracy)} label={t.mStatPart} />
+          <Stat value={`${test.event.human_vs_rest_error_ratio}×`} label={t.mStatErr} note={t.mStatErrNote} />
+        </div>
+      </section>
+
       <Card>
         <CardHeader><CardTitle>{t.mShiftTitle}</CardTitle><CardDescription>{t.mShiftText}</CardDescription></CardHeader>
         <CardContent><ShiftChart series={m.code_shift.series} groups={m.code_shift.groups} /></CardContent>
@@ -34,7 +73,7 @@ export function Measurement() {
             <TableBody>
               {CODES.map((c) => (
                 <TableRow key={c}><TableCell>{t[c]}</TableCell><TableCell className="text-right tabular-nums">{pct(BRIEF[c])}</TableCell>
-                  <TableCell className="text-right tabular-nums font-medium">{pct(m.old_reproduction[c].accuracy)}</TableCell>
+                  <TableCell className="text-right tabular-nums"><Meter value={m.old_reproduction[c].accuracy} strong /></TableCell>
                   <TableCell className="text-right tabular-nums">{m.old_reproduction[c].test_rows.toLocaleString("en-US")}</TableCell></TableRow>
               ))}
             </TableBody>
@@ -46,7 +85,7 @@ export function Measurement() {
             <TableBody>
               {CODES.map((c) => (
                 <TableRow key={c}><TableCell>{t[c]}</TableCell>
-                  <TableCell className="text-right tabular-nums font-medium">{pct(m.new_accuracy[c].accuracy)}</TableCell>
+                  <TableCell className="text-right tabular-nums"><Meter value={m.new_accuracy[c].accuracy} strong /></TableCell>
                   <TableCell className="text-right tabular-nums">{m.new_accuracy[c].test_rows.toLocaleString("en-US")}</TableCell></TableRow>
               ))}
             </TableBody>
@@ -68,8 +107,13 @@ export function Measurement() {
                 return (
                   <TableRow key={c}><TableCell>{t[c]}</TableCell>
                     <TableCell className="text-right tabular-nums">{pct(trusted.share, 0)}</TableCell>
-                    <TableCell className="text-right tabular-nums font-medium">
-                      {trusted.accuracy == null ? "—" : <>{pct(trusted.accuracy)} <span className="text-xs text-muted-foreground">({pct(trusted.accuracy_95ci[0])}–{pct(trusted.accuracy_95ci[1])})</span></>}
+                    <TableCell className="text-right tabular-nums">
+                      {trusted.accuracy == null ? "—" : (
+                        <span className="inline-grid justify-items-end gap-0.5">
+                          <Meter value={trusted.accuracy} strong />
+                          <span className="text-xs text-muted-foreground">({pct(trusted.accuracy_95ci[0])}–{pct(trusted.accuracy_95ci[1])})</span>
+                        </span>
+                      )}
                     </TableCell>
                     <TableCell className="text-right tabular-nums">{pct(row.labels.human.share, 0)}</TableCell>
                     <TableCell className="text-right tabular-nums">{row.human_vs_rest_error_ratio}×</TableCell></TableRow>
@@ -139,9 +183,10 @@ function ShiftChart({ series, groups }: { series: Record<string, number | string
         <line x1={x(switchIndex)} x2={x(switchIndex)} y1={P.t} y2={H - P.b} stroke="var(--destructive)" strokeDasharray="4 4" />
         <text x={x(switchIndex) + 4} y={P.t + 10} fontSize="10" fill="var(--destructive)">2024-01</text>
         {series.map((s, i) => (i % 6 === 0 ? <text key={i} x={x(i)} y={H - 8} fontSize="10" textAnchor="middle" fill="var(--muted-foreground)">{String(s.month)}</text> : null))}
-        {keys.map((k) => (
-          <polyline key={k} fill="none" stroke={LINE_COLORS[k]} strokeWidth="2.2" strokeLinejoin="round"
-            points={series.map((s, i) => `${x(i)},${y(Number(s[k]))}`).join(" ")} />
+        {keys.map((k, n) => (
+          <motion.polyline key={k} fill="none" stroke={LINE_COLORS[k]} strokeWidth="2.2" strokeLinejoin="round"
+            points={series.map((s, i) => `${x(i)},${y(Number(s[k]))}`).join(" ")}
+            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4, ease: "easeInOut", delay: n * 0.2 }} />
         ))}
       </svg>
       <div className="flex flex-wrap gap-4 text-xs">
