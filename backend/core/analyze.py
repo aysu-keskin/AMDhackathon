@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 
 from backend.core.bundle import BUNDLE_CASES, BUNDLE_MODEL, BUNDLE_STANDARDS, CASE_COLUMNS
+from backend.llm.evolus import EvolusAgent
 from backend.llm.token_factory import TokenFactory
 from backend.model.second_opinion import SYSTEM as SECOND_OPINION_SYSTEM
 from backend.model.second_opinion import build_prompt, read_group
@@ -87,6 +88,7 @@ class Analyzer:
         gc.collect()
         self.standards = StandardsIndex(BUNDLE_STANDARDS if BUNDLE_STANDARDS.exists() else None)
         self.llm = TokenFactory()
+        self.evolus = EvolusAgent()
 
     def code(self, text: str) -> dict:
         out = {}
@@ -108,6 +110,16 @@ class Analyzer:
             lines.append(f"[{e['section']}] {e['topic']}\n{e['text'][:900]}\n")
         return "\n".join(lines)
 
+    def draft(self, prompt: str):
+        """The Evolus agent writes the draft when configured; on any failure Token Factory is called directly."""
+        evolus_error = None
+        if self.evolus.configured:
+            reply = self.evolus.ask(prompt)
+            if isinstance(reply.data, dict) and isinstance(reply.data.get("actions"), list):
+                return reply, None
+            evolus_error = reply.error or "no actions in the agent's answer"
+        return self.llm.json_chat(DRAFT_SYSTEM, prompt, json_mode=True, models=DRAFT_MODELS), evolus_error
+
     def analyze(self, text: str) -> dict:
         started = time.perf_counter()
         # Same preprocessing as training: collapse whitespace, mask dates.
@@ -128,9 +140,8 @@ class Analyzer:
         draft_prompt = self.draft_prompt(text, codes, neighbours, excerpts)
         with ThreadPoolExecutor(max_workers=2) as pool:
             second_future = pool.submit(self.llm.json_chat, SECOND_OPINION_SYSTEM, second_prompt)
-            draft_future = pool.submit(self.llm.json_chat, DRAFT_SYSTEM, draft_prompt, json_mode=True,
-                                       models=DRAFT_MODELS)
-            second, draft = second_future.result(), draft_future.result()
+            draft_future = pool.submit(self.draft, draft_prompt)
+            second, (draft, evolus_error) = second_future.result(), draft_future.result()
 
         llm_event = read_group((second.data or {}).get("event"), event_cands)
         llm_source = read_group((second.data or {}).get("source"), source_cands)
@@ -184,8 +195,11 @@ class Analyzer:
                     {"purpose": "second opinion (event, source)", "model": second.model,
                      "seconds": round(second.seconds, 1), "error": second.error},
                     {"purpose": "corrective-action draft", "model": draft.model,
-                     "seconds": round(draft.seconds, 1), "error": draft.error},
+                     "seconds": round(draft.seconds, 1), "error": draft.error,
+                     "via": "evolus" if draft.model.endswith("(Evolus agent)") else "token_factory",
+                     "evolus_error": evolus_error},
                 ],
+                "evolus": self.evolus.configured,
             },
             "seconds_total": round(time.perf_counter() - started, 1),
         }
