@@ -33,6 +33,9 @@ def main() -> None:
     print(f"Actions kept: {len(plan['actions'])} | rejected: {len(plan['rejected'])} | total {result['seconds_total']} s")
     for action in plan["rejected"]:
         print(f"  rejected {action.get('standard')}: {'; '.join(action['problems'])}")
+    found = [s["section"] for s in plan["standards"] if s.get("from_library")]
+    if found:
+        print(f"Cited from the agent's library (not in the prompt excerpts): {', '.join(found)}")
 
     if draft["via"] == "evolus":
         print("RESULT: OK, the draft came from the Evolus agent.")

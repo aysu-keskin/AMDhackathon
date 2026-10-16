@@ -25,7 +25,8 @@ export type Analysis = {
     missing_info: (Bilingual | string)[]
     actions: Action[]
     rejected: Action[]
-    standards: { section: string; topic: string; excerpt: string }[]
+    // from_library: a section the Evolus agent found in its library and cited (not in the prompt's excerpts)
+    standards: { section: string; topic: string; excerpt: string; from_library?: boolean }[]
     ecfr_date: string
   }
   second_opinion?: { model: string | null; measured_model: string; measured: boolean }

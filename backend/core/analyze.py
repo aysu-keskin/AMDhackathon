@@ -27,7 +27,7 @@ from backend.model.second_opinion import build_prompt, read_group
 from backend.pipeline.paths import ROOT, SIR_PARQUET
 from backend.pipeline.prepare import DATE_PATTERN
 from backend.retrieval.bm25 import CaseIndex
-from backend.retrieval.standards import StandardsIndex, validate_actions
+from backend.retrieval.standards import StandardsIndex, cited_sections, validate_actions
 
 LOCAL_MODEL = ROOT / "data" / "models" / "baseline_new.joblib"
 # The committed deployment bundle (backend/core/bundle.py) is used when present; local artifacts otherwise.
@@ -166,8 +166,15 @@ class Analyzer:
             }
 
         actions = (draft.data or {}).get("actions", []) if isinstance(draft.data, dict) else []
-        allowed = {e["section"] for e in excerpts}
+        via_evolus = draft.model.endswith("(Evolus agent)")
+        given = {e["section"] for e in excerpts}
+        # Team decision 2026-10-16: the Evolus agent searches its library (the same indexed sections), so on that
+        # path any indexed section may be cited; the direct call only saw the excerpts in the prompt.
+        allowed = set(self.standards.sections) if via_evolus else given
         kept, rejected = validate_actions(actions, allowed, set(self.standards.sections))
+        # Sections the agent found in its library: show their best excerpt too, so every citation can be read.
+        found = sorted({s for a in kept for s in cited_sections(a)} - given)
+        library = [self.standards.best_in_section(query, s) for s in found]
 
         return {
             "report": text,
@@ -183,7 +190,9 @@ class Analyzer:
                 "missing_info": (draft.data or {}).get("missing_info", []) if isinstance(draft.data, dict) else [],
                 "actions": kept,
                 "rejected": rejected,
-                "standards": [{"section": e["section"], "topic": e["topic"], "excerpt": e["text"][:400]} for e in excerpts],
+                "standards": [{"section": e["section"], "topic": e["topic"], "excerpt": e["text"][:400]} for e in excerpts]
+                + [{"section": e["section"], "topic": e["topic"], "excerpt": e["text"][:400], "from_library": True}
+                   for e in library],
                 "ecfr_date": self.standards.ecfr_date,
             },
             "second_opinion": {
@@ -198,7 +207,7 @@ class Analyzer:
                      "seconds": round(second.seconds, 1), "error": second.error},
                     {"purpose": "corrective-action draft", "model": draft.model,
                      "seconds": round(draft.seconds, 1), "error": draft.error,
-                     "via": "evolus" if draft.model.endswith("(Evolus agent)") else "token_factory",
+                     "via": "evolus" if via_evolus else "token_factory",
                      "evolus_error": evolus_error},
                 ],
                 "evolus": self.evolus.configured,

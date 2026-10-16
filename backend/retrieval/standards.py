@@ -1,7 +1,8 @@
 """Search the curated OSHA standards and check what the LLM cites.
 
 The validator is the part the LLM can't talk its way around: every cited section must be in our
-index AND among the excerpts we gave it, and legal or medical verdicts are rejected.
+index AND among the excerpts we gave it (on the Evolus path, any indexed section: the agent searches the
+same sections in its library), and legal or medical verdicts are rejected.
 """
 import json
 import re
@@ -73,16 +74,24 @@ class StandardsIndex:
         return {**self.entries[best], "score": float(scores[best])}
 
 
+def action_text(action: dict) -> str:
+    """All text of an action. Fields may be plain strings or {"en": ..., "it": ...}; every language counts."""
+    return " ".join(
+        " ".join(map(str, value.values())) if isinstance(value, dict) else str(value)
+        for value in (action.get(k, "") for k in ("action", "why", "standard"))
+    )
+
+
+def cited_sections(action: dict) -> set[str]:
+    return set(CITATION.findall(action_text(action)))
+
+
 def validate_actions(actions: list[dict], allowed_sections: set[str], known_sections: set[str]) -> tuple[list, list]:
-    """Keep actions whose citations are known and were in the excerpts; drop verdict language."""
+    """Keep actions whose citations are known and allowed (see analyze.py for which); drop verdict language."""
     kept, rejected = [], []
     for action in actions:
-        # Fields may be plain strings or {"en": ..., "it": ...}; check every language.
-        text = " ".join(
-            " ".join(map(str, value.values())) if isinstance(value, dict) else str(value)
-            for value in (action.get(k, "") for k in ("action", "why", "standard"))
-        )
-        cited = set(CITATION.findall(text))
+        text = action_text(action)
+        cited = cited_sections(action)
         problems = []
         if not cited:
             problems.append("no OSHA standard cited")

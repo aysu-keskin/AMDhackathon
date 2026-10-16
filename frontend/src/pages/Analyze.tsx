@@ -227,7 +227,12 @@ function Result({ result }: { result: Analysis }) {
           <details className="text-sm text-muted-foreground">
             <summary className="cursor-pointer">{fill(t.standardsUsed, { date: result.action_plan.ecfr_date })}</summary>
             <ul className="mt-2 grid gap-2">
-              {result.action_plan.standards.map((s) => <li key={s.section}><b>{s.section}</b> {s.topic}</li>)}
+              {result.action_plan.standards.map((s) => (
+                <li key={s.section}>
+                  <b>{s.section}</b> {s.topic}
+                  {s.from_library && <Badge variant="outline" className="ml-2 align-middle">{t.fromLibrary}</Badge>}
+                </li>
+              ))}
             </ul>
           </details>
         </CardContent>
