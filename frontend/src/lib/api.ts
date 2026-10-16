@@ -59,7 +59,8 @@ async function withFallback<T>(live: () => Promise<T>, offline: () => Promise<T>
 
 export async function apiOnline(): Promise<boolean> {
   try {
-    const r = await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(6000) })
+    // Railway "serverless" sleeps when idle; waking up and loading the models takes up to ~30 s.
+    const r = await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(45000) })
     return r.ok && (await r.json()).ok === true
   } catch { return false }
 }

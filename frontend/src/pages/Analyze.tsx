@@ -79,6 +79,9 @@ export function Analyze() {
           </CardContent>
         </Card>
 
+        {online === null && (
+          <Alert><Loader2 className="animate-spin" /><AlertDescription>{t.waking}</AlertDescription></Alert>
+        )}
         {online === false && (
           <Alert><AlertTriangle /><AlertDescription>{t.offlineBanner}</AlertDescription></Alert>
         )}
