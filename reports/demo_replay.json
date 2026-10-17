@@ -134,20 +134,20 @@
   "action_plan": {
    "missing_info": [
     {
-     "en": "Was the press equipped with a two-hand control, pull-out device, or other point-of-operation guard at the time of the incident?",
-     "it": "La pressa era dotata di comando a due mani, dispositivo di estrazione o altra protezione del punto di operazione al momento dell'incidente?"
+     "en": "Was the press equipped with any point-of-operation guard or device (e.g., two-hand control, presence sensing, gate) at the time of the incident, and was it in use?",
+     "it": "La pressa era dotata di una protezione o dispositivo del punto di operazione (es. comando a due mani, sensore di presenza, barriera) al momento dell'incidente, ed era in uso?"
     },
     {
-     "en": "Was a lockout/tagout procedure implemented before the operator attempted to remove the stuck part?",
-     "it": "È stata implementata una procedura di lockout/tagout prima che l'operatore tentasse di rimuovere la parte bloccata?"
+     "en": "Was the press locked out / tagged out or otherwise de-energized before the operator attempted to remove the stuck part?",
+     "it": "La pressa era stata bloccata/taggata o comunque disenergizzata prima che l'operatore tentasse di rimuovere il pezzo incastrato?"
     },
     {
-     "en": "What specific training had the operator received regarding stuck part removal and press safety?",
-     "it": "Quale formazione specifica aveva ricevuto l'operatore riguardo alla rimozione di parti bloccate e alla sicurezza della pressa?"
+     "en": "Were hand tools (e.g., pliers, hooks, tongs) available and provided for freeing stuck parts, and was their use required by procedure?",
+     "it": "Erano disponibili e forniti utensili manuali (es. pinze, ganci, tenaglie) per liberare i pezzi incastrati, e il loro uso era richiesto dalla procedura?"
     },
     {
-     "en": "Were there any witnesses or maintenance personnel involved in the incident?",
-     "it": "C'erano testimoni o personale di manutenzione coinvolto nell'incidente?"
+     "en": "What type of clutch (full-revolution or part-revolution) and what actuation method (foot pedal, two-hand trip, etc.) did the press use?",
+     "it": "Che tipo di frizione (a giro completo o a giro parziale) e quale metodo di azionamento (pedale, comando a due mani, ecc.) utilizzava la pressa?"
     }
    ],
    "actions": [
@@ -155,48 +155,60 @@
      "type": "engineering",
      "standard": "1910.217",
      "action": {
-      "en": "Install and maintain a pull-out device on the mechanical power press, with attachments for each hand, adjusted to prevent the operator from reaching into the point of operation before the dies close.",
-      "it": "Installare e mantenere un dispositivo di estrazione sulla pressa meccanica, con attacchi per entrambe le mani, regolato per impedire all'operatore di raggiungere il punto di operazione prima che gli stampi si chiudano."
+      "en": "Provide and ensure the use of point-of-operation guards or properly applied and adjusted point-of-operation devices on the press so that hands cannot enter the point of operation during normal operation.",
+      "it": "Fornire e garantire l'uso di protezioni del punto di operazione o di dispositivi del punto di operazione correttamente applicati e regolati sulla pressa, in modo che le mani non possano entrare nel punto di operazione durante il funzionamento normale."
      },
      "why": {
-      "en": "The pull-out device is designed to withdraw the operator's hands from the point of operation before the dies close, preventing contact with the moving parts.",
-      "it": "Il dispositivo di estrazione è progettato per ritrarre le mani dell'operatore dal punto di operazione prima che gli stampi si chiudano, prevenendo il contatto con le parti in movimento."
+      "en": "The standard requires the employer to provide and ensure usage of point-of-operation guards or devices on every operation performed on a mechanical power press.",
+      "it": "La norma richiede che il datore di lavoro fornisca e garantisca l'uso di protezioni o dispositivi del punto di operazione su ogni operazione eseguita su una pressa meccanica."
+     }
+    },
+    {
+     "type": "engineering",
+     "standard": "1910.217",
+     "action": {
+      "en": "Furnish and enforce the use of hand tools (e.g., pliers, hooks, tongs) for freeing and removing stuck work or scrap pieces from the die, so that no employee needs to reach into the point of operation for such purposes.",
+      "it": "Fornire e imporre l'uso di utensili manuali (es. pinze, ganci, tenaglie) per liberare e rimuovere pezzi incastrati o scarti dalla matrice, in modo che nessun dipendente debba raggiungere il punto di operazione per tali scopi."
+     },
+     "why": {
+      "en": "The standard requires the employer to use dies and operating methods designed to control hazards and to furnish and enforce hand tools for freeing stuck work so employees do not reach into the point of operation.",
+      "it": "La norma richiede che il datore di lavoro utilizzi matrici e metodi operativi progettati per controllare i pericoli e fornisca e imponga utensili manuali per liberare i pezzi incastrati, così che i dipendenti non debbano raggiungere il punto di operazione."
      }
     },
     {
      "type": "administrative",
      "standard": "1910.147",
      "action": {
-      "en": "Implement a lockout/tagout procedure for all servicing and maintenance tasks, including removing stuck parts, requiring the press to be de-energized and locked out before any employee enters the point of operation.",
-      "it": "Implementare una procedura di lockout/tagout per tutte le attività di manutenzione e assistenza, inclusa la rimozione di parti bloccate, richiedendo che la pressa venga disenergizzata e bloccata prima che un dipendente entri nel punto di operazione."
+      "en": "Establish and implement an energy control (lockout/tagout) procedure requiring the press to be isolated from its energy source and rendered inoperative before any employee performs unjamming or removal of stuck parts from the die.",
+      "it": "Stabilire e attuare una procedura di controllo dell'energia (lockout/tagout) che richieda di isolare la pressa dalla sua fonte di energia e renderla inoperativa prima che qualsiasi dipendente esegua lo sblocco o la rimozione di pezzi incastrati dalla matrice."
      },
      "why": {
-      "en": "The incident occurred during a servicing task (removing a stuck part) where unexpected cycling of the press caused injury; lockout/tagout controls hazardous energy to prevent such unexpected energization.",
-      "it": "L'incidente è avvenuto durante un'attività di manutenzione (rimozione di una parte bloccata) in cui il ciclo inatteso della pressa ha causato lesioni; il lockout/tagout controlla l'energia pericolosa per prevenire tale energizzazione inattesa."
+      "en": "Removing a stuck part is a servicing/unjamming activity where unexpected energization could cause injury, and the standard requires an energy control program to isolate and render the equipment inoperative before such work.",
+      "it": "La rimozione di un pezzo incastrato è un'attività di manutenzione/sblocco in cui un'energizzazione inattesa può causare lesioni, e la norma richiede un programma di controllo dell'energia per isolare e rendere inoperativa l'attrezzatura prima di tale lavoro."
      }
     },
     {
      "type": "training",
      "standard": "1910.217",
      "action": {
-      "en": "Train all press operators on safe procedures for clearing jams or stuck parts, emphasizing that hands must never be placed in the point of operation while the press is energized, and that lockout/tagout must be used.",
-      "it": "Formare tutti gli operatori di presse sulle procedure sicure per sbloccare inceppamenti o parti bloccate, sottolineando che le mani non devono mai essere inserite nel punto di operazione mentre la pressa è energizzata e che deve essere utilizzato il lockout/tagout."
+      "en": "Train and instruct each press operator in the safe method of work, including the prohibition on reaching into the point of operation and the required use of hand tools and lockout/tagout for removing stuck parts, and supervise to ensure correct procedures are followed.",
+      "it": "Formare e istruire ogni operatore della pressa sul metodo di lavoro sicuro, inclusa la proibizione di raggiungere il punto di operazione e l'uso obbligatorio di utensili manuali e del lockout/tagout per rimuovere i pezzi incastrati, e supervisionare per garantire che vengano seguite le procedure corrette."
      },
      "why": {
-      "en": "Proper training ensures operators understand the hazards and follow safe work practices, reducing the likelihood of reaching into the point of operation during abnormal conditions.",
-      "it": "Una formazione adeguata garantisce che gli operatori comprendano i pericoli e seguano pratiche di lavoro sicure, riducendo la probabilità di raggiungere il punto di operazione durante condizioni anomale."
+      "en": "The standard requires the employer to train and instruct the operator in the safe method of work before starting work and to ensure by adequate supervision that correct operating procedures are followed.",
+      "it": "La norma richiede che il datore di lavoro formi e istruisca l'operatore sul metodo di lavoro sicuro prima di iniziare il lavoro e garantisca, mediante un'adeguata supervisione, che vengano seguite le procedure operative corrette."
      }
     },
     {
      "type": "ppe",
      "standard": "1910.132",
      "action": {
-      "en": "Provide and require the use of cut-resistant gloves or other appropriate hand protection for tasks involving handling of dies or parts, where there is a risk of mechanical injury.",
-      "it": "Fornire e richiedere l'uso di guanti resistenti al taglio o altra protezione appropriata per le mani per attività che comportano la manipolazione di stampi o parti, dove esiste un rischio di lesioni meccaniche."
+      "en": "Conduct a workplace hazard assessment for the press operation to determine whether hand/arm protective equipment is necessaryholistically, select and provide appropriate PPE that fits, and train employees on its proper use, care, and limitations.",
+      "it": "Condurre una valutazione dei pericoli sul posto di lavoro per l'operazione della pressa per determinare se sia necessaria un'attrezzatura protettiva per mani/braccia, selezionare e fornire i DPI appropriati che calzino correttamente, e formare i dipendenti sul loro uso, cura e limitazioni corretti."
      },
      "why": {
-      "en": "Personal protective equipment can reduce the severity of injuries from contact with sharp or moving parts, though it does not eliminate the hazard.",
-      "it": "I dispositivi di protezione individuale possono ridurre la gravità delle lesioni da contatto con parti taglienti o in movimento, sebbene non eliminino il pericolo."
+      "en": "The standard requires the employer to assess the workplace for hazards necessitating PPE, select and provide appropriate PPE, and train employees on its proper use.",
+      "it": "La norma richiede che il datore di lavoro valuti il posto di lavoro per i pericoli che rendono necessario l'uso di DPI, selezioni e fornisca i DPI appropriati e formi i dipendenti sul loro uso corretto."
      }
     }
    ],
@@ -240,25 +252,33 @@
    ],
    "ecfr_date": "2026-10-06"
   },
+  "second_opinion": {
+   "model": "Gemma-4-31B-IT",
+   "measured_model": "Gemma-4-31B-IT",
+   "measured": true
+  },
   "amd": {
    "endpoint": "developer.amd.com.cn",
    "calls": [
     {
      "purpose": "second opinion (event, source)",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 2.0,
+     "model": "Gemma-4-31B-IT",
+     "seconds": 5.8,
      "error": null
     },
     {
      "purpose": "corrective-action draft",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 60.3,
-     "error": null
+     "model": "DeepSeek-V4-Flash (Evolus agent)",
+     "seconds": 224.1,
+     "error": null,
+     "via": "evolus",
+     "evolus_error": null
     }
-   ]
+   ],
+   "evolus": true
   },
-  "seconds_total": 63.8,
-  "recorded_at": "2026-10-15T15:45:23+00:00"
+  "seconds_total": 224.3,
+  "recorded_at": "2026-10-17T13:55:46+00:00"
  },
  "forklift": {
   "report": "An employee was walking through the warehouse aisle when a forklift that was backing up struck him. He suffered a fractured left leg and was hospitalized.",
@@ -395,20 +415,20 @@
   "action_plan": {
    "missing_info": [
     {
-     "en": "Was the forklift equipped with an audible reverse warning signal that was operational at the time?",
-     "it": "Il carrello elevatore era dotato di un segnale acustico di retromarcia funzionante al momento dell'incidente?"
+     "en": "Was the forklift operator trained and certified under 1910.178(l) at the time of the incident, and had any refresher training been triggered by prior near-misses or unsafe operation?",
+     "it": "L'operatore del carrello elevatore era stato formato e certificato ai sensi del 1910.178(l) al momento dell'incidente, ed era stato attivato un aggiornamento della formazione a seguito di precedenti quasi-incidenti o manovre non sicure?"
     },
     {
-     "en": "Were there designated pedestrian walkways or aisle markings separating pedestrian and forklift traffic in the warehouse?",
-     "it": "C'erano percorsi pedonali designati o segnaletica che separavano il traffico pedonale da quello dei carrelli elevatori nel magazzino?"
+     "en": "Were there any audible warning devices (horn, backup alarm) on the forklift, and were they functional and used during the backing maneuver?",
+     "it": "Sul carrello elevatore erano presenti dispositivi di segnalazione acustica (clacson, segnalatore di retromarcia), erano funzionanti e sono stati utilizzati durante la manovra in retromarcia?"
     },
     {
-     "en": "Had the forklift operator received recent refresher training on pedestrian safety and operating in aisles?",
-     "it": "L'operatore del carrello elevatore aveva ricevuto una formazione di aggiornamento recente sulla sicurezza dei pedoni e sull'operatività nei corridoi?"
+     "en": "What were the layout and visibility conditions at the aisle (e.g., blind corners, mirrors, pedestrian walkway markings, aisle width) where the pedestrian was struck?",
+     "it": "Quali erano la disposizione e le condizioni di visibilità nel corridoio (ad es. angoli ciechi, specchi, segnaletica per i pedoni, larghezza del corridoio) dove il pedone è stato investito?"
     },
     {
-     "en": "Was the pedestrian employee wearing any high-visibility clothing or other PPE at the time?",
-     "it": "Il dipendente pedone indossava indumenti ad alta visibilità o altri DPI al momento dell'incidente?"
+     "en": "Was the pedestrian employee trained on pedestrian safety and separation from forklift traffic, and were there established pedestrian walkways or traffic control measures in the warehouse?",
+     "it": "Il dipendente pedone aveva ricevuto formazione sulla sicurezza dei pedoni e sulla separazione dal traffico dei carrelli elevatori, ed erano presenti percorsi pedonali o misure di controllo del traffico nel magazzino?"
     }
    ],
    "actions": [
@@ -416,60 +436,60 @@
      "type": "engineering",
      "standard": "1910.178",
      "action": {
-      "en": "Implement physical separation measures such as guardrails or bollards to create dedicated pedestrian walkways in warehouse aisles where forklifts operate.",
-      "it": "Implementare misure di separazione fisica come ringhiere o dissuasori per creare percorsi pedonali dedicati nei corridoi del magazzino dove operano i carrelli elevatori."
+      "en": "Install physical separation measures (e.g., pedestrian walkway barriers, aisle markings, or mirrors at blind corners) in the warehouse to separate pedestrian traffic from forklift travel paths, and ensure adequate lighting in the operating area.",
+      "it": "Installare misure di separazione fisica (ad es. barriere per percorsi pedonali, segnaletica a terra o specchi agli angoli ciechi) nel magazzino per separare il traffico pedonale dalle vie di transito dei carrelli elevatori, e garantire un'illuminazione adeguata nell'area operativa."
      },
      "why": {
-      "en": "The standard requires evaluating pedestrian traffic in areas where vehicles operate to prevent collisions.",
-      "it": "La norma richiede di valutare il traffico pedonale nelle aree in cui operano i veicoli per prevenire collisioni."
-     }
-    },
-    {
-     "type": "engineering",
-     "standard": "1910.178",
-     "action": {
-      "en": "Install audible and visual warning devices on forklifts, such as backup alarms and strobe lights, and ensure they are maintained in working order.",
-      "it": "Installare dispositivi di avvertimento acustici e visivi sui carrelli elevatori, come allarmi di retromarcia e luci stroboscopiche, e assicurarsi che siano mantenuti in condizioni di funzionamento."
-     },
-     "why": {
-      "en": "The standard addresses unique hazardous environmental conditions and safe operation, which includes warning pedestrians of vehicle movement.",
-      "it": "La norma affronta condizioni ambientali uniche e potenzialmente pericolose e l'operatività sicura, che include avvisare i pedoni del movimento dei veicoli."
+      "en": "The standard requires addressing pedestrian traffic and other unique hazardous environmental conditions in areas where the vehicle is operated, and requires auxiliary directional lighting where general lighting is low.",
+      "it": "La norma richiede di considerare il traffico pedonale e altre condizioni ambientali potenzialmente pericolose nelle aree in cui il veicolo viene operato, e richiede illuminazione direzionale ausiliaria dove l'illuminazione generale è scarsa."
      }
     },
     {
      "type": "administrative",
      "standard": "1910.178",
      "action": {
-      "en": "Develop and enforce a traffic management plan that includes designated pedestrian walkways, speed limits, and rules for forklift operation in aisles, especially when backing up.",
-      "it": "Sviluppare e applicare un piano di gestione del traffico che includa percorsi pedonali designati, limiti di velocità e regole per l'operatività dei carrelli nei corridoi, specialmente in retromarcia."
+      "en": "Establish and enforce a traffic management plan that includes pedestrian/forklift separation rules, speed limits, and a requirement for the driver to sound the horn and slow down at cross aisles and other locations where vision is obstructed.",
+      "it": "Stabilire e applicare un piano di gestione del traffico che includa regole di separazione pedoni/carrelli, limiti di velocità e l'obbligo per il conducente di suonare il clacson e rallentare agli incroci e in altri punti con visibilità ostruita."
      },
      "why": {
-      "en": "The standard requires evaluating narrow aisles and other restricted places where vehicles operate to ensure safe operation.",
-      "it": "La norma richiede di valutare corridoi stretti e altri luoghi ristretti in cui operano i veicoli per garantire un'operatività sicura."
+      "en": "The standard requires the driver to slow down and sound the horn at cross aisles and other locations where vision is obstructed, and to keep a clear view of the path of travel.",
+      "it": "La norma richiede che il conducente rallenti e suoni il clacson agli incroci e in altri punti con visibilità ostruita, e che mantenga una visuale libera del percorso di marcia."
      }
     },
     {
      "type": "training",
      "standard": "1910.178",
      "action": {
-      "en": "Provide refresher training to all forklift operators on pedestrian safety, including checking blind spots, using horns at intersections and when backing up, and following traffic rules.",
-      "it": "Fornire formazione di aggiornamento a tutti gli operatori di carrelli elevatori sulla sicurezza dei pedoni, inclusi il controllo dei punti ciechi, l'uso del clacson agli incroci e in retromarcia, e il rispetto delle regole del traffico."
+      "en": "Provide refresher training and evaluation to the forklift operator covering pedestrian traffic in operating areas, narrow aisles, visibility restrictions, and safe backing procedures, and certify the training.",
+      "it": "Fornire formazione di aggiornamento e valutazione all'operatore del carrello elevatore sui temi del traffico pedonale nelle aree operative, corridoi stretti, limitazioni di visibilità e procedure sicure di retromarcia, e certificare la formazione."
      },
      "why": {
-      "en": "The standard mandates refresher training to ensure operators have the knowledge and skills needed for safe operation.",
-      "it": "La norma impone una formazione di aggiornamento per garantire che gli operatori abbiano le conoscenze e le abilità necessarie per un'operatività sicura."
+      "en": "The standard requires refresher training and evaluation when an operator has been involved in an accident or observed to operate unsafely, and requires certification of training and evaluation.",
+      "it": "La norma richiede formazione di aggiornamento e valutazione quando un operatore è stato coinvolto in un incidente o è stato osservato operare in modo non sicuro, e richiede la certificazione della formazione e della valutazione."
+     }
+    },
+    {
+     "type": "training",
+     "standard": "1910.30",
+     "action": {
+      "en": "Train all warehouse employees, including pedestrians, on recognizing forklift traffic hazards in the work area and on the procedures to follow to minimize those hazards, and retrain when understanding is inadequate.",
+      "it": "Formare tutti i dipendenti del magazzino, inclusi i pedoni, sul riconoscimento dei pericoli del traffico dei carrelli elevatori nell'area di lavoro e sulle procedure da seguire per minimizzare tali pericoli, e ri-formare quando la comprensione è inadeguata."
+     },
+     "why": {
+      "en": "The standard requires training employees on the nature of hazards in the work area and how to recognize them, and retraining when inadequacies in knowledge indicate the employee no longer has the requisite understanding.",
+      "it": "La norma richiede di formare i dipendenti sulla natura dei pericoli nell'area di lavoro e su come riconoscerli, e di ri-formare quando carenze nelle conoscenze indicano che il dipendente non ha più la comprensione necessaria."
      }
     },
     {
      "type": "ppe",
      "standard": "1910.132",
      "action": {
-      "en": "Conduct a hazard assessment for pedestrian workers in areas with forklift traffic and provide high-visibility vests or other appropriate PPE as determined by the assessment.",
-      "it": "Condurre una valutazione dei rischi per i lavoratori pedoni nelle aree con traffico di carrelli elevatori e fornire giubbotti ad alta visibilità o altri DPI appropriati come determinato dalla valutazione."
+      "en": "Conduct a written hazard assessment of the warehouse to determine whether high-visibility clothing or other PPE is necessary for employees working near forklift traffic, and provide and train on any selected PPE.",
+      "it": "Effettuare una valutazione dei rischi scritta del magazzino per determinare se siano necessari indumenti ad alta visibilità o altri DPI per i dipendenti che lavorano vicino al traffico dei carrelli elevatori, e fornire e formare sui DPI selezionati."
      },
      "why": {
-      "en": "The standard requires a hazard assessment to determine necessary PPE and training for its use.",
-      "it": "La norma richiede una valutazione dei rischi per determinare i DPI necessari e la formazione per il loro utilizzo."
+      "en": "The standard requires a workplace hazard assessment to determine if hazards necessitate PPE, written certification of that assessment, and training on when and how to use the selected PPE.",
+      "it": "La norma richiede una valutazione dei rischi sul posto di lavoro per determinare se i pericoli rendano necessario l'uso di DPI, la certificazione scritta di tale valutazione e la formazione su quando e come utilizzare i DPI selezionati."
      }
     }
    ],
@@ -513,25 +533,33 @@
    ],
    "ecfr_date": "2026-10-06"
   },
+  "second_opinion": {
+   "model": "Gemma-4-31B-IT",
+   "measured_model": "Gemma-4-31B-IT",
+   "measured": true
+  },
   "amd": {
    "endpoint": "developer.amd.com.cn",
    "calls": [
     {
      "purpose": "second opinion (event, source)",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 4.5,
+     "model": "Gemma-4-31B-IT",
+     "seconds": 11.4,
      "error": null
     },
     {
      "purpose": "corrective-action draft",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 53.7,
-     "error": null
+     "model": "DeepSeek-V4-Flash (Evolus agent)",
+     "seconds": 114.3,
+     "error": null,
+     "via": "evolus",
+     "evolus_error": null
     }
-   ]
+   ],
+   "evolus": true
   },
-  "seconds_total": 57.2,
-  "recorded_at": "2026-10-15T15:46:20+00:00"
+  "seconds_total": 114.4,
+  "recorded_at": "2026-10-17T13:57:40+00:00"
  },
  "conveyor": {
   "report": "While clearing a jam on a running belt conveyor in the packaging line, an employee reached under the guard and her left hand was pulled into the pinch point at the tail pulley. She suffered crushing injuries and two fractured fingers.",
@@ -668,81 +696,93 @@
   "action_plan": {
    "missing_info": [
     {
-     "en": "Was the conveyor equipped with an emergency stop or pull cord that was accessible to the employee?",
-     "it": "Il nastro trasportatore era dotato di un arresto di emergenza o di una fune di sgancio accessibile al dipendente?"
+     "en": "Was the conveyor equipped with a lockout/tagout energy isolation device capable of being locked out?",
+     "it": "Il trasportatore era dotato di un dispositivo di isolamento dell'energia (lockout/tagout) in grado di essere bloccato con lucchetto?"
     },
     {
-     "en": "Was the employee trained on lockout/tagout procedures for clearing jams on this conveyor?",
-     "it": "Il dipendente era stato formato sulle procedure di lockout/tagout per la rimozione di inceppamenti su questo nastro trasportatore?"
+     "en": "Was there a written energy control procedure and had the employee received lockout/tagout training for this specific conveyor?",
+     "it": "Esisteva una procedura scritta di controllo dell'energia e l'impiegato aveva ricevuto formazione lockout/tagout per questo specifico trasportatore?"
     },
     {
-     "en": "Was the guard that the employee reached under designed to be removable or interlocked with the conveyor's power?",
-     "it": "La protezione sotto cui il dipendente ha infilato la mano era progettata per essere rimovibile o interbloccata con l'alimentazione del nastro?"
+     "en": "Was the guard at the tail pulley interlocked with the drive mechanism so the conveyor could not run with the guard open or removed?",
+     "it": "La protezione alla puleggia di coda era interbloccata con il meccanismo di azionamento in modo che il trasportatore non potesse funzionare con la protezione aperta o rimossa?"
     },
     {
-     "en": "Were there any written procedures for clearing jams on this conveyor, and did they require the conveyor to be stopped?",
-     "it": "Esistevano procedure scritte per la rimozione di inceppamenti su questo nastro e richiedevano l'arresto del nastro?"
+     "en": "Were emergency stop buttons or pull cords available and within reach of the employee at the jam-clearing location?",
+     "it": "Erano disponibili pulsanti di arresto di emergenza o corde di sgancio a portata dell'impiegato nel punto di sblocco dell'inceppamento?"
     }
    ],
    "actions": [
     {
      "type": "engineering",
-     "standard": "1910.219",
+     "standard": "1910.212",
      "action": {
-      "en": "Install a guard that completely encloses the tail pulley and pinch point, designed to prevent access to the nip point while the conveyor is running.",
-      "it": "Installare una protezione che racchiuda completamente il tamburo di coda e il punto di pizzicamento, progettata per impedire l'accesso al punto di contatto mentre il nastro è in movimento."
+      "en": "Install or modify the guard at the tail pulley so that it is interlocked with the drive mechanism, preventing the conveyor from operating whenever the guard is open, removed, or bypassed, and ensure the guard is affixed to the machine and does not allow access to the ingoing nip point.",
+      "it": "Installare o modificare la protezione alla puleggia di coda in modo che sia interbloccata con il meccanismo di azionamento, impedendo il funzionamento del trasportatore ogni volta che la protezione è aperta, rimossa o aggirata, e assicurarsi che la protezione sia fissata alla macchina e non consenta l'accesso al punto di presa (nip point) in ingresso."
      },
      "why": {
-      "en": "The pinch point at the tail pulley is a recognized hazard under mechanical power-transmission apparatus guarding requirements.",
-      "it": "Il punto di pizzicamento al tamburo di coda è un pericolo riconosciuto ai sensi dei requisiti di protezione degli apparati di trasmissione meccanica di potenza."
+      "en": "The employee reached under the guard into the pinch point at the tail pulley while the conveyor was running, indicating the guard did not prevent access to the ingoing nip point during operation.",
+      "it": "L'impiegato ha raggiunto sotto la protezione il punto di presa alla puleggia di coda mentre il trasportatore era in funzione, indicando che la protezione non impediva l'accesso al punto di presa in ingresso durante il funzionamento."
      }
     },
     {
      "type": "engineering",
-     "standard": "1910.147",
+     "standard": "1910.219",
      "action": {
-      "en": "Install a lockout/tagout system that requires the conveyor to be de-energized and locked out before any jam clearing or maintenance is performed.",
-      "it": "Installare un sistema di lockout/tagout che richieda la disattivazione e il blocco dell'alimentazione del nastro prima di qualsiasi operazione di rimozione di inceppamenti o manutenzione."
+      "en": "Provide a nip-point belt and pulley guard at the tail pulley that fully encloses the in-running and off-running sides of the belt and pulley, extending at least six inches beyond the rim of the pulley, so that hands cannot contact the pinch point.",
+      "it": "Fornire una protezione del punto di presa (nip-point) per cinghia e puleggia alla puleggia di coda che racchiuda completamente i lati in ingresso e in uscita della cinghia e della puleggia, estendendosi almeno sei pollici oltre il bordo della puleggia, in modo che le mani non possano entrare in contatto con il punto di presa."
      },
      "why": {
-      "en": "The incident occurred during a servicing task (clearing a jam) on running equipment, which is within the scope of hazardous energy control.",
-      "it": "L'incidente è avvenuto durante un'attività di manutenzione (rimozione di un inceppamento) su un'apparecchiatura in funzione, che rientra nell'ambito del controllo dell'energia pericolosa."
+      "en": "The tail pulley pinch point is a mechanical power-transmission hazard where the belt runs onto the pulley, and the existing guard allowed the employee's hand to be pulled into it.",
+      "it": "Il punto di presa della puleggia di coda è un pericolo di trasmissione meccanica di potenza dove la cinghia entra sulla puleggia, e la protezione esistente ha permesso che la mano dell'impiegato venisse trascinata al suo interno."
      }
     },
     {
      "type": "administrative",
      "standard": "1910.147",
      "action": {
-      "en": "Develop and implement written procedures for clearing jams on the conveyor that mandate stopping and locking out the equipment before any access to the pinch point.",
-      "it": "Sviluppare e implementare procedure scritte per la rimozione di inceppamenti sul nastro che impongano l'arresto e il blocco dell'apparecchiatura prima di qualsiasi accesso al punto di pizzicamento."
+      "en": "Establish and implement a documented energy control (lockout/tagout) procedure requiring that the conveyor be shut down, isolated from its energy source, and locked/tagged out before any employee clears a jam or performs other servicing or maintenance that requires reaching into the danger zone.",
+      "it": "Stabilire e attuare una procedura documentata di controllo dell'energia (lockout/tagout) che richieda di arrestare il trasportatore, isolarlo dalla fonte di energia e bloccarlo/etichettarlo (lockout/tagout) prima che qualsiasi impiegato sblocchi un inceppamento o esegua altre operazioni di manutenzione che richiedano di raggiungere la zona di pericolo."
      },
      "why": {
-      "en": "Adequate procedures for hazardous energy control are required to ensure employees do not service equipment while it is energized.",
-      "it": "Procedure adeguate per il controllo dell'energia pericolosa sono richieste per garantire che i dipendenti non effettuino manutenzione su apparecchiature in tensione."
+      "en": "Clearing a jam on a running conveyor is a servicing activity where the employee placed part of the body into a danger zone during the machine operating cycle, requiring energy isolation before work begins.",
+      "it": "Lo sblocco di un inceppamento su un trasportatore in funzione è un'attività di manutenzione in cui l'impiegato ha posto parte del corpo in una zona di pericolo durante il ciclo operativo della macchina, richiedendo l'isolamento dell'energia prima di iniziare il lavoro."
      }
     },
     {
      "type": "training",
      "standard": "1910.147",
      "action": {
-      "en": "Train all employees who clear jams or perform maintenance on the conveyor on lockout/tagout procedures, including the specific steps to isolate and verify zero energy state.",
-      "it": "Formare tutti i dipendenti che rimuovono inceppamenti o effettuano manutenzione sul nastro sulle procedure di lockout/tagout, inclusi i passaggi specifici per isolare e verificare lo stato di energia zero."
+      "en": "Provide training and retraining to all authorized and affected employees on the recognition of hazardous energy sources, the lockout/tagout procedures for the conveyor, and the prohibition against reaching into the danger zone while the conveyor is running.",
+      "it": "Fornire formazione e riqualificazione a tutti gli impiegati autorizzati e interessati sul riconoscimento delle fonti di energia pericolose, sulle procedure di lockout/tagout per il trasportatore e sul divieto di raggiungere la zona di pericolo mentre il trasportatore è in funzione."
      },
      "why": {
-      "en": "Training is essential to ensure employees understand and follow energy control procedures to prevent unexpected startup during servicing.",
-      "it": "La formazione è essenziale per garantire che i dipendenti comprendano e seguano le procedure di controllo dell'energia per prevenire avvii inattesi durante la manutenzione."
+      "en": "The employee cleared a jam on a running conveyor, indicating a lack of understanding or application of energy control procedures and safe servicing practices.",
+      "it": "L'impiegato ha sbloccato un inceppamento su un trasportatore in funzione, indicando una mancanza di comprensione o applicazione delle procedure di controllo dell'energia e delle pratiche di manutenzione sicure."
+     }
+    },
+    {
+     "type": "engineering",
+     "standard": "1910.263",
+     "action": {
+      "en": "Install a sufficient number of stop buttons or emergency stop devices at the conveyor jam-clearing location so that the conveyor can be quickly stopped before any employee reaches into the danger zone.",
+      "it": "Installare un numero sufficiente di pulsanti di arresto o dispositivi di arresto di emergenza nel punto di sblocco dell'inceppamento del trasportatore in modo che il trasportatore possa essere arrestato rapidamente prima che qualsiasi impiegato raggiunga la zona di pericolo."
+     },
+     "why": {
+      "en": "The conveyor was running while the employee cleared the jam, and no quick-stopping means was evidently used to de-energize the conveyor before reaching into the pinch point.",
+      "it": "Il trasportatore era in funzione mentre l'impiegato sbloccava l'inceppamento e non è stato evidentemente utilizzato alcun mezzo di arresto rapido per disattivare il trasportatore prima di raggiungere il punto di presa."
      }
     },
     {
      "type": "ppe",
      "standard": "1910.132",
      "action": {
-      "en": "Provide and require the use of cut-resistant gloves for employees who must handle materials near the conveyor, while ensuring that such gloves do not create additional entanglement hazards.",
-      "it": "Fornire e richiedere l'uso di guanti resistenti al taglio per i dipendenti che devono maneggiare materiali vicino al nastro, assicurando che tali guanti non creino ulteriori pericoli di impigliamento."
+      "en": "Conduct a workplace hazard assessment for the conveyor jam-clearing task and select, provide, and train employees on appropriate personal protective equipment, including cut-resistant or impact-resistant hand protection, where such PPE is identified as necessary by the assessment.",
+      "it": "Condurre una valutazione dei pericoli sul posto di lavoro per l'attività di sblocco dell'inceppamento del trasportatore e selezionare, fornire e formare gli impiegati sui dispositivi di protezione individuale appropriati, inclusa la protezione delle mani resistente al taglio o all'impatto, laddove tale DPI sia identificato come necessario dalla valutazione."
      },
      "why": {
-      "en": "PPE is a lower-level control that can reduce the severity of injuries, but it must be selected to avoid increasing the risk of being caught in machinery.",
-      "it": "I DPI sono un controllo di livello inferiore che può ridurre la gravità delle lesioni, ma devono essere scelti per evitare di aumentare il rischio di rimanere impigliati nei macchinari."
+      "en": "The task involves a mechanical pinch-point hazard to the hands, and a hazard assessment is required to determine and select appropriate PPE that fits and protects the affected employees.",
+      "it": "L'attività comporta un pericolo meccanico di schiacciamento per le mani ed è richiesta una valutazione dei pericoli per determinare e selezionare i DPI appropriati che si adattino e proteggano gli impiegati interessati."
      }
     }
    ],
@@ -782,29 +822,43 @@
      "section": "1910.132",
      "topic": "PPE: general requirements and hazard assessment",
      "excerpt": "(3) When the employer provides metatarsal guards and allows the employee, at his or her request, to use shoes or boots with built-in metatarsal protection, the employer is not required to reimburse the employee for the shoes or boots.\n(4) The employer is not required to pay for:\n(i) The logging boots required by 29 CFR 1910.266(d)(1)(v);\n(ii) Everyday clothing, such as long-sleeve shirts, long pan"
+    },
+    {
+     "section": "1910.212",
+     "topic": "General requirements for all machines (guarding, point of operation)",
+     "excerpt": "(a) Machine guarding—(1) Types of guarding. One or more methods of machine guarding shall be provided to protect the operator and other employees in the machine area from hazards such as those created by point of operation, ingoing nip points, rotating parts, flying chips and sparks. Examples of guarding methods are—barrier guards, two-hand tripping devices, electronic safety devices, etc.\n(2) Gen",
+     "from_library": true
     }
    ],
    "ecfr_date": "2026-10-06"
+  },
+  "second_opinion": {
+   "model": "Gemma-4-31B-IT",
+   "measured_model": "Gemma-4-31B-IT",
+   "measured": true
   },
   "amd": {
    "endpoint": "developer.amd.com.cn",
    "calls": [
     {
      "purpose": "second opinion (event, source)",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 2.5,
+     "model": "Gemma-4-31B-IT",
+     "seconds": 6.7,
      "error": null
     },
     {
      "purpose": "corrective-action draft",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 70.9,
-     "error": null
+     "model": "DeepSeek-V4-Flash (Evolus agent)",
+     "seconds": 130.9,
+     "error": null,
+     "via": "evolus",
+     "evolus_error": null
     }
-   ]
+   ],
+   "evolus": true
   },
-  "seconds_total": 74.4,
-  "recorded_at": "2026-10-15T15:47:35+00:00"
+  "seconds_total": 131.1,
+  "recorded_at": "2026-10-17T13:59:51+00:00"
  },
  "fryer": {
   "report": "An employee was draining an industrial fryer at a snack food plant when the drain valve opened suddenly and hot oil splashed onto his forearms. He sustained second-degree burns and was admitted to the hospital.",
@@ -941,20 +995,20 @@
   "action_plan": {
    "missing_info": [
     {
-     "en": "Was the drain valve equipped with a lockout/tagout device or other energy isolation mechanism?",
-     "it": "La valvola di scarico era dotata di un dispositivo di lockout/tagout o di un altro meccanismo di isolamento dell'energia?"
+     "en": "Was the drain valve designed to be lockable, and was there an energy control procedure in place for the fryer draining task?",
+     "it": "La valvola di scarico era progettata per essere bloccabile e esisteva una procedura di controllo dell'energia per l'attività di scarico della friggitrice?"
     },
     {
-     "en": "Was there a written procedure for draining hot oil, and did the employee receive training on it?",
-     "it": "Esisteva una procedura scritta per lo scarico dell'olio caldo e il dipendente aveva ricevuto formazione su di essa?"
+     "en": "Was the employee wearing any protective clothing or gloves at the time of the incident, and had a PPE hazard assessment been performed for the draining task?",
+     "it": "Il dipendente indossava indumenti protettivi o guanti al momento dell'incidente, ed era stata effettuata una valutazione dei rischi per i DPI per l'attività di scarico?"
     },
     {
-     "en": "Were appropriate personal protective equipment (e.g., heat-resistant gloves, aprons, face shields) available and used by the employee?",
-     "it": "Erano disponibili e utilizzati dal dipendente dispositivi di protezione individuale adeguati (es. guanti resistenti al calore, grembiuli, visiere)?"
+     "en": "Was the fryer draining task considered a routine production operation or a servicing/maintenance activity, and was the oil temperature known at the time?",
+     "it": "L'attività di scarico della friggitrice era considerata un'operazione di produzione di routine o un'attività di manutenzione, e la temperatura dell'olio era nota al momento?"
     },
     {
-     "en": "Was the fryer equipped with a safety device to prevent sudden valve opening, such as a slow-release valve or a guard?",
-     "it": "La friggitrice era dotata di un dispositivo di sicurezza per prevenire l'apertura improvvisa della valvola, come una valvola a rilascio lento o una protezione?"
+     "en": "Was there any guarding, splash shield, or other engineering control on the drain valve or fryer to prevent sudden opening or splashing?",
+     "it": "Esistevano protezioni, schermi anti-schizzo o altri controlli ingegneristici sulla valvola di scarico o sulla friggitrice per prevenire aperture improvvise o schizzi?"
     }
    ],
    "actions": [
@@ -962,60 +1016,72 @@
      "type": "engineering",
      "standard": "1910.147",
      "action": {
-      "en": "Implement a lockout/tagout procedure for the drain valve of the industrial fryer to ensure the valve is isolated and cannot open unexpectedly during draining or maintenance.",
-      "it": "Implementare una procedura di lockout/tagout per la valvola di scarico della friggitrice industriale per garantire che la valvola sia isolata e non possa aprirsi inaspettatamente durante lo scarico o la manutenzione."
+      "en": "Install lockout/tagout capability on the fryer drain valve so that the valve can be physically locked in the closed position, and ensure the energy control procedure includes steps to isolate and verify the drain valve before any draining or servicing work begins.",
+      "it": "Installare la capacità di lockout/tagout sulla valvola di scarico della friggitrice in modo che la valvola possa essere fisicamente bloccata in posizione chiusa, e garantire che la procedura di controllo dell'energia includa passaggi per isolare e verificare la valvola di scarico prima di iniziare qualsiasi lavoro di scarico o manutenzione."
      },
      "why": {
-      "en": "The sudden opening of the drain valve released stored energy (hot oil) causing injury; controlling hazardous energy is required to prevent unexpected release.",
-      "it": "L'apertura improvvisa della valvola di scarico ha rilasciato energia immagazzinata (olio caldo) causando lesioni; il controllo dell'energia pericolosa è richiesto per prevenire rilasci inaspettati."
+      "en": "The drain valve opened suddenly, releasing stored thermal energy (hot oil). The standard requires energy isolating devices to be locked out to prevent unexpected release of stored energy that could cause injury.",
+      "it": "La valvola di scarico si è aperta improvvisamente, rilasciando energia termica immagazzinata (olio caldo). La norma richiede che i dispositivi di isolamento dell'energia siano bloccati per prevenire il rilascio inatteso di energia immagazzinata che potrebbe causare lesioni."
      }
     },
     {
      "type": "engineering",
-     "standard": "1910.132",
+     "standard": "1910.212",
      "action": {
-      "en": "Install a physical guard or shield around the drain valve and drain area to prevent direct splashes of hot oil onto employees during draining operations.",
-      "it": "Installare una protezione fisica o uno schermo attorno alla valvola di scarico e all'area di drenaggio per prevenire schizzi diretti di olio caldo sui dipendenti durante le operazioni di scarico."
+      "en": "Install a guard or splash shield on the fryer drain valve and drain area to protect the operator from hot oil splashes during the draining operation.",
+      "it": "Installare una protezione o uno schermo anti-schizzo sulla valvola di scarico della friggitrice e sull'area di scarico per proteggere l'operatore dagli schizzi di olio caldo durante l'operazione di scarico."
      },
      "why": {
-      "en": "The hazard of hot oil splashing onto the employee's forearms indicates a need for engineering controls to separate the employee from the hazard.",
-      "it": "Il pericolo di schizzi di olio caldo sugli avambracci del dipendente indica la necessità di controlli ingegneristici per separare il dipendente dal pericolo."
+      "en": "The standard requires machine guarding to protect operators from hazards in the machine area. A splash shield would prevent hot oil from contacting the employee's forearms when the valve opens.",
+      "it": "La norma richiede protezioni delle macchine per proteggere gli operatori dai pericoli nell'area della macchina. Uno schermo anti-schizzo impedirebbe all'olio caldo di entrare in contatto con gli avambracci del dipendente quando la valvola si apre."
      }
     },
     {
      "type": "administrative",
-     "standard": "1910.132",
+     "standard": "1910.147",
      "action": {
-      "en": "Conduct a hazard assessment of the fryer draining task to identify potential burn hazards and implement appropriate control measures, including safe work procedures.",
-      "it": "Condurre una valutazione dei rischi dell'attività di scarico della friggitrice per identificare i potenziali pericoli di ustione e implementare misure di controllo appropriate, incluse procedure di lavoro sicure."
+      "en": "Develop and document a written energy control procedure specifically for the fryer draining task, including steps for shutdown, isolation, blocking, and verification of the drain valve, and conduct periodic inspections of the procedure at least annually.",
+      "it": "Sviluppare e documentare una procedura scritta di controllo dell'energia specifica per l'attività di scarico della friggitrice, includendo passaggi per arresto, isolamento, blocco e verifica della valvola di scarico, e condurre ispezioni periodiche della procedura almeno annualmente."
      },
      "why": {
-      "en": "The incident indicates that the task involves hazards capable of causing injury; a hazard assessment is required to determine necessary controls and PPE.",
-      "it": "L'incidente indica che l'attività comporta pericoli in grado di causare lesioni; è richiesta una valutazione dei rischi per determinare i controlli e i DPI necessari."
+      "en": "The standard requires documented energy control procedures and periodic inspections to ensure that before any employee performs servicing where unexpected release of stored energy could occur, the equipment is isolated and rendered inoperative.",
+      "it": "La norma richiede procedure documentate di controllo dell'energia e ispezioni periodiche per garantire che prima che un dipendente esegua manutenzione dove potrebbe verificarsi un rilascio inatteso di energia immagazzinata, l'attrezzatura sia isolata e resa inoperativa."
      }
     },
     {
      "type": "training",
-     "standard": "1910.132",
+     "standard": "1910.147",
      "action": {
-      "en": "Provide training to employees on the proper procedures for draining hot oil, including the use of any safety devices, and the importance of following safe work practices to prevent splashes.",
-      "it": "Fornire formazione ai dipendenti sulle procedure corrette per lo scarico dell'olio caldo, inclusa l'uso di eventuali dispositivi di sicurezza e l'importanza di seguire pratiche di lavoro sicure per prevenire schizzi."
+      "en": "Provide training to all authorized and affected employees on the energy control procedure for the fryer, including recognition of the thermal energy hazard, the type and magnitude of the energy, and the methods for energy isolation and control of the drain valve.",
+      "it": "Fornire formazione a tutti i dipendenti autorizzati e interessati sulla procedura di controllo dell'energia per la friggitrice, inclusi il riconoscimento del pericolo di energia termica, il tipo e l'entità dell'energia, e i metodi per l'isolamento dell'energia e il controllo della valvola di scarico."
      },
      "why": {
-      "en": "The sudden valve opening and resulting splash suggest that employees may not have been adequately trained on safe draining techniques and hazard recognition.",
-      "it": "L'apertura improvvisa della valvola e lo schizzo risultante suggeriscono che i dipendenti potrebbero non essere stati adeguatamente formati sulle tecniche di scarico sicure e sul riconoscimento dei pericoli."
+      "en": "The standard requires that authorized employees receive training in the recognition of applicable hazardous energy sourceshol, the type and magnitude of the energy available, and the methods and means necessary for energy isolation and control.",
+      "it": "La norma richiede che i dipendenti autorizzati ricevano formazione sul riconoscimento delle fonti di energia pericolose applicabili, sul tipo e l'entità dell'energia disponibile, e sui metodi e mezzi necessari per l'isolamento e il controllo dell'energia."
+     }
+    },
+    {
+     "type": "ppe",
+     "standard": "1910.138",
+     "action": {
+      "en": "Select and require the use of appropriate heat-resistant hand and forearm protection, based on an evaluation of the task, for employees performing fryer draining operations.",
+      "it": "Selezionare e richiedere l'uso di protezioni appropriate per mani e avambracci resistenti al calore, basate su una valutazione dell'attività, per i dipendenti che eseguono operazioni di scarico della friggitrice."
+     },
+     "why": {
+      "en": "The standard requires employers to select and require appropriate hand protection when hands are exposed to thermal burn hazards. The employee sustained second-degree burns to the forearms from hot oil.",
+      "it": "La norma richiede ai datori di lavoro di selezionare e richiedere una protezione appropriata delle mani quando queste sono esposte a pericoli di ustioni termiche. Il dipendente ha subito ustioni di secondo grado agli avambracci da olio caldo."
      }
     },
     {
      "type": "ppe",
      "standard": "1910.132",
      "action": {
-      "en": "Provide and require the use of appropriate personal protective equipment, such as heat-resistant gloves, long-sleeved aprons, and face shields, for employees draining hot oil.",
-      "it": "Fornire e richiedere l'uso di dispositivi di protezione individuale adeguati, come guanti resistenti al calore, grembiuli a maniche lunghe e visiere, per i dipendenti che scaricano olio caldo."
+      "en": "Conduct a written PPE hazard assessment for the fryer draining task and select, provide, and require the use of appropriate protective clothing (e.g., heat-resistant sleeves/arm protection) that properly fits each affected employee, and train employees on its proper use.",
+      "it": "Condurre una valutazione scritta dei rischi per i DPI per l'attività di scarico della friggitrice e selezionare, fornire e richiedere l'uso di indumenti protettivi appropriati (ad es. maniche/protezioni per le braccia resistenti al calore) che si adattino correttamente a ciascun dipendente interessato, e formare i dipendenti sul loro uso corretto."
      },
      "why": {
-      "en": "The employee sustained burns to the forearms, indicating that PPE for extremities and body is necessary to protect against hot oil contact.",
-      "it": "Il dipendente ha riportato ustioni agli avambracci, indicando che i DPI per estremità e corpo sono necessari per proteggere dal contatto con olio caldo."
+      "en": "The standard requires the employer to assess the workplace for hazards necessitating PPE, select and have each affected employee use the appropriate PPE, and provide training on when and how to use it. The incident involved thermal burns to the forearms.",
+      "it": "La norma richiede al datore di lavoro di valutare il luogo di lavoro per i pericoli che rendono necessario l'uso di DPI, selezionare e far utilizzare a ciascun dipendente interessato i DPI appropriati, e fornire formazione su quando e come usarli. L'incidente ha coinvolto ustioni termiche agli avambracci."
      }
     }
    ],
@@ -1055,28 +1121,48 @@
      "section": "1910.132",
      "topic": "PPE: general requirements and hazard assessment",
      "excerpt": "(a) Application. Protective equipment, including personal protective equipment for eyes, face, head, and extremities, protective clothing, respiratory devices, and protective shields and barriers, shall be provided, used, and maintained in a sanitary and reliable condition wherever it is necessary by reason of hazards of processes or environment, chemical hazards, radiological hazards, or mechanic"
+    },
+    {
+     "section": "1910.138",
+     "topic": "Hand protection",
+     "excerpt": "(a) General requirements. Employers shall select and require employees to use appropriate hand protection when employees' hands are exposed to hazards such as those from skin absorption of harmful substances; severe cuts or lacerations; severe abrasions; punctures; chemical burns; thermal burns; and harmful temperature extremes.\n(b) Selection. Employers shall base the selection of the appropriate ",
+     "from_library": true
+    },
+    {
+     "section": "1910.212",
+     "topic": "General requirements for all machines (guarding, point of operation)",
+     "excerpt": "(iv) The following are some of the machines which usually require point of operation guarding:\n(a) Guillotine cutters.\n(b) Shears.\n(c) Alligator shears.\n(d) Power presses.\n(e) Milling machines.\n(f) Power saws.\n(g) Jointers.\n(h) Portable power tools.\n(i) Forming rolls and calenders.\n(4) Barrels, containers, and drums. Revolving drums, barrels, and containers shall be guarded by an enclosure which i",
+     "from_library": true
     }
    ],
    "ecfr_date": "2026-10-06"
+  },
+  "second_opinion": {
+   "model": "Gemma-4-31B-IT",
+   "measured_model": "Gemma-4-31B-IT",
+   "measured": true
   },
   "amd": {
    "endpoint": "developer.amd.com.cn",
    "calls": [
     {
      "purpose": "second opinion (event, source)",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 3.5,
+     "model": "Gemma-4-31B-IT",
+     "seconds": 4.3,
      "error": null
     },
     {
      "purpose": "corrective-action draft",
-     "model": "DeepSeek-V4-Flash",
-     "seconds": 54.7,
-     "error": null
+     "model": "DeepSeek-V4-Flash (Evolus agent)",
+     "seconds": 146.1,
+     "error": null,
+     "via": "evolus",
+     "evolus_error": null
     }
-   ]
+   ],
+   "evolus": true
   },
-  "seconds_total": 58.2,
-  "recorded_at": "2026-10-15T15:48:33+00:00"
+  "seconds_total": 146.2,
+  "recorded_at": "2026-10-17T14:02:18+00:00"
  }
 }
