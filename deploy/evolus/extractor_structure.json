@@ -1,0 +1,8 @@
+{
+  "narrative": "text — what happened, in English, 2 to 5 sentences in the style of an OSHA severe injury report: what the employee was doing, the machine, object or substance involved, how the injury happened, the injury and the body part, and the treatment (for example 'was hospitalized'). Job titles only, no names.",
+  "event_date": "date (YYYY-MM-DD) — date of the incident",
+  "injury": "text — the injury, in English (for example 'partial amputation of two fingertips')",
+  "body_part": "text — the part of body affected, in English",
+  "equipment": "text — the machine, tool, vehicle or substance that harmed the employee, in English",
+  "language": "text — language of the original document, in English (for example 'Italian')"
+}

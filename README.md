@@ -28,13 +28,17 @@ AMD Developer Hackathon ACT III · Intelligent Industry track · Evolus track ·
 5. **Leaves the decision to the officer:** edit or untick actions, choose the uncertain codes, approve,
    then download JSON or print. Nothing is stored.
 
-Reports are entered in English; the interface and every drafted action are in English and Italian. A
-**Measurement** page shows how the models were tested, including the result that failed (see below).
+Reports are typed in English, or uploaded as a PDF form: our **Evolus document extractor** reads the form
+and fills in an English description, translating forms written in another language such as Italian. The
+interface and every drafted action are in English and Italian. A **Measurement** page shows how the models
+were tested, including the result that failed (see below).
 
 ## How it works
 
 ```mermaid
 flowchart TD
+    F["Report form: PDF (optional)"] --> XR["Evolus document extractor: Incident Report Reader<br/>English description · DeepSeek-V4-Flash on AMD Token Factory"]
+    XR --> R
     R["Incident report (English)"] --> C["Classifier: TF-IDF + logistic regression<br/>event · source · injury · body part"]
     R --> S["Similar cases: BM25 over 17,746 OSHA reports, 2024–2025"]
     C --> X["OSHA excerpts: BM25 over 36 sections of 29 CFR 1910"]
@@ -56,7 +60,8 @@ flowchart TD
   **Gemma-4-31B-IT** gives the second opinion on the event and source codes; **DeepSeek-V4-Flash** writes the
   draft (through the Evolus agent, or directly as the fallback). If one model fails, the other takes over. The
   "What ran on AMD" panel shows which models answered and how long each call took.
-- **Evolus.** The draft comes from our agent in the Evolus workspace **DarkSea28** (next section).
+- **Evolus.** The draft comes from our agent in the Evolus workspace **DarkSea28**, and uploaded report forms
+  are read by our Evolus document extractor (next section).
 - **Local steps** (classifier, case search, excerpt search) run inside the API; the model and data slices
   ship in `deploy/bundle`, so the API starts in seconds without downloading OSHA data.
 
@@ -69,14 +74,20 @@ Workspace: **DarkSea28** (Evolus event workspace for AMD Developer Hackathon ACT
 | **Your model** | AMD Token Factory connected as our OpenAI-compatible endpoint; the agent runs on it (no platform credits) | — |
 | **Specialized agent** | *Corrective Action Drafter*: drafts the actions; DeepSeek-V4-Flash, temperature 0 | `deploy/evolus/agent_instructions.md` |
 | **Knowledge library (RAG)** | *OSHA 29 CFR 1910 (selected)*: the same 36 sections the API cites, indexed in English | `deploy/evolus/standards/` |
+| **Document extractor** | *Incident Report Reader*: reads an uploaded PDF form and returns an English description plus date, injury, body part, equipment and language; runs on our Token Factory model and reads the PDF's text layer (no platform credits in our test) | `deploy/evolus/extractor_*` |
 | **Agent chat API** | One call per report: `POST https://api.evolus.ai/v1/chat/completions`, model `<applicationId>:<agentId>`, streamed | `backend/llm/evolus.py` |
-| **REST API** | Uploads the library documents and checks their indexing | `backend/core/evolus_upload.py` |
+| **REST API** | Uploads the library documents and checks their indexing; sends report forms to the extractor (`/agents/{id}/json/{outputId}/ask-file`) | `backend/core/evolus_upload.py`, `backend/llm/evolus_extractor.py` |
 
 The backend sends the agent the same prompt as the direct call: the report, the predicted codes, three
 similar cases and the matching excerpts. The agent can also search its library. Sections it finds there
 are accepted, and their excerpt is added to the list with the mark *found by the Evolus agent in its
 library*. If Evolus returns an error, times out (`EVOLUS_TIMEOUT`) or gives no actions, the backend drafts
 directly on AMD Token Factory, and the UI shows which path wrote the draft.
+
+On the Analyze page, a PDF report form can be uploaded (or one of two sample forms written by the team, in
+English and Italian, in `frontend/public/samples`). The API sends it to the extractor and puts the returned description
+in the report box; the officer checks it before analysing. The upload box appears only when the extractor is
+configured.
 
 **Reproducing the Evolus setup**
 
@@ -94,6 +105,10 @@ directly on AMD Token Factory, and the UI shows which path wrote the draft.
    ```bash
    python -m backend.core.evolus_check            # or: evolus_check forklift | conveyor | fryer
    ```
+6. Create a data extractor on the same model with `deploy/evolus/extractor_instructions.md` as its
+   instructions, and give it a JSON output with the fields in `deploy/evolus/extractor_structure.json` and the
+   prompt in `deploy/evolus/extractor_prompt.txt`. Put the extractor's id in `EVOLUS_EXTRACTOR_AGENT_ID` and
+   the JSON output's id in `EVOLUS_EXTRACTOR_ID`.
 
 The agent's instructions are `DRAFT_SYSTEM` in `backend/core/analyze.py`; after changing them, run
 `python -m backend.core.evolus_files` and paste the regenerated file into the agent.
@@ -158,6 +173,8 @@ npm --prefix frontend run dev            # http://localhost:5173, proxies /api t
 | `EVOLUS_LIBRARY_ID` | upload only | from your workspace | Used by `evolus_upload` |
 | `EVOLUS_TIMEOUT` | no | `240` (default; the live API uses `170`) | Seconds to wait for the agent before falling back |
 | `EVOLUS_ENDPOINT` | no | `chat` (default) or `ask` | Agent chat API, or the REST `/agents/{id}/ask` endpoint |
+| `EVOLUS_EXTRACTOR_AGENT_ID`, `EVOLUS_EXTRACTOR_ID` | for form upload | from your workspace | The document extractor and its JSON output; without them the upload box is hidden |
+| `EVOLUS_EXTRACTOR_TIMEOUT` | no | `120` (default) | Seconds to wait for the extractor |
 | `VITE_API_URL` | hosted UI build | `https://<api-host>` | Where the hosted UI finds the API |
 
 **Docker (API).** The Railway deployment builds this same `Dockerfile` (`railway.json`).
@@ -172,8 +189,9 @@ curl http://localhost:8000/api/health    # "ok": true once the models are loaded
 
 | Method | Path | Returns |
 |---|---|---|
-| `GET` | `/api/health` | `ok` when the models are loaded; `evolus` when the Evolus agent is configured |
+| `GET` | `/api/health` | `ok` when the models are loaded; `evolus` and `extractor` when the Evolus agent and extractor are configured |
 | `POST` | `/api/analyze` | `{"text": "..."}` (20–4000 characters, English) → codes, similar cases, action plan, AMD and Evolus calls |
+| `POST` | `/api/extract` | A PDF as the request body (`Content-Type: application/pdf`, ≤ 5 MB) → `{"fields": {"narrative": "...", ...}, "seconds": ...}` |
 | `GET` | `/api/samples` | The four sample reports (written by the team, not OSHA records) |
 | `GET` | `/api/replay/{id}` | A recorded result for a sample, labelled as a recording |
 | `GET` | `/api/metrics` | Everything the Measurement page shows |
@@ -212,6 +230,7 @@ python -m backend.core.metrics           # code-shift series for the Measurement
 python -m backend.core.bundle            # → deploy/bundle
 python -m backend.core.samples           # records the four replays (live LLM calls)
 python -m backend.core.export_static     # copies replays and metrics into the UI
+python -m backend.core.sample_pdf        # the two sample report forms (PDF) the UI can upload
 ```
 
 `data/processed/sir.parquet` keeps one row per report (keyed by `upa`), a `code_system` column (`old` before
@@ -238,6 +257,9 @@ flags. Employer, address and coordinates stay in the raw CSV only; the app never
 - Source codes are hard (≈ 63% top-1), so a person always chooses them.
 - The drafts point to standards that *may be relevant*. They are not legal advice and never state that
   anyone violated a rule.
+- The document extractor is not measured; the officer checks the description it fills in before analysing.
+  It reads PDFs with a text layer. Scans and photos would need Evolus OCR (about 10 platform credits per page
+  in our test), so they are not accepted yet.
 
 ## License
 

@@ -66,18 +66,34 @@ async function withFallback<T>(live: () => Promise<T>, offline: () => Promise<T>
   try { return await live() } catch { return offline() }
 }
 
-export type Health = { online: boolean; evolus: boolean }
+export type Health = { online: boolean; evolus: boolean; extractor: boolean }
 
 export async function apiHealth(): Promise<Health> {
   try {
     // Railway "serverless" sleeps when idle; waking up and loading the models takes up to ~30 s.
     const r = await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(45000) })
     const body = r.ok ? await r.json() : {}
-    return { online: body.ok === true, evolus: body.evolus === true }
-  } catch { return { online: false, evolus: false } }
+    return { online: body.ok === true, evolus: body.evolus === true, extractor: body.extractor === true }
+  } catch { return { online: false, evolus: false, extractor: false } }
+}
+
+// What the Evolus document extractor read from a PDF (the fields are defined in the Evolus workspace).
+export type Extraction = {
+  fields: { narrative: string; [key: string]: string | number | boolean | null }
+  seconds: number
+}
+
+// The API answers errors as {"detail": "..."}; show that sentence rather than the raw response.
+async function detail(response: Response): Promise<string> {
+  try { return (await response.json()).detail ?? `${response.status}` } catch { return `${response.status}` }
 }
 
 export const api = {
+  extract: async (file: Blob): Promise<Extraction> => {
+    const r = await fetch(`${API}/api/extract`, { method: "POST", headers: { "Content-Type": file.type }, body: file })
+    if (!r.ok) throw new Error(await detail(r))
+    return r.json()
+  },
   analyze: (text: string) =>
     fetch(`${API}/api/analyze`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
       .then((r) => json<Analysis>(r)),

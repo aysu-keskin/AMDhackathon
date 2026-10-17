@@ -18,10 +18,11 @@ export function Analyze() {
   const [error, setError] = useState<string | null>(null)
   const [online, setOnline] = useState<boolean | null>(null)
   const [evolus, setEvolus] = useState(false)
+  const [extractor, setExtractor] = useState(false)
 
   useEffect(() => {
     api.samples().then(setSamples).catch(() => setSamples([]))
-    apiHealth().then((h) => { setOnline(h.online); setEvolus(h.evolus) })
+    apiHealth().then((h) => { setOnline(h.online); setEvolus(h.evolus); setExtractor(h.extractor) })
   }, [])
 
   // Bring the progress card, then the result, into view (the input card can push them below the fold).
@@ -40,7 +41,7 @@ export function Analyze() {
   return (
     <div className="grid gap-6">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
-        <ReportInput text={text} onText={setText} samples={samples} busy={busySince !== null} online={online}
+        <ReportInput text={text} onText={setText} samples={samples} busy={busySince !== null} online={online} extractor={extractor}
           onAnalyze={() => run(() => api.analyze(text))}
           onRunSample={(s) => { setText(s.text); run(() => api.analyze(s.text)) }}
           onReplay={(s) => { setText(s.text); run(() => api.replay(s.id)) }} />

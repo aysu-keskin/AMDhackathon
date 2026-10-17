@@ -5,15 +5,17 @@ import { Textarea } from "@/components/ui/textarea"
 import type { Sample } from "@/lib/api"
 import { fill, useLang } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
+import { DocumentUpload } from "./DocumentUpload"
 
 const SAMPLE_ICON: Record<string, LucideIcon> = { press: Hammer, forklift: Forklift, conveyor: Package, fryer: Flame }
 
-export function ReportInput({ text, onText, samples, busy, online, onAnalyze, onRunSample, onReplay }: {
+export function ReportInput({ text, onText, samples, busy, online, extractor, onAnalyze, onRunSample, onReplay }: {
   text: string
   onText: (text: string) => void
   samples: Sample[]
   busy: boolean
   online: boolean | null
+  extractor: boolean
   onAnalyze: () => void
   onRunSample: (sample: Sample) => void
   onReplay: (sample: Sample) => void
@@ -30,6 +32,7 @@ export function ReportInput({ text, onText, samples, busy, online, onAnalyze, on
         <CardContent className="grid gap-3">
           <Textarea value={text} onChange={(e) => onText(e.target.value)} placeholder={t.reportPlaceholder}
             className="min-h-32 resize-y text-[15px] leading-relaxed" maxLength={4000} />
+          {extractor && <DocumentUpload disabled={busy || online === false} onText={onText} />}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span className={cn("text-xs tabular-nums text-muted-foreground", tooShort && text.length > 0 && "text-amber-700 dark:text-amber-400")}>
               {fill(t.chars, { n: text.length })}{tooShort && text.length > 0 ? ` · ${t.minChars}` : ""}

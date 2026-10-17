@@ -3,9 +3,11 @@
 Run: uvicorn backend.api.main:app --reload
 """
 import json
+import time
+from collections import deque
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -13,8 +15,15 @@ from pydantic import BaseModel, Field
 from backend.core import metrics
 from backend.core.analyze import Analyzer
 from backend.core.samples import REPLAY, SAMPLES
+from backend.llm.evolus_extractor import EXTENSIONS, EvolusExtractor, ExtractionError
 
 state = {}
+extractor = EvolusExtractor()
+# Each extraction uses our Evolus workspace and Token Factory budget, and the demo is public until 15 Nov:
+# cap size and rate.
+MAX_UPLOAD_BYTES = 5 * 1024 * 1024
+EXTRACTIONS_PER_HOUR = 30
+recent_extractions: deque[float] = deque()
 
 
 @asynccontextmanager
@@ -42,8 +51,35 @@ class Report(BaseModel):
 
 @app.get("/api/health")
 def health() -> dict:
-    # "evolus" tells the UI that drafts go through the Evolus agent (slower, so it shows a longer wait).
-    return {"ok": "analyzer" in state, "evolus": "analyzer" in state and state["analyzer"].evolus.configured}
+    # "evolus" tells the UI that drafts go through the Evolus agent (slower, so it shows a longer wait);
+    # "extractor" that a PDF report can be read by the Evolus document extractor.
+    return {"ok": "analyzer" in state, "evolus": "analyzer" in state and state["analyzer"].evolus.configured,
+            "extractor": extractor.configured}
+
+
+@app.post("/api/extract")
+async def extract(request: Request) -> dict:
+    """The raw PDF is the body (Content-Type application/pdf)."""
+    if not extractor.configured:
+        raise HTTPException(503, "The document extractor is not configured")
+    content_type = request.headers.get("content-type", "").split(";")[0].strip().lower()
+    if content_type not in EXTENSIONS:
+        raise HTTPException(415, "Send a PDF file")
+    data = await request.body()
+    if not data:
+        raise HTTPException(400, "The file is empty")
+    if len(data) > MAX_UPLOAD_BYTES:
+        raise HTTPException(413, "The file is larger than 5 MB")
+    now = time.monotonic()
+    while recent_extractions and now - recent_extractions[0] > 3600:
+        recent_extractions.popleft()
+    if len(recent_extractions) >= EXTRACTIONS_PER_HOUR:
+        raise HTTPException(429, "Too many documents this hour; paste the text instead")
+    recent_extractions.append(now)
+    try:
+        return await run_in_threadpool(extractor.extract, data, content_type)
+    except ExtractionError as exc:
+        raise HTTPException(502, str(exc)) from exc
 
 
 @app.post("/api/analyze")
