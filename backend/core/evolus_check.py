@@ -1,7 +1,8 @@
 """One live analysis to check that the corrective-action draft comes from the Evolus agent.
 
 Reads .env like the API does. Calls Token Factory twice (second opinion + Evolus agent's model), so it costs
-the same as one analysis in the UI. See docs/DEVIR-NOTU.md for how to read the result.
+the same as one analysis in the UI. The last line says whether the draft came from the Evolus agent, and why
+not otherwise.
 
 Usage: python -m backend.core.evolus_check            # sample "press"
        python -m backend.core.evolus_check forklift   # press | forklift | conveyor | fryer
