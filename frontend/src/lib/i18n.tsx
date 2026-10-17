@@ -99,7 +99,7 @@ const en = {
   mStatErrNote: "event code: why uncertain cases go to a person",
   mLimitsTitle: "Limits we don't hide",
   mLimits: [
-    "Data is from the US and covers severe injuries only; Turkish or Italian factories may differ.",
+    "Data is from the US and covers severe injuries only; factories outside the US may differ.",
     "Event type alone missed the 93% target by 0.2 points (92.8%); Gemma's agreement lifts it to 94.4% (re-scored).",
     "Source codes are hard (≈ 63% top-1); the person always chooses them.",
     "Corrective-action drafts are not measured; a validator only blocks unknown standards and legal or medical verdicts.",
@@ -206,7 +206,7 @@ const it: Dict = {
   mStatErrNote: "codice evento: perché i casi incerti vanno a una persona",
   mLimitsTitle: "Limiti che non nascondiamo",
   mLimits: [
-    "I dati sono statunitensi e coprono solo infortuni gravi; le fabbriche turche o italiane possono essere diverse.",
+    "I dati sono statunitensi e coprono solo infortuni gravi; le fabbriche fuori dagli Stati Uniti possono essere diverse.",
     "Il solo tipo di evento ha mancato l’obiettivo del 93% di 0,2 punti (92,8%); l’accordo di Gemma lo porta al 94,4% (rivalutato).",
     "I codici della fonte sono difficili (≈ 63% al primo posto); la persona li sceglie sempre.",
     "Le bozze di azioni correttive non sono misurate; un validatore blocca solo standard sconosciuti e giudizi legali o medici.",
